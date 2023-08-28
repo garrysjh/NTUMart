@@ -1,3 +1,3 @@
-# SPORTSapp
+# NTUMart
 
-A computer vision model mobile app
+A marketplace for NTU students, upgraded.
