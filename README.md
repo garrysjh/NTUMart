@@ -38,7 +38,7 @@ flutter run
 1. Java Development Kit (JDK)
 2. Maven 
 
-#### Getting Started 
+#### Get Started 
 Navigate to root folder (/server/dipapp) 
 
 In your terminal to install dependencies 
