@@ -2,6 +2,9 @@
 
 A marketplace for NTU students, upgraded.
 
+
+An improved version of existing marketplaces.
+
 ## Get Started 
 
 #### For frontend
