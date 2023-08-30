@@ -3,8 +3,7 @@ CREATE DATABASE IF NOT EXISTS dip;                                              
 
 USE dip;
 
-DROP TABLE IF EXISTS USER;
-CREATE TABLE USER (
+CREATE TABLE  IF NOT EXISTS  USER (
     userID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
     fullname VARCHAR(50),
@@ -16,14 +15,12 @@ CREATE TABLE USER (
     UNIQUE KEY email (`email`)
 );
 
-DROP TABLE IF EXISTS INTERESTS;                                                 /* Table of Interests available for Users to Select/Add */
-CREATE TABLE INTERESTS (
+CREATE TABLE  IF NOT EXISTS INTERESTS (
     interest_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     interest_name VARCHAR(255)
 );
 
-DROP TABLE IF EXISTS USER_INTERESTS;                                            /* Table to store User's Interests */
-CREATE TABLE USER_INTERESTS (
+CREATE TABLE  IF NOT EXISTS USER_INTERESTS (
     userID INT,
     interest_id INT,
     PRIMARY KEY (userID, interest_id),
@@ -31,23 +28,20 @@ CREATE TABLE USER_INTERESTS (
     FOREIGN KEY (interest_id) REFERENCES INTERESTS(interest_id)
 );
 
-DROP TABLE IF EXISTS CHAT;                                                      /* Each Chat Room, Relation between users */
-CREATE TABLE CHAT (
+CREATE TABLE  IF NOT EXISTS CHAT (
     chatID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     userID_1 INT,
     userID_2 INT,
 );
 
-DROP TABLE IF EXISTS MESSAGE;                                                   /* Table for messages and to which Chat */
-CREATE TABLE MESSAGE (
+CREATE TABLE  IF NOT EXISTS MESSAGE  (
     messageID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     chatID INT,
     message_text VARCHAR(255),
     timestamp DATE NOT NULL
 );
 
-DROP TABLE IF EXISTS PRODUCT;
-CREATE TABLE PRODUCT (
+CREATE TABLE IF NOT EXISTS PRODUCT (
     productID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     sellerID INT NOT NULL,
     name VARCHAR(50),
@@ -58,8 +52,7 @@ CREATE TABLE PRODUCT (
     category VARCHAR(50)
 );
 
-DROP TABLE IF EXISTS SERVICE;
-CREATE TABLE SERVICE (
+CREATE TABLE  IF NOT EXISTS SERVICE (
     serviceID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     hostID INT,
     title VARCHAR(255) NOT NULL,
@@ -70,8 +63,7 @@ CREATE TABLE SERVICE (
     venue VARCHAR(255)
 );
 
-DROP TABLE IF EXISTS BOOKING;
-CREATE TABLE BOOKING (
+CREATE TABLE  IF NOT EXISTS BOOKING (
     bookingID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     userID INT NOT NULL,
     serviceID INT,
