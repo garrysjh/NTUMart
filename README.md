@@ -21,10 +21,11 @@ Remember to fetch from master branch
      Download from https://flutter.dev/docs/get-started/install 
 3. Dart SDK (it's downloaded with Flutter SDK, but make sure it's on PATH)
 4. Android Studio/VSCode
+5. Move .env file containing environment variables to /frontend directory (root folder of frontend) 
+
 
 To get started with frontend from terminal, navigate to /frontend directory 
 
-Move .env file containing environment variables to /frontend directory (root folder of frontend) 
 Install dependencies 
 ````
 flutter pub get
