@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:frontend/theme.dart';
 import 'package:frontend/widgets/snackbar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -273,8 +274,21 @@ class _SignInState extends State<SignIn> {
     );
   }
 
-  void _toggleSignInButton() {
-    CustomSnackBar(context, const Text('Login button pressed'));
+  void _toggleSignInButton() async {
+   
+    try {
+    UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: loginEmailController.text,
+      password: loginPasswordController.text,
+    );
+
+    if (userCredential.user != null) {
+      CustomSnackBar(context, Text('Signin successful'));
+    }
+  } catch (e) {
+    // Handle sign-in errors, e.g., wrong credentials.
+    CustomSnackBar(context, Text('Sign-In Error: $e'));
+  }
   }
 
   void _toggleLogin() {

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:frontend/theme.dart';
 import 'package:frontend/widgets/snackbar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -254,8 +256,21 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  void _toggleSignUpButton() {
+  void _toggleSignUpButton() async {
     CustomSnackBar(context, const Text('SignUp button pressed'));
+    try {
+    UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: signupEmailController.text,
+      password: signupPasswordController.text,
+    );
+
+    if (userCredential.user != null) {
+      // Successful sign-up, you can navigate to another screen or show a success message.
+    }
+  } catch (e) {
+    // Handle sign-up errors, e.g., email already in use.
+    CustomSnackBar(context, Text('Sign-Up Error: $e'));
+  }
   }
 
   void _toggleSignup() {
