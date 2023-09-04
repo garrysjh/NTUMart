@@ -24,6 +24,7 @@ Remember to fetch from master branch
 
 To get started with frontend from terminal, navigate to /frontend directory 
 
+Move .env file containing environment variables to /frontend directory (root folder of frontend) 
 Install dependencies 
 ````
 flutter pub get
