@@ -55,3 +55,17 @@ Usually under /server/dipapp/target/classes/com/ntumart/dipapp
 #### Testing 
 
 Use Postman or other tools to make HTTP Request to your http://localhost:8080/. 
+
+For your Spring Boot server, add a file called 'application.properties' into resources and add the following line:
+(Make sure that your MySQL server is running and already has the database 'dip' created from the .sql file) 
+````
+spring.datasource.url=jdbc:mysql://localhost:3306/dip
+Shift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+server.error.whitelabel.enabled=false
+spring.datasource.username= YOUR_USERNAME_HERE
+spring.datasource.password= YOUR_PASSWORD_HERE
+server.port=8080
+spring.jpa.hibernate.naming-strategy=org.hibernate.cfg.EJB3NamingStrategy
+spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+spring.jpa.hibernate.naming.implicit-strategy=org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+````
