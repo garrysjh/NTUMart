@@ -45,7 +45,7 @@ Navigate to root folder (/server/dipapp)
 
 To run app:
 ````
-  mvn spring-boot:run
+mvn spring-boot:run
 ````
 #### Testing 
 
