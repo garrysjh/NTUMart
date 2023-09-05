@@ -43,14 +43,9 @@ flutter run
 #### Get Started 
 Navigate to root folder (/server/dipapp) 
 
-In your terminal to install dependencies 
-``
-mvn clean package
-``
-To run app: replace <path/to/compiled/classes> with where the binary file of your compiled java application is. 
-Usually under /server/dipapp/target/classes/com/ntumart/dipapp 
+To run app:
 ````
-  java -cp <path/to/compiled/classes> com.example.demo.DipappApplication
+  mvn spring-boot:run
 ````
 #### Testing 
 
