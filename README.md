@@ -55,5 +55,3 @@ Usually under /server/dipapp/target/classes/com/ntumart/dipapp
 #### Testing 
 
 Use Postman or other tools to make HTTP Request to your http://localhost:8080/. 
-
-
