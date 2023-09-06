@@ -52,7 +52,7 @@ mvn spring-boot:run
 Use Postman or other tools to make HTTP Request to your http://localhost:8080/. 
 
 For your Spring Boot server, add a file called 'application.properties' into resources and add the following line:
-(Make sure that your MySQL server is running and already has the database 'dip' created from the DIPSHOP.sql file) 
+(Make sure that your MySQL server is running and already has the database 'dip' created from the .sql file) 
 ````
 spring.datasource.url=jdbc:mysql://localhost:3306/dip
 Shift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
