@@ -25,6 +25,9 @@ public interface UserRepository extends JpaRepository<User, Integer > {
     @Query(value = "select count(username) from user where username=:username", nativeQuery = true)
     int checkExistingUsername(String username);
 
+    @Query(value = "SELECT COUNT(*) FROM user WHERE username = :username AND password = :password", nativeQuery = true)
+    int checkAuthentication(String username, String password);
+
     @Query(value = "select count(phone) from user where phone=:phone", nativeQuery = true)
     int checkExistingMobile(String phone);
 }
