@@ -3,7 +3,7 @@ package com.ntumart.dipapp.api.service;
 import com.ntumart.dipapp.api.repository.UserRepository;
 import com.ntumart.dipapp.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
+// import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 @Service
