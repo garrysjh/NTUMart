@@ -3,6 +3,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:frontend/theme.dart';
 import 'package:frontend/widgets/snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -12,7 +15,7 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  TextEditingController loginEmailController = TextEditingController();
+  TextEditingController loginUsernameController = TextEditingController();
   TextEditingController loginPasswordController = TextEditingController();
 
   final FocusNode focusNodeEmail = FocusNode();
@@ -52,7 +55,7 @@ class _SignInState extends State<SignIn> {
                             top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
                           focusNode: focusNodeEmail,
-                          controller: loginEmailController,
+                          controller: loginUsernameController,
                           keyboardType: TextInputType.emailAddress,
                           style: const TextStyle(
                               fontFamily: 'WorkSansSemiBold',
@@ -65,7 +68,7 @@ class _SignInState extends State<SignIn> {
                               color: Colors.black,
                               size: 22.0,
                             ),
-                            hintText: 'Email Address',
+                            hintText: 'Username',
                             hintStyle: TextStyle(
                                 fontFamily: 'WorkSansSemiBold', fontSize: 17.0),
                           ),
@@ -161,8 +164,9 @@ class _SignInState extends State<SignIn> {
                           fontFamily: 'WorkSansBold'),
                     ),
                   ),
-                  onPressed: () => CustomSnackBar(
-                      context, const Text('Login button pressed')),
+                  onPressed: () => { 
+                    _toggleSignInButton()
+                  },
                 ),
               )
             ],
@@ -180,34 +184,75 @@ class _SignInState extends State<SignIn> {
                       fontFamily: 'WorkSansMedium'),
                 )),
           ),
-          
-          
         ],
       ),
     );
   }
 
   void _toggleSignInButton() async {
-  try {
-    UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: loginEmailController.text,
-      password: loginPasswordController.text,
-    );
+    try {
+      int authenticated = await loginUser(
+          loginUsernameController.text, loginPasswordController.text);
 
-    if (userCredential.user != null) {
-      CustomSnackBar(context, Text('Sign-in successful'));
-    } else {
-      CustomSnackBar(context, Text('Sign-in failed'));
+      if (authenticated == 1) {
+        CustomSnackBar(context, Text('Sign-in successful'));
+      } else if (authenticated == 0) {
+        CustomSnackBar(context, Text('Wrong email/password'));
+      } else {
+        CustomSnackBar(
+            context,
+            Text(
+                'Our servers are down at the moment. Please try again later. '));
+      }
+    } catch (e) {
+      // Handle sign-in errors, e.g., wrong credentials.
+      CustomSnackBar(context, Text('Sign-In Error: $e'));
     }
-  } catch (e) {
-    // Handle sign-in errors, e.g., wrong credentials.
-    CustomSnackBar(context, Text('Sign-In Error: $e'));
   }
-}
 
   void _toggleLogin() {
     setState(() {
       _obscureTextPassword = !_obscureTextPassword;
     });
+  }
+}
+
+Future<int> loginUser(String username, String password) async {
+  final url = Uri.parse(
+      'http://localhost:8080/api/v1/user/login'); // Replace with your server URL
+
+  try {
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({
+        'username': username,
+        'password': password,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      // Request was successful
+      final jsonResponse = json.decode(response.body);
+      if (jsonResponse == "Username already exists!") {
+        return 0;
+      }
+      final token = jsonResponse['token'];
+
+      // Store the token in local storage (shared_preferences)
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('token', token);
+      print('Login successful. Token: ${token}');
+      return 1;
+    } else {
+      // Request failed
+      print('Failed to login. Status code: ${response.statusCode}');
+      return -1;
+    }
+  } catch (e) {
+    print('Error: $e');
+    return -1;
   }
 }

@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:frontend/main.dart';
+import 'package:http/http.dart' as http;
 
 // String usernameOut = "";
 // String fullnameOut = "";
@@ -59,8 +60,6 @@ import 'package:frontend/main.dart';
 //   }
 // }
 
-
-
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
 
@@ -73,22 +72,24 @@ class _SignUpState extends State<SignUp> {
   final FocusNode focusNodeConfirmPassword = FocusNode();
   final FocusNode focusNodeEmail = FocusNode();
   final FocusNode focusNodeName = FocusNode();
+  final FocusNode focusNodePhone = FocusNode(); 
 
   bool _obscureTextPassword = true;
   bool _obscureTextConfirmPassword = true;
 
   TextEditingController signupEmailController = TextEditingController();
-  TextEditingController signupNameController = TextEditingController();
+  TextEditingController signupUserNameController = TextEditingController();
   TextEditingController signupPasswordController = TextEditingController();
   TextEditingController signupConfirmPasswordController =
       TextEditingController();
-
+  TextEditingController signupPhoneNumberController = TextEditingController(); 
   @override
   void dispose() {
     focusNodePassword.dispose();
     focusNodeConfirmPassword.dispose();
     focusNodeEmail.dispose();
     focusNodeName.dispose();
+    focusNodePhone.dispose(); 
     super.dispose();
   }
 
@@ -117,7 +118,7 @@ class _SignUpState extends State<SignUp> {
                             top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
                           focusNode: focusNodeName,
-                          controller: signupNameController,
+                          controller: signupUserNameController,
                           keyboardType: TextInputType.text,
                           textCapitalization: TextCapitalization.words,
                           autocorrect: false,
@@ -131,7 +132,7 @@ class _SignUpState extends State<SignUp> {
                               FontAwesomeIcons.user,
                               color: Colors.black,
                             ),
-                            hintText: 'Name',
+                            hintText: 'Username',
                             hintStyle: TextStyle(
                                 fontFamily: 'WorkSansSemiBold', fontSize: 16.0),
                           ),
@@ -181,39 +182,29 @@ class _SignUpState extends State<SignUp> {
                         padding: const EdgeInsets.only(
                             top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
-                          focusNode: focusNodePassword,
-                          controller: signupPasswordController,
-                          obscureText: _obscureTextPassword,
+                          focusNode: focusNodePhone,
+                          controller: signupPhoneNumberController,
+                          keyboardType: TextInputType.phone,
                           autocorrect: false,
                           style: const TextStyle(
                               fontFamily: 'WorkSansSemiBold',
                               fontSize: 16.0,
                               color: Colors.black),
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             border: InputBorder.none,
-                            icon: const Icon(
-                              FontAwesomeIcons.lock,
+                            icon: Icon(
+                              FontAwesomeIcons.envelope,
                               color: Colors.black,
                             ),
-                            hintText: 'Password',
-                            hintStyle: const TextStyle(
+                            hintText: 'Phone Number: ',
+                            hintStyle: TextStyle(
                                 fontFamily: 'WorkSansSemiBold', fontSize: 16.0),
-                            suffixIcon: GestureDetector(
-                              onTap: _toggleSignup,
-                              child: Icon(
-                                _obscureTextPassword
-                                    ? FontAwesomeIcons.eye
-                                    : FontAwesomeIcons.eyeSlash,
-                                size: 15.0,
-                                color: Colors.black,
-                              ),
-                            ),
                           ),
                           onSubmitted: (_) {
-                            focusNodeConfirmPassword.requestFocus();
+                            focusNodePhone.requestFocus();
                           },
                         ),
-                      ),
+                      ), 
                       Container(
                         width: 250.0,
                         height: 1.0,
@@ -223,8 +214,8 @@ class _SignUpState extends State<SignUp> {
                         padding: const EdgeInsets.only(
                             top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
-                          focusNode: focusNodeConfirmPassword,
-                          controller: signupConfirmPasswordController,
+                          focusNode: focusNodePassword,
+                          controller: signupPasswordController,
                           obscureText: _obscureTextConfirmPassword,
                           autocorrect: false,
                           style: const TextStyle(
@@ -237,7 +228,7 @@ class _SignUpState extends State<SignUp> {
                               FontAwesomeIcons.lock,
                               color: Colors.black,
                             ),
-                            hintText: 'Confirmation',
+                            hintText: 'Password',
                             hintStyle: const TextStyle(
                                 fontFamily: 'WorkSansSemiBold', fontSize: 16.0),
                             suffixIcon: GestureDetector(
@@ -313,20 +304,19 @@ class _SignUpState extends State<SignUp> {
   }
 
   void _toggleSignUpButton() async {
-    CustomSnackBar(context, const Text('SignUp button pressed'));
     try {
-    UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: signupEmailController.text,
-      password: signupPasswordController.text,
-    );
+      int authenticated = await registerUser(signupPhoneNumberController.text, signupUserNameController.text,
+          signupEmailController.text, signupPasswordController.text);
 
-    if (userCredential.user != null) {
-      // Successful sign-up, you can navigate to another screen or show a success message.
+      if (authenticated == 1) {
+        CustomSnackBar(context, Text("Registerd user succesfully"));
+      } else if (authenticated == 0) {
+        CustomSnackBar(context, Text('Username already exists. '));
+      }
+    } catch (e) {
+      // Handle sign-up errors, e.g., email already in use.
+      CustomSnackBar(context, Text('Sign-Up Error: $e'));
     }
-  } catch (e) {
-    // Handle sign-up errors, e.g., email already in use.
-    CustomSnackBar(context, Text('Sign-Up Error: $e'));
-  }
   }
 
   void _toggleSignup() {
@@ -339,5 +329,40 @@ class _SignUpState extends State<SignUp> {
     setState(() {
       _obscureTextConfirmPassword = !_obscureTextConfirmPassword;
     });
+  }
+}
+
+Future<int> registerUser(String phone ,String username, String email, String password) async {
+  final url = Uri.parse('http://localhost:8080/api/v1/user/register');
+
+  try {
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: 
+        jsonEncode({
+          'username': username,
+          'email': email,
+          'password': password,
+          "phone": phone
+        } 
+        )
+    );
+
+    if (response.statusCode == 200) {
+      // Request was successful
+      print('User registered successfully');
+      print('Response: ${response.body}');
+      return 1;
+    } else {
+      // Request failed
+      print('Failed to register user. Status code: ${response.statusCode}');
+      return 0;
+    }
+  } catch (e) {
+    print('Error: $e');
+    return -1;
   }
 }

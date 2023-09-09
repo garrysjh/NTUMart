@@ -6,6 +6,10 @@ import com.ntumart.dipapp.models.User;
 import com.ntumart.dipapp.models.LoginRequest;
 import com.ntumart.dipapp.api.service.JwtTokenService;
 import net.minidev.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1")
+@CrossOrigin(origins = "http://localhost:*")
 public class UserApiController {
     @Autowired
     UserService userService;
@@ -31,8 +36,6 @@ public class UserApiController {
     public String testEndPoint() {
         return "Test end point is working!";
     }
-
-  
 
     @RequestMapping(value = "/user/register", method = RequestMethod.POST, produces = { "application/json" })
     @ResponseBody
@@ -75,11 +78,14 @@ public class UserApiController {
     public ResponseEntity<?> authenticate(@RequestBody LoginRequest loginRequest) {
         // Authenticate the user
         boolean authenticated = userService.authenticate(loginRequest.getUsername(), loginRequest.getPassword());
-        if (authenticated){ 
+        if (authenticated) {
             String token = jwtTokenService.generateToken(loginRequest.getUsername());
-            return ResponseEntity.ok(token);
-        }
-        else{ 
+            Map<String, String> responseMap = new HashMap<>();
+            responseMap.put("token", token);
+
+            // Return the Map as JSON
+            return ResponseEntity.ok(responseMap);
+        } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed");
         }
     }
