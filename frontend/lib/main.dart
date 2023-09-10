@@ -26,3 +26,8 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+// psuedocode for main() jwt token 
+// check local storage/cookies for jwt token
+// if found: navigate to home page
+// else: login page 
