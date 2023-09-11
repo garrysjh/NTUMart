@@ -7,6 +7,7 @@ import 'dart:convert';
 
 import 'package:frontend/main.dart';
 
+
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
 
