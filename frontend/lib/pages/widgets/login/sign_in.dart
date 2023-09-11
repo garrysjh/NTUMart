@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:frontend/theme.dart';
 import 'package:frontend/widgets/snackbar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
+
+import 'package:frontend/main.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -219,7 +220,7 @@ class _SignInState extends State<SignIn> {
 
 Future<int> loginUser(String username, String password) async {
   final url = Uri.parse(
-      'http://localhost:8080/api/v1/user/login'); // Replace with your server URL
+      '$URL/user/login'); // Replace with your server URL
 
   try {
     final response = await http.post(

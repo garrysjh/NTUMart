@@ -2,63 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:frontend/theme.dart';
 import 'package:frontend/widgets/snackbar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:frontend/main.dart';
-import 'package:http/http.dart' as http;
 
-// String usernameOut = "";
-// String fullnameOut = "";
-// String emailOut = "";
-// String phoneOut = "";
-// String passwordOut = "";
-// String addressOut = "";
-// String profilePicOut = "";
 
-// Future<http.Response> register() async{
-//   final response = await http.post(
-//     Uri.parse('$URL/user/register'),
-//     headers: <String, String> {
-//       'Content-Type': 'application/json; charset=UTF-8',
-//     },
-//     body: jsonEncode(<String, String>{
-//         'username': emailOut,
-//         'password': passwordOut,
-//         'firstname': firstnameOut,
-//         'lastname': lastnameOut,
-//         'mobile': mobileOut
-//     }),
-//   );
-//   if (response == null) {
-//     print("noresponse");
-//     Fluttertoast.showToast(
-//       msg: "Error connecting to server! Try again later.",
-//         toastLength: Toast.LENGTH_SHORT,
-//         gravity: ToastGravity.CENTER,
-//         timeInSecForIosWeb: 1,
-//         backgroundColor: Colors.red,
-//         textColor: Colors.white,
-//         fontSize: 16.0
-//     );
-//     return jsonDecode(response.body);
-//   }
-//   else {
-//     print(response.body);
-//     Fluttertoast.showToast(
-//       msg: response.body.toString(),
-//         toastLength: Toast.LENGTH_SHORT,
-//         gravity: ToastGravity.CENTER,
-//         timeInSecForIosWeb: 1,
-//         backgroundColor: Color.fromARGB(255, 54, 244, 86),
-//         textColor: Colors.white,
-//         fontSize: 16.0
-//     );
-//     return response;
-//   }
-// }
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -309,7 +258,7 @@ class _SignUpState extends State<SignUp> {
           signupEmailController.text, signupPasswordController.text);
 
       if (authenticated == 1) {
-        CustomSnackBar(context, Text("Registerd user succesfully"));
+        CustomSnackBar(context, Text("Registered user succesfully"));
       } else if (authenticated == 0) {
         CustomSnackBar(context, Text('Username already exists. '));
       }
@@ -333,13 +282,16 @@ class _SignUpState extends State<SignUp> {
 }
 
 Future<int> registerUser(String phone ,String username, String email, String password) async {
-  final url = Uri.parse('http://localhost:8080/api/v1/user/register');
-
+  final url = Uri.parse('$URL/user/register');
   try {
     final response = await http.post(
       url,
       headers: {
         'Content-Type': 'application/json',
+        // 'Access-Control-Allow-Origin': '*', // Required for CORS support to work
+  // "Access-Control-Allow-Credentials": 'true', // Required for cookies, authorization headers with HTTPS
+  // "Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+  // "Access-Control-Allow-Methods": "POST, OPTIONS"
       },
       body: 
         jsonEncode({
