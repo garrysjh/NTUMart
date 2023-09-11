@@ -2,14 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:frontend/theme.dart';
 import 'package:frontend/widgets/snackbar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
-import 'package:frontend/main.dart';
-import 'package:http/http.dart' as http;
-
 // String usernameOut = "";
 // String fullnameOut = "";
 // String emailOut = "";
