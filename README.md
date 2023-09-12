@@ -47,9 +47,30 @@ To run app:
 ````
 mvn spring-boot:run
 ````
-#### Testing 
+## Testing 
 
-Use Postman or other tools to make HTTP Request to your http://localhost:8080/. 
+### Test Backend Endpoints
+Use Postman or other tools to make HTTP Request to your http://localhost:8080/, after running the Spring Boot Server app.
+
+#### Pre-Requisites
+- MySQL
+- IDE with Java Maven environment configured (IntelliJ, VSCode, etc.)
+- Postman or endpoint testing tool of your choice
+
+#### Steps 
+
+The order to test the endpoints on your own device is as follows:
+1. Ensure that your MySQL database is initialized; If not, run the commands in DIPSHOP.sql in your MySQL client with an authorized user.
+2. Run your MySQL server mysqld.exe with an authorized user
+3. Navigate to the server root folder with your IDE (/server/dipapp)
+4. Ensure that your application properties is setup; refer to [application properties](#application-properties)
+5. For IntelliJ, just click on DipappApplication.java and run; For VSCode, run ``` mvn spring-boot:run ``` in your console; Ensure that no error code happens after.
+6. Use Postman or any endpoint testing tool of your choice to run the application
+
+### Pre-Requisites
+- My
+
+#### Application Properties
 
 For your Spring Boot server, add a file called 'application.properties' into resources and add the following line:
 (Make sure that your MySQL server is running and already has the database 'dip' created from the .sql file) 
