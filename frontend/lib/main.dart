@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/pages/login_page.dart';
 import 'package:flutter/services.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-var URL = 'http://192.168.1.102:8080/api/v1'; //replace this with ur local ip / lan ip for devices connecting on same lan / server ip if hosted
+var URL = 'http://10.0.2.2:8080/api/v1'; //replace this with ur local ip / lan ip for devices connecting on same lan / server ip if hosted
 
 void main() async {
-  await dotenv.load(); 
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(<DeviceOrientation>[
     DeviceOrientation.portraitUp,
@@ -31,3 +24,8 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+// psuedocode for main() jwt token 
+// check local storage/cookies for jwt token
+// if found: navigate to home page
+// else: login page 
