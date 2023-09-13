@@ -32,6 +32,11 @@ public class User {
     @Column(name="profilePic")
     private String profilePic;
 
+    public User()
+    {
+        
+    }
+
     public User(int id, String username, String fullname, String email, String phone, String password, String address, String profilePic) {
         this.userId = id;
         this.username = username;
