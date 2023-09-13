@@ -19,7 +19,7 @@ public void registerUser(User user){
 }
 
     public int checkExistingUsername(String username){return userRepository.checkExistingUsername(username); }
-    public boolean authenticate(String username, String password){return userRepository.checkAuthentication(username, password) ==1; }
+
     public int checkExistingMobile(String mobile){return userRepository.checkExistingMobile(mobile); }
 
 }
