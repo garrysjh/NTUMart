@@ -76,19 +76,17 @@ public class ProductService {
         return product;
     }
 
-    public void updateProduct(int productID, Product updatedProduct, MultipartFile data) throws IOException, ProductNotFoundException { // Change
-                                                                                                              // Long to
-                                                                                                              // int
+    public void updateProduct(int productID, ProductDTO productDTO, MultipartFile data) throws IOException { // Change Long to int
         Product product = getProductById(productID);
 
         byte[] fileBytes = data.getBytes();
         String fileName = StringUtils.cleanPath(data.getOriginalFilename());
 
         // Update product attributes based on the updatedProduct object
-        product.setName(updatedProduct.getName());
-        product.setDescription(updatedProduct.getDescription());
-        product.setPrice(updatedProduct.getPrice());
-        product.setQuantity(updatedProduct.getQuantity());
+        product.setName(productDTO.getName());
+        product.setDescription(productDTO.getDescription());
+        product.setPrice(productDTO.getPrice());
+        product.setQuantity(productDTO.getQuantity());
         product.setProductPic(fileName);
         product.setData(fileBytes);
 

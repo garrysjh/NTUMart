@@ -78,9 +78,9 @@ public class ProductApiController {
     @PostMapping("/{productID}")
     public ResponseEntity<String> updateProduct(
             @PathVariable int productID,
-            @RequestBody Product updatedProduct,
-            @RequestParam("productPic") MultipartFile data) throws IOException, ProductNotFoundException {
-        productService.updateProduct(productID, updatedProduct,data);
+            @ModelAttribute ProductDTO productDTO,
+            @RequestParam(value = "productPic") MultipartFile data) throws IOException {
+        productService.updateProduct(productID, productDTO,data);
         return ResponseEntity.ok("Product updated successfully");
     }
 
