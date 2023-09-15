@@ -20,14 +20,14 @@ public class UserApiController {
     @RequestMapping(value = "/user/register", method = RequestMethod.POST, produces = {"application/json"})
     @ResponseBody
     public String registerUser(@RequestBody User user) {
-        if (user.getProfilePic() == null){
-            user.setProfilePic("images/default.jpg");
-        }
-        if (user == null) {
+        if (user == null) { //we have to do this first
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("status", "error");
             jsonObject.put("message", "User is null");
-            return jsonObject.toString();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonObject.toString());
+        }
+        if (user.getProfilePic() == null){
+            user.setProfilePic("images/default.jpg");
         }
         //check username
         else if (userService.checkExistingUsername(user.getUsername()) > 0) {
@@ -35,8 +35,6 @@ public class UserApiController {
             jsonObject.put("status", "error");
             jsonObject.put("message", "Username already exists!");
             return "Username already exists!";
-
-
         }
         //check email
         else if (userService.checkExistingMobile(user.getPhone()) > 0) {
@@ -51,7 +49,6 @@ public class UserApiController {
             jsonObject.put("status", "success");
             jsonObject.put("message", "User registered successfully");
             return "User registered successfully!";
-
         }
     }
 }
