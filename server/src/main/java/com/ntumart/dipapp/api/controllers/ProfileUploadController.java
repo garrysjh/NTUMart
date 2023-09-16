@@ -19,7 +19,7 @@ public class ProfileUploadController {
     @Autowired
     ProfUploadService profUploadService;
 
-    @PostMapping("/{userId}/update-profile-pic")
+    @PostMapping("/user/update-profile-pic/{userId}")
     public ResponseEntity<String> uploadImage(@PathVariable Integer userId, @RequestParam("profilePic") MultipartFile file) {
         try {
             
