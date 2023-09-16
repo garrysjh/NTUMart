@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/pages/widgets/login/taskbar.dart';
+import 'package:frontend/pages/widgets/taskbar.dart';
 
+void main() {
+  runApp(const ItemDetailsScreen());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -301,7 +304,7 @@ class ItemDetailsScreen extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(height: 5.0), //space between "Seller details" and "Contact seller" button
+                const SizedBox(height: 0.0), //space between "Seller details" and "Contact seller" button
                 // Contact seller button
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 16.0),
@@ -309,7 +312,8 @@ class ItemDetailsScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Expanded(
-                        child: Container(), // Empty container to create spacing
+                        child: Container(
+                        ), // Empty container to create spacing
                       ),
                       Expanded(
                         flex: 2, // Adjust the flex value as needed
@@ -330,11 +334,14 @@ class ItemDetailsScreen extends StatelessWidget {
                         ),
                       ),
                       Expanded(
-                        child: Container(), // Empty container to create spacing
+                        child: SizedBox(
+                          
+                        ), // Empty container to create spacing
                       ),
                     ],
                   ),
                 ),
+                const SizedBox(height: 100.0),
 
 
 
