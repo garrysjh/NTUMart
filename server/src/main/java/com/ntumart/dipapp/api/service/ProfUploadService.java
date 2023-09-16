@@ -18,46 +18,37 @@ import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class ProfUploadService {
-    
+
     @Autowired
     private ProfUploadRepository uploadRepository;
 
-    @Value("${profile-upload-dir}")
-    private String uploadDir;
+    private String uploadDir = ".//src//main//resources//images//profpic";
 
-    
     public void uploadFile(Integer userId, MultipartFile file) throws IOException {
 
-
         // if (!file.isEmpty()) {
-            byte[] fileBytes = file.getBytes();
-            String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        byte[] fileBytes = file.getBytes();
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
+        Optional<User> optionalUserProfile = uploadRepository.findById(userId);
 
+        User userImage = optionalUserProfile
+                .orElseThrow(() -> new EntityNotFoundException("User with ID " + userId + " not found"));
 
-            Optional<User> optionalUserProfile = uploadRepository.findById(userId);
+        // Renames the profile image. Helps to Override Profile Image (Naming Convention
+        // can change)
+        fileName = userId + "_pp.jpg";
+        String dir = uploadDir + "//" + userId;
+        Files.createDirectories(Paths.get(dir));
+        Path filePath = Paths.get(dir, fileName);
+        Files.write(filePath, file.getBytes());
 
-            User userImage = optionalUserProfile
-                    .orElseThrow(() -> new EntityNotFoundException("User with ID " + userId+ " not found"));
+        userImage.setProfilePic(fileName);
+        userImage = uploadRepository.save(userImage);
 
-
-
-            // Renames the profile image. Helps to Override Profile Image (Naming Convention can change)
-            fileName = userId + "_pp.jpg";
-            
-            Path filePath = Paths.get("images\\" + userId + "\\profpic\\" + fileName);
-            Files.write(filePath, file.getBytes());
-
-
-            userImage.setProfilePic(fileName);
-            userImage = uploadRepository.save(userImage);
-
-            // throw new IllegalArgumentException("Image file Uploaded");
+        // throw new IllegalArgumentException("Image file Uploaded");
         // }
-        
-
 
     }
-
 
 }
