@@ -4,20 +4,22 @@ import com.ntumart.dipapp.api.service.UserService;
 import com.ntumart.dipapp.models.LoginRequest;
 import com.ntumart.dipapp.models.User;
 import net.minidev.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import com.ntumart.dipapp.api.service.JwtTokenService; 
 
 @RestController
 @RequestMapping("/api/v1")
 public class UserApiController {
     @Autowired
     UserService userService;
+
+    @Autowired
+    JwtTokenService jwtTokenService;
 
     @GetMapping("/test")
     public String testEndPoint(){
