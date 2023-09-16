@@ -1,8 +1,13 @@
 package com.ntumart.dipapp.api.controllers;
 
 import com.ntumart.dipapp.api.service.UserService;
+import com.ntumart.dipapp.models.LoginRequest;
 import com.ntumart.dipapp.models.User;
 import net.minidev.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
@@ -53,5 +58,21 @@ public class UserApiController {
         jsonObject.put("message", "User registered successfully");
 
         return ResponseEntity.ok(jsonObject.toString());
+    }
+
+    @PostMapping("/user/login")
+    public ResponseEntity<?> authenticate(@RequestBody LoginRequest loginRequest) {
+        // Authenticate the user
+        boolean authenticated = userService.authenticate(loginRequest.getUsername(), loginRequest.getPassword());
+        if (authenticated) {
+            String token = jwtTokenService.generateToken(loginRequest.getUsername());
+            Map<String, String> responseMap = new HashMap<>();
+            responseMap.put("token", token);
+
+            // Return the Map as JSON
+            return ResponseEntity.ok(responseMap);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed");
+        }
     }
 }

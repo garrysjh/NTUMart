@@ -83,7 +83,4 @@ public class ProductApiController {
         productService.updateProduct(productID, productDTO,data);
         return ResponseEntity.ok("Product updated successfully");
     }
-
-    
-
 }
