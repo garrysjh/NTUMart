@@ -6,10 +6,8 @@ import com.ntumart.dipapp.models.User;
 import com.ntumart.dipapp.models.LoginRequest;
 import com.ntumart.dipapp.api.service.JwtTokenService;
 import net.minidev.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
