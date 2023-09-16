@@ -14,11 +14,24 @@ public interface ProductRepository extends JpaRepository<Product, Integer > {
     
     @Transactional
     @Modifying
-    @Query(value="INSERT INTO PRODUCT(:name, :description, :price, :quantity, :productPic, :category)", nativeQuery = true)
+    @Query(value="INSERT INTO PRODUCT(:name, :description, :price, :quantity, :data, :productPic, :category)", nativeQuery = true)
     int addProduct(@Param("name") String name,
                      @Param("description") String description,
                      @Param("price") double price,
                      @Param("quantity") int quantity,
+                     @Param("data") byte data,
+                     @Param("productPic") String productPic,
+                     @Param("category") String category);
+
+    @Query(value="SELECT * FROM PRODUCT WHERE productID = :productID", nativeQuery = true)
+    int getProductById(@Param("productID") Integer productID);
+
+    @Query(value="UPDATE product SET name = :name , description = :description , price = :price , quantity = :quantity , data = :data ,  productPic = :productPic , category = :category", nativeQuery = true)
+    int updateProduct(@Param("name") String name,
+                     @Param("description") String description,
+                     @Param("price") double price,
+                     @Param("quantity") int quantity,
+                     @Param("data") byte data,
                      @Param("productPic") String productPic,
                      @Param("category") String category);
                     

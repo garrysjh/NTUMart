@@ -12,7 +12,9 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "productID")
     private int productID;
-    
+
+    // @Id
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sellerID")
     private int sellerID;
 
@@ -34,15 +36,29 @@ public class Product {
     @Column(name="category")
     private String category;
 
-    public Product(int id, int id2, String name, String description, double price, int quantity, String productPic, String category) {
+    @Lob
+    @Column(nullable = false)
+    private byte[] data;
+
+    //No Argument Constructor
+    public Product() {
+        // Default Constructor with no parameters
+    }
+    public Product(int id, int id2, String name, String description, double price, int quantity, byte[] data, String productPic, String category) {
         this.productID = id;
         this.sellerID = id2;
         this.name = name;
         this.description = description;
         this.price = price;
         this.quantity = quantity;
+        this.data = data;
         this.productPic = productPic;
         this.category = category;
+    }
+
+    public Product(String name, String description) {
+        this.name = name;
+        this.description = description;
     }
 
     public int productID() {
@@ -93,6 +109,14 @@ public class Product {
         this.quantity = quantity;
     }
 
+    public byte[] getData() {
+        return data;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
+    }
+
     public String getProductPic() {
         return productPic;
     }
@@ -110,6 +134,19 @@ public class Product {
     }
 
     
+    // @Override
+    // public String toString() {
+    //     return "Product{" +
+    //             "productID=" + productID +
+    //             ", sellerID='" + sellerID + '\'' +
+    //             ", name='" + name + '\'' +
+    //             ", description='" + description + '\'' +
+    //             ", price='" + price + '\'' +
+    //             ", quantity='" + quantity + '\'' +
+    //             ", productPic='" + productPic + '\'' +
+    //             ", category='" + category + '\'' +
+    //             '}';
+    // }
     @Override
     public String toString() {
         return "Product{" +
@@ -119,8 +156,11 @@ public class Product {
                 ", description='" + description + '\'' +
                 ", price='" + price + '\'' +
                 ", quantity='" + quantity + '\'' +
+                ", data='" + data + '\'' +
                 ", productPic='" + productPic + '\'' +
                 ", category='" + category + '\'' +
                 '}';
     }
+
+    
 }

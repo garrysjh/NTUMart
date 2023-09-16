@@ -109,4 +109,7 @@ spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming.Ph
 spring.jpa.hibernate.naming.implicit-strategy=org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
 jwt.secret=eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTY5NDAwODU2MSwiaWF0IjoxNjk0MDA4NTYxfQ.6UJXEaQc5kE8e8bmjDjnoyXYFbhFRlf7mij1I_iboYQ
 jwt.expiration=36000000000
+upload-dir= YOUR_DIRECTORY_HERE EXAMPLE: C:/Users/ewanh/java2/NTUMart-main/server/src/main/resources/uploads
+spring.servlet.multipart.max-file-size=10MB
+spring.servlet.multipart.max-request-size=10MB
 ````
