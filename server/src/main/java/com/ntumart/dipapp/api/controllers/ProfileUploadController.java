@@ -21,8 +21,6 @@ public class ProfileUploadController {
 
     @PostMapping("/{userId}/update-profile-pic")
     public ResponseEntity<String> uploadImage(@PathVariable Integer userId, @RequestParam("profilePic") MultipartFile file) {
-
-
         try {
             
             profUploadService.uploadFile(userId,file);
