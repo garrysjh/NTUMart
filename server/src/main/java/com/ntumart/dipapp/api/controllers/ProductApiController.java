@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/product")
 
 public class ProductApiController {
     
     @Autowired
     ProductService productService;
 
-    @RequestMapping(value = "/add/product", method = RequestMethod.POST, produces = {"application/json"})
+    @RequestMapping(value = "/add", method = RequestMethod.POST, produces = {"application/json"})
     @ResponseBody
     public ResponseEntity<String> addProduct(@ModelAttribute ProductDTO productDTO, @RequestParam("productPic") MultipartFile data) {
         try {
@@ -79,7 +79,7 @@ public class ProductApiController {
     public ResponseEntity<String> updateProduct(
             @PathVariable int productID,
             @ModelAttribute ProductDTO productDTO,
-            @RequestParam(value = "productPic") MultipartFile data) throws IOException {
+            @RequestParam(value = "productPic") MultipartFile data) throws IOException, ProductNotFoundException {
         productService.updateProduct(productID, productDTO,data);
         return ResponseEntity.ok("Product updated successfully");
     }

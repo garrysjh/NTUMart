@@ -76,7 +76,7 @@ public class ProductService {
         return product;
     }
 
-    public void updateProduct(int productID, ProductDTO productDTO, MultipartFile data) throws IOException { // Change Long to int
+    public void updateProduct(int productID, ProductDTO productDTO, MultipartFile data) throws IOException, ProductNotFoundException{ // Change Long to int
         Product product = getProductById(productID);
 
         byte[] fileBytes = data.getBytes();
