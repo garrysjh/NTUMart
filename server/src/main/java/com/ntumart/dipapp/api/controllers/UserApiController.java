@@ -10,12 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,7 +32,7 @@ public class UserApiController {
 
     @RequestMapping(value = "/user/register", method = RequestMethod.POST, produces = { "application/json" })
     @ResponseBody
-    public String registerUser(@RequestBody User user) {
+    public ResponseEntity<?> registerUser(@RequestBody User user) {
         if (user.getProfilePic() == null) {
             user.setProfilePic("images/default.jpg");
         }
@@ -45,14 +40,14 @@ public class UserApiController {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("status", "error");
             jsonObject.put("message", "User is null");
-            return jsonObject.toString();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonObject.toString());
         }
         // check username
         else if (userService.checkExistingUsername(user.getUsername()) > 0) {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("status", "error");
             jsonObject.put("message", "Username already exists!");
-            return "Username already exists!";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonObject.toString());
 
         }
         // check email
@@ -60,14 +55,14 @@ public class UserApiController {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("status", "error");
             jsonObject.put("message", "Phone already exists!");
-            return "Mobile already exists!";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(jsonObject.toString());
 
         } else {
             userService.registerUser(user);
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("status", "success");
             jsonObject.put("message", "User registered successfully");
-            return "User registered successfully!";
+            return ResponseEntity.status(HttpStatus.OK).body(jsonObject.toString());
 
         }
     }

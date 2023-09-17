@@ -10,12 +10,8 @@ import com.ntumart.dipapp.models.Product;
 
 @Service
 public class ListingService {
-    
     @Autowired
-
     ListingRepository listingRepository;
-
-    
 
     public List<Product> getAllProducts() {
         return listingRepository.findAll();

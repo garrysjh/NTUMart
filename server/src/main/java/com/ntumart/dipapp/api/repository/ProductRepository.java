@@ -10,35 +10,27 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 
-public interface ProductRepository extends JpaRepository<Product, Integer > {
-    
+public interface ProductRepository extends JpaRepository<Product, Integer> {
+
     @Transactional
     @Modifying
-    @Query(value="INSERT INTO PRODUCT(:name, :description, :price, :quantity, :data, :productPic, :category)", nativeQuery = true)
-    int addProduct(@Param("name") String name,
-                     @Param("description") String description,
-                     @Param("price") double price,
-                     @Param("quantity") int quantity,
-                     @Param("data") byte data,
-                     @Param("productPic") String productPic,
-                     @Param("category") String category);
+    @Query(value = "INSERT INTO PRODUCT(:sellerID, :name, :description, :price, :quantity, :data, :productPic, :category)", nativeQuery = true)
+    int addProduct(@Param("sellerID") int sellerID, @Param("name") String name,
+            @Param("description") String description,
+            @Param("price") double price,
+            @Param("quantity") int quantity,
+            @Param("productPic") String productPic,
+            @Param("category") String category);
 
-    @Query(value="SELECT * FROM PRODUCT WHERE productID = :productID", nativeQuery = true)
+    @Query(value = "SELECT * FROM PRODUCT WHERE productID = :productID", nativeQuery = true)
     int getProductById(@Param("productID") Integer productID);
 
-    @Query(value="UPDATE product SET name = :name , description = :description , price = :price , quantity = :quantity , data = :data ,  productPic = :productPic , category = :category", nativeQuery = true)
-    int updateProduct(@Param("name") String name,
-                     @Param("description") String description,
-                     @Param("price") double price,
-                     @Param("quantity") int quantity,
-                     @Param("data") byte data,
-                     @Param("productPic") String productPic,
-                     @Param("category") String category);
-                    
-
-    // @Query(value = "select count(quantity) from product where quantity=:quantity", nativeQuery = true)
-    // int checkExistingQuantity(int quantity);
-
-    // @Query(value = "select count(phone) from user where phone=:phone", nativeQuery = true)
-    // int checkExistingMobile(String phone);
+    @Query(value = "UPDATE product SET sellerID = :sellerID, name = :name , description = :description , price = :price , quantity = :quantity , data = :data ,  productPic = :productPic , category = :category", nativeQuery = true)
+    int updateProduct(
+            @Param("sellerID") int sellerID, @Param("name") String name,
+            @Param("description") String description,
+            @Param("price") double price,
+            @Param("quantity") int quantity,
+            @Param("productPic") String productPic,
+            @Param("category") String category);
 }
