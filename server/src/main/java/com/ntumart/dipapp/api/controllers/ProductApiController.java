@@ -16,71 +16,70 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api/v1/product")
 
 public class ProductApiController {
-    
+
     @Autowired
     ProductService productService;
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST, produces = {"application/json"})
+    @RequestMapping(value = "/add", method = RequestMethod.POST, produces = { "application/json" })
     @ResponseBody
-    public ResponseEntity<String> addProduct(@ModelAttribute ProductDTO productDTO, @RequestParam("productPic") MultipartFile data) {
+    public ResponseEntity<String> addProduct(@ModelAttribute Product product,
+            @RequestParam("data") MultipartFile data) {
         try {
-            productService.addProduct(productDTO, data);
+            productService.addProduct(product, data);
             return ResponseEntity.ok("Product Successfully");
-        }
-        catch (EmptyFileException e){ 
+        } catch (EmptyFileException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("File is empty");
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error uploading the file");
-        } 
+        }
         // if (product.getProductPic() == null){
-        //     product.setProductPic("images/default.jpg");
+        // product.setProductPic("images/default.jpg");
         // }
-        
+
         // if (product== null) {
-        //     JSONObject jsonObject = new JSONObject();
-        //     jsonObject.put("status", "error");
-        //     jsonObject.put("message", "User is null");
-        //     return jsonObject.toString();
+        // JSONObject jsonObject = new JSONObject();
+        // jsonObject.put("status", "error");
+        // jsonObject.put("message", "User is null");
+        // return jsonObject.toString();
         // }
         // // //check username
-        // // else if (ProductService.checkExistingUsername(product.getUsername()) > 0) {
-        // //     JSONObject jsonObject = new JSONObject();
-        // //     jsonObject.put("status", "error");
-        // //     jsonObject.put("message", "Username already exists!");
-        // //     return "Username already exists!";
-
+        // // else if (ProductService.checkExistingUsername(product.getUsername()) > 0)
+        // {
+        // // JSONObject jsonObject = new JSONObject();
+        // // jsonObject.put("status", "error");
+        // // jsonObject.put("message", "Username already exists!");
+        // // return "Username already exists!";
 
         // // }
         // // //check email
         // // else if (ProductService.checkExistingMobile(product.getPhone()) > 0) {
-        // //     JSONObject jsonObject = new JSONObject();
-        // //     jsonObject.put("status", "error");
-        // //     jsonObject.put("message", "Phone already exists!");
-        // //     return "Mobile already exists!";
+        // // JSONObject jsonObject = new JSONObject();
+        // // jsonObject.put("status", "error");
+        // // jsonObject.put("message", "Phone already exists!");
+        // // return "Mobile already exists!";
 
-        // // } 
+        // // }
         // else {
-        //     productService.addProduct(product);
-        //     JSONObject jsonObject = new JSONObject();
-        //     jsonObject.put("status", "success");
-        //     jsonObject.put("message", "Product Successfully Added");
-        //     return "Product Successfully Added";
+        // productService.addProduct(product);
+        // JSONObject jsonObject = new JSONObject();
+        // jsonObject.put("status", "success");
+        // jsonObject.put("message", "Product Successfully Added");
+        // return "Product Successfully Added";
 
         // }
     }
 
     @GetMapping("/{productID}")
-    public ResponseEntity<Product> getProductById(@PathVariable int productID) throws ProductNotFoundException{
+    public ResponseEntity<Product> getProductById(@PathVariable int productID) throws ProductNotFoundException {
         Product product = productService.getProductById(productID);
         return ResponseEntity.ok(product);
     }
 
-    @PostMapping("/{productID}")
+    @PostMapping("/update/{productID}")
     public ResponseEntity<String> updateProduct(
-            @PathVariable int productID,
-            @ModelAttribute ProductDTO productDTO,
-            @RequestParam(value = "productPic") MultipartFile data) throws IOException, ProductNotFoundException {
-        productService.updateProduct(productID, productDTO,data);
+            @PathVariable("productID") int productID,
+            @RequestParam(value = "data") MultipartFile data) throws IOException, ProductNotFoundException {
+        productService.updateProduct(productID, data);
         return ResponseEntity.ok("Product updated successfully");
     }
 }

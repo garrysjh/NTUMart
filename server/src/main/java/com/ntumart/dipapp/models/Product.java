@@ -36,22 +36,18 @@ public class Product {
     @Column(name="category")
     private String category;
 
-    @Lob
-    @Column(nullable = false)
-    private byte[] data;
 
     //No Argument Constructor
     public Product() {
         // Default Constructor with no parameters
     }
-    public Product(int id, int id2, String name, String description, double price, int quantity, byte[] data, String productPic, String category) {
-        this.productID = id;
-        this.sellerID = id2;
+    public Product(int productID, int sellerID, String name, String description, double price, int quantity, String productPic, String category) {
+        this.productID = productID;
+        this.sellerID = sellerID;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.quantity = quantity;
-        this.data = data;
+        this.quantity = quantity; 
         this.productPic = productPic;
         this.category = category;
     }
@@ -73,8 +69,8 @@ public class Product {
         return sellerID;
     }
 
-    public void setId2(int id2) {
-        this.sellerID = id2;
+    public void setSellerID(int sellerID) {
+        this.sellerID = sellerID;
     }
 
     public String getName() {
@@ -109,14 +105,7 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public byte[] getData() {
-        return data;
-    }
-
-    public void setData(byte[] data) {
-        this.data = data;
-    }
-
+   
     public String getProductPic() {
         return productPic;
     }
@@ -156,7 +145,6 @@ public class Product {
                 ", description='" + description + '\'' +
                 ", price='" + price + '\'' +
                 ", quantity='" + quantity + '\'' +
-                ", data='" + data + '\'' +
                 ", productPic='" + productPic + '\'' +
                 ", category='" + category + '\'' +
                 '}';

@@ -4,11 +4,11 @@ import org.springframework.util.StringUtils;
 import com.ntumart.dipapp.api.DTO.ProductDTO;
 import com.ntumart.dipapp.api.repository.ProductRepository;
 import com.ntumart.dipapp.exceptions.EmptyFileException;
-import com.ntumart.dipapp.exceptions.ProductNotFoundException; 
+import com.ntumart.dipapp.exceptions.ProductNotFoundException;
 import com.ntumart.dipapp.models.Product;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Paths;
+import java.nio.file.*;
+import java.io.*;
+import java.util.Arrays;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,51 +23,31 @@ public class ProductService {
     @Autowired
     ProductRepository productRepository;
 
-    @Value("${upload-dir}")
-    private String uploadDir;
+    private String uploadDir = ".//src//main//resources//images//uploads";
 
-    public void addProduct(ProductDTO productDTO, MultipartFile data) throws IOException, EmptyFileException{
-
-        // Product product = new Product();
-        // product.setName(productDTO.getName());
-        // product.setDescription(productDTO.getDescription());
-        // product.setPrice(productDTO.getPrice());
-        // product.setQuantity(productDTO.getQuantity());
-
+    public void addProduct(Product product, MultipartFile data)
+            throws IOException, EmptyFileException {
         try {
             if (!data.isEmpty()) {
                 byte[] fileBytes = data.getBytes();
                 String fileName = StringUtils.cleanPath(data.getOriginalFilename());
-                Product product = new Product();
-                product.setName(productDTO.getName());
-                product.setDescription(productDTO.getDescription());
-                product.setPrice(productDTO.getPrice());
-                product.setQuantity(productDTO.getQuantity());
-                product.setProductPic(fileName);
-                product.setData(fileBytes);
-
+                product.setProductPic(String.format("images/uploads/%s/", product.getSellerID()) + fileName);
+                String dir = uploadDir + "//" + product.getSellerID();
+                Files.createDirectories(Paths.get(dir));
+                Path filePath = Paths.get(dir, fileName);
+                OutputStream os = Files.newOutputStream(filePath);
+                os.write(fileBytes);
+                os.close();
                 productRepository.save(product);
-                String filePath = Paths.get(uploadDir, fileName).toString();
-                data.transferTo(new File(filePath));
             } else {
                 throw new EmptyFileException("The uploaded file is empty.");
             }
         } catch (IOException e) {
-            e.printStackTrace(); // Handle the IOException appropriately
+            e.printStackTrace();
         }
-        // try {{
-
     }
-    // product.setData(data.getBytes());
-    // // product.setData(data.getBytes())
-    // } catch (IOException e) {
-    // // return
-    // ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
-    // }
 
-    // productRepository.save(product);
-
-    public Product getProductById(int id) throws ProductNotFoundException{
+    public Product getProductById(int id) throws ProductNotFoundException {
         Product product = productRepository.findById(id)
                 .orElse(null); // Assign null if not found
         if (product == null) {
@@ -76,24 +56,24 @@ public class ProductService {
         return product;
     }
 
-    public void updateProduct(int productID, ProductDTO productDTO, MultipartFile data) throws IOException, ProductNotFoundException{ // Change Long to int
+    public void updateProduct(int productID, MultipartFile data)
+            throws IOException, ProductNotFoundException { // Change Long to int
         Product product = getProductById(productID);
-
         byte[] fileBytes = data.getBytes();
         String fileName = StringUtils.cleanPath(data.getOriginalFilename());
-
-        // Update product attributes based on the updatedProduct object
-        product.setName(productDTO.getName());
-        product.setDescription(productDTO.getDescription());
-        product.setPrice(productDTO.getPrice());
-        product.setQuantity(productDTO.getQuantity());
-        product.setProductPic(fileName);
-        product.setData(fileBytes);
-
+        int sellerID = product.getSellerID();
+        product.setName(product.getName());
+        product.setDescription(product.getDescription());
+        product.setPrice(product.getPrice());
+        product.setQuantity(product.getQuantity());
+        String dir = uploadDir + "//" + sellerID;
+        Files.createDirectories(Paths.get(dir));
+        Path filePath = Paths.get(dir, fileName);
+        Files.createFile(filePath);
+        OutputStream os = Files.newOutputStream(filePath);
+        os.write(fileBytes);
+        os.close();
+        product.setProductPic(String.format("images/uploads/%s/", product.getSellerID()) + fileName);
         productRepository.save(product);
     }
-
-    // public int checkQuantity(int quantity){return
-    // productRepository.checkExistingQuantity(quantity); }
-
 }
