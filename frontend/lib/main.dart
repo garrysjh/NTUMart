@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'TheGorgeousLogin',
+      title: 'NTUMart',
       home: LoginPage(),
     );
   }
