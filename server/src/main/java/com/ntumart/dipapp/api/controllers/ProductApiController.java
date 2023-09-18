@@ -22,10 +22,10 @@ public class ProductApiController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces = { "application/json" })
     @ResponseBody
-    public ResponseEntity<String> addProduct(@ModelAttribute Product product,
-            @RequestParam("data") MultipartFile data) {
+    public ResponseEntity<String> addProduct(@ModelAttribute Product product, @ModelAttribute ProductDTO productDTO,
+            @RequestParam("productPicture") MultipartFile productPicture) {
         try {
-            productService.addProduct(product, data);
+            productService.addProduct(product, productDTO, productPicture);
             return ResponseEntity.ok("Product Successfully");
         } catch (EmptyFileException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("File is empty");
@@ -75,11 +75,29 @@ public class ProductApiController {
         return ResponseEntity.ok(product);
     }
 
+    //WITH DTO
     @PostMapping("/update/{productID}")
     public ResponseEntity<String> updateProduct(
             @PathVariable("productID") int productID,
-            @RequestParam(value = "data") MultipartFile data) throws IOException, ProductNotFoundException {
-        productService.updateProduct(productID, data);
+            @ModelAttribute ProductDTO productDTO,
+            @RequestParam(value = "productPicture") MultipartFile productPicture) throws IOException, ProductNotFoundException {
+        productService.updateProduct(productID, productDTO, productPicture);
         return ResponseEntity.ok("Product updated successfully");
+    }
+
+    // @PostMapping("/update/{productID}")
+    // public ResponseEntity<String> updateProduct(
+    //         @PathVariable("productID") int productID,
+    //         @RequestParam(value = "data") MultipartFile data) throws IOException, ProductNotFoundException {
+    //     productService.updateProduct(productID, data);
+    //     return ResponseEntity.ok("Product updated successfully");
+    // }
+
+    @DeleteMapping("/delete/{productID}")
+    public ResponseEntity<String> deleteProduct(@PathVariable("productID") int productID) throws IOException, ProductNotFoundException{
+            productService.deleteProduct(productID);
+            return ResponseEntity.ok("Product deleted successfully");
+        
+    
     }
 }

@@ -7,8 +7,10 @@ import com.ntumart.dipapp.exceptions.EmptyFileException;
 import com.ntumart.dipapp.exceptions.ProductNotFoundException;
 import com.ntumart.dipapp.models.Product;
 import java.nio.file.*;
+import java.text.SimpleDateFormat;
 import java.io.*;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,12 +27,13 @@ public class ProductService {
 
     private String uploadDir = ".//src//main//resources//images//uploads";
 
-    public void addProduct(Product product, MultipartFile data)
+    public void addProduct(Product product, ProductDTO productDTO, MultipartFile productPicture)
             throws IOException, EmptyFileException {
         try {
-            if (!data.isEmpty()) {
-                byte[] fileBytes = data.getBytes();
-                String fileName = StringUtils.cleanPath(data.getOriginalFilename());
+            if (!productPicture.isEmpty()) {
+                byte[] fileBytes = productPicture.getBytes();
+                String fileName = StringUtils.cleanPath(productPicture.getOriginalFilename());
+                
                 product.setProductPic(String.format("images/uploads/%s/", product.getSellerID()) + fileName);
                 String dir = uploadDir + "//" + product.getSellerID();
                 Files.createDirectories(Paths.get(dir));
@@ -47,8 +50,8 @@ public class ProductService {
         }
     }
 
-    public Product getProductById(int id) throws ProductNotFoundException {
-        Product product = productRepository.findById(id)
+    public Product getProductById(int productID) throws ProductNotFoundException {
+        Product product = productRepository.findById(productID)
                 .orElse(null); // Assign null if not found
         if (product == null) {
             throw new ProductNotFoundException("Product not found");
@@ -56,16 +59,16 @@ public class ProductService {
         return product;
     }
 
-    public void updateProduct(int productID, MultipartFile data)
+    public void updateProduct(int productID, ProductDTO productDTO, MultipartFile data)
             throws IOException, ProductNotFoundException { // Change Long to int
         Product product = getProductById(productID);
         byte[] fileBytes = data.getBytes();
         String fileName = StringUtils.cleanPath(data.getOriginalFilename());
         int sellerID = product.getSellerID();
-        product.setName(product.getName());
-        product.setDescription(product.getDescription());
-        product.setPrice(product.getPrice());
-        product.setQuantity(product.getQuantity());
+        product.setName(productDTO.getName());
+        product.setDescription(productDTO.getDescription());
+        product.setPrice(productDTO.getPrice());
+        product.setQuantity(productDTO.getQuantity());
         String dir = uploadDir + "//" + sellerID;
         Files.createDirectories(Paths.get(dir));
         Path filePath = Paths.get(dir, fileName);
@@ -73,7 +76,36 @@ public class ProductService {
         OutputStream os = Files.newOutputStream(filePath);
         os.write(fileBytes);
         os.close();
-        product.setProductPic(String.format("images/uploads/%s/", product.getSellerID()) + fileName);
+        product.setProductPic(String.format("images/uploads/%s/", sellerID) + fileName);
         productRepository.save(product);
     }
+
+    // public void updateProduct(int productID, MultipartFile data)
+    //         throws IOException, ProductNotFoundException { // Change Long to int
+    //     Product product = getProductById(productID);
+    //     byte[] fileBytes = data.getBytes();
+    //     String fileName = StringUtils.cleanPath(data.getOriginalFilename());
+    //     int prodID = product.getProductID();
+    //     product.setName(product.getName());
+    //     product.setDescription(product.getDescription());
+    //     product.setPrice(product.getPrice());
+    //     product.setQuantity(product.getQuantity());
+    //     String dir = uploadDir + "//" + prodID;
+    //     Files.createDirectories(Paths.get(dir));
+    //     Path filePath = Paths.get(dir, fileName);
+    //     Files.createFile(filePath);
+    //     OutputStream os = Files.newOutputStream(filePath);
+    //     os.write(fileBytes);
+    //     os.close();
+    //     product.setProductPic(String.format("images/uploads/%s/", prodID) + fileName);
+    //     productRepository.save(product);
+    // }
+
+    public void deleteProduct(int productID) throws IOException, ProductNotFoundException{
+        //Check if the product exists
+        Product product = getProductById(productID);
+        productRepository.delete(product);
+    }
+
+    
 }

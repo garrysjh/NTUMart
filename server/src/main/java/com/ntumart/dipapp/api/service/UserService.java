@@ -16,34 +16,6 @@ public class UserService {
 public void registerUser(User user){
     userRepository.save(user);
 
-    // Gets current UserID and Creates Image Directories
-    Integer userId = user.getUserId();
-
-    String userFolderPath = "images\\" + userId + "\\profpic";
-    File userFolder = new File(userFolderPath);
-    
-    if (userFolder.mkdirs()) {
-        // Creates File Directory returns true
-        System.out.println("Directory is created");
-    }
-    else {
-        // No Directory is created returns false
-        System.out.println("Directory cannot be created");
-    }
-
-
-    // Create Directory for Users' Products
-    String prodFolderPath = "images\\" + userId + "\\products";
-    File prodImgFolder = new File(prodFolderPath);
-
-    if (prodImgFolder.mkdirs()) {
-        // Creates File Directory returns true
-        System.out.println("Directory is created");
-    }
-    else {
-        // No Directory is created returns false
-        System.out.println("Directory cannot be created");
-    }
 
 }
 

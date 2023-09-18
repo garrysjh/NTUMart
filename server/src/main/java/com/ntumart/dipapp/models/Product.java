@@ -52,12 +52,12 @@ public class Product {
         this.category = category;
     }
 
-    public Product(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
+    // public Product(String name, String description) {
+    //     this.name = name;
+    //     this.description = description;
+    // }
 
-    public int productID() {
+    public int ProductID() {
         return productID;
     }
 
