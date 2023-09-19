@@ -3,7 +3,6 @@ package com.ntumart.dipapp.api.service;
 import com.ntumart.dipapp.api.repository.UserRepository;
 import com.ntumart.dipapp.models.User;
 
-import java.io.File;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,7 @@ public class UserService {
 public void registerUser(User user){
     userRepository.save(user);
 
-
+  
 }
 
     public int checkExistingUsername(String username){return userRepository.checkExistingUsername(username); }
