@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/pages/camera.dart';
 import 'package:frontend/pages/item_screen.dart';
+import 'package:frontend/pages/listing.dart';
 import 'package:frontend/pages/widgets/taskbar.dart';
 
 //this code is to test and run pages from the page itself
@@ -59,7 +60,15 @@ class Home extends StatelessWidget {
   );
                  
                 },
-              ),]
+              ),ElevatedButton.icon(
+                icon: const Icon(Icons.propane_rounded),
+                label: Text('Product Listings Test'),
+                onPressed: () {
+                  Navigator.of(context).push(
+              MaterialPageRoute(
+              builder: (context) => Listings(),),);
+                },
+              )]
               ),const Positioned(
                 bottom: 0,
                 left: 0,

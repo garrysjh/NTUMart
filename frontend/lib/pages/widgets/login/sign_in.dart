@@ -199,6 +199,7 @@ class _SignInState extends State<SignIn> {
 
       if (authenticated == 1) {
         CustomSnackBar(context, Text('Sign-in successful'));
+        await Future.delayed(Duration(seconds: 1));
         moveToHome();
       } else if (authenticated == 0) {
         CustomSnackBar(context, Text('Wrong email/password'));
