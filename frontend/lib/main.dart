@@ -82,6 +82,45 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.green[400],
       ),
       body: Body(),
+      bottomNavigationBar: BottomAppBar(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.home),
+              onPressed: () {
+                // Handle home button click
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () {
+                // Handle browse button click
+              },
+            ),
+            FloatingActionButton(
+              onPressed: () {
+                // Handle sell button click
+              },
+              child: const Icon(Icons.add),
+              backgroundColor: Color(0xFF5C795B),
+            ),
+            IconButton(
+              icon: const Icon(Icons.group),
+              onPressed: () {
+                // Handle community button click
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.person),
+              onPressed: () {
+                // Handle profile button click
+              },
+            ),
+          ],
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
