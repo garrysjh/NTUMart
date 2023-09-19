@@ -2,14 +2,6 @@ import 'package:flutter/material.dart';
 import 'product.dart';
 import 'body.dart';
 
-void main() {
-  runApp(MaterialApp(
-    home: HomeScreen(),
-    //home:Products(),
-  ));
-}
-
-
 /*
 class Products extends StatefulWidget {
   @override
