@@ -10,10 +10,11 @@ import com.ntumart.dipapp.models.Product;
 
 public interface ListingRepository extends JpaRepository<Product, Long>{
 
-    @Query(value="SELECT name, description FROM PRODUCT", nativeQuery = true)
+
+  @Query(value="SELECT name, desccription FROM PRODUCT", nativeQuery = true)
     
     List<Product> findAll(@Param("name") String name,
-                          @Param("description") String description);
+                           @Param("description") String description);
 
     // @Query("SELECT u FROM User u WHERE u.age > :age")
     // List<User> findUsersByAgeGreaterThan(@Param("age") int age);
