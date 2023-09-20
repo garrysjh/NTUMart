@@ -27,10 +27,15 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     @Query(value = "UPDATE product SET sellerID = :sellerID, name = :name , description = :description , price = :price , quantity = :quantity , data = :data ,  productPic = :productPic , category = :category", nativeQuery = true)
     int updateProduct(
-            @Param("sellerID") int sellerID, @Param("name") String name,
+            @Param("sellerID") int sellerID, 
+            @Param("name") String name,
             @Param("description") String description,
             @Param("price") double price,
             @Param("quantity") int quantity,
             @Param("productPic") String productPic,
             @Param("category") String category);
+
+    @Query(value = "DELETE FROM product WHERE productID = :productID", nativeQuery = true)
+    int deleteProduct(@Param("productID") Integer productID);
+        
 }

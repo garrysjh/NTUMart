@@ -15,6 +15,7 @@ public class UserService {
 public void registerUser(User user){
     userRepository.save(user);
 
+  
 }
 
     public int checkExistingUsername(String username){return userRepository.checkExistingUsername(username); }
