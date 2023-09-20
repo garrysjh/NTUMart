@@ -11,21 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ntumart.dipapp.models.Product;
 import java.util.ArrayList;
 import com.ntumart.dipapp.api.service.ListingService;
+
 @RestController
 @RequestMapping("/api/v1")
 public class ListingController {
-
     @Autowired
     ListingService listingService;
      @GetMapping("/listing")
     public ResponseEntity<List<Product>> listAllProducts(){
         List<Product> products = listingService.getAllProducts();
-        ArrayList<String> names = new ArrayList<String>();
-        products.forEach(
-            p->{
-                names.add(p.getName());
-            }
-        );
-        return ResponseEntity.ok(names);
+        return ResponseEntity.ok(products);
     }
 }
