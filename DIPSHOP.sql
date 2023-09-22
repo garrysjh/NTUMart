@@ -68,6 +68,7 @@ CREATE TABLE IF NOT EXISTS PRODUCT (
 -- For now it can be either "Everytime the user views a product, it increases the number of likes to show interest"
 -- Or The User justs favourite an Item
 CREATE TABLE IF NOT EXISTS FAVOURITE  (
+	favouriteID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	userID INT NOT NULL,
     productID INT NOT NULL,
     likes INT DEFAULT 0
@@ -75,7 +76,8 @@ CREATE TABLE IF NOT EXISTS FAVOURITE  (
 
 -- Create the REVIEWS table
 CREATE TABLE IF NOT EXISTS REVIEWS (
-	reviewerID INT NOT NULL PRIMARY KEY,
+	reviewID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	reviewerID INT NOT NULL,
     sellerID INT NOT NULL,
     stars ENUM('ONE_STAR','TWO_STARS','THREE_STARS','FOUR_STARS','FIVE_STARS'),
     reviewDesc VARCHAR(255)
@@ -83,7 +85,8 @@ CREATE TABLE IF NOT EXISTS REVIEWS (
 
 -- Create the INTEREST table
 CREATE TABLE IF NOT EXISTS INTEREST (
-	userID INT NOT NULL PRIMARY KEY,
+	interestID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	userID INT NOT NULL,
     category1 VARCHAR(50) DEFAULT NULL,
     category2 VARCHAR(50) DEFAULT NULL,
     category3 VARCHAR(50) DEFAULT NULL,
