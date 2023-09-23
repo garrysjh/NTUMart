@@ -23,50 +23,18 @@ public class ProductApiController {
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces = { "application/json" })
     @ResponseBody
     public ResponseEntity<String> addProduct(@ModelAttribute Product product, @ModelAttribute ProductDTO productDTO,
-            @RequestParam("productPicture") MultipartFile productPicture) {
+            @RequestParam("productPicture") MultipartFile productPicture,
+            @RequestParam("productPicture2") MultipartFile productPicture2,
+            @RequestParam("productPicture3") MultipartFile productPicture3,
+            @RequestParam("productPicture4") MultipartFile productPicture4) {
         try {
-            productService.addProduct(product, productDTO, productPicture);
+            productService.addProduct(product, productDTO, productPicture, productPicture2, productPicture3, productPicture4);
             return ResponseEntity.ok("Product Successfully");
         } catch (EmptyFileException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("File is empty");
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error uploading the file");
         }
-        // if (product.getProductPic() == null){
-        // product.setProductPic("images/default.jpg");
-        // }
-
-        // if (product== null) {
-        // JSONObject jsonObject = new JSONObject();
-        // jsonObject.put("status", "error");
-        // jsonObject.put("message", "User is null");
-        // return jsonObject.toString();
-        // }
-        // // //check username
-        // // else if (ProductService.checkExistingUsername(product.getUsername()) > 0)
-        // {
-        // // JSONObject jsonObject = new JSONObject();
-        // // jsonObject.put("status", "error");
-        // // jsonObject.put("message", "Username already exists!");
-        // // return "Username already exists!";
-
-        // // }
-        // // //check email
-        // // else if (ProductService.checkExistingMobile(product.getPhone()) > 0) {
-        // // JSONObject jsonObject = new JSONObject();
-        // // jsonObject.put("status", "error");
-        // // jsonObject.put("message", "Phone already exists!");
-        // // return "Mobile already exists!";
-
-        // // }
-        // else {
-        // productService.addProduct(product);
-        // JSONObject jsonObject = new JSONObject();
-        // jsonObject.put("status", "success");
-        // jsonObject.put("message", "Product Successfully Added");
-        // return "Product Successfully Added";
-
-        // }
     }
 
     @GetMapping("/{productID}")
@@ -80,18 +48,13 @@ public class ProductApiController {
     public ResponseEntity<String> updateProduct(
             @PathVariable("productID") int productID,
             @ModelAttribute ProductDTO productDTO,
-            @RequestParam(value = "productPicture") MultipartFile productPicture) throws IOException, ProductNotFoundException {
-        productService.updateProduct(productID, productDTO, productPicture);
+            @RequestParam(value = "productPicture") MultipartFile productPicture,
+            @RequestParam(value = "productPicture2") MultipartFile productPicture2,
+            @RequestParam(value = "productPicture3") MultipartFile productPicture3,
+            @RequestParam(value = "productPicture4") MultipartFile productPicture4) throws IOException, ProductNotFoundException {
+        productService.updateProduct(productID, productDTO, productPicture, productPicture2, productPicture3, productPicture4);
         return ResponseEntity.ok("Product updated successfully");
     }
-
-    // @PostMapping("/update/{productID}")
-    // public ResponseEntity<String> updateProduct(
-    //         @PathVariable("productID") int productID,
-    //         @RequestParam(value = "data") MultipartFile data) throws IOException, ProductNotFoundException {
-    //     productService.updateProduct(productID, data);
-    //     return ResponseEntity.ok("Product updated successfully");
-    // }
 
     @DeleteMapping("/delete/{productID}")
     public ResponseEntity<String> deleteProduct(@PathVariable("productID") int productID) throws IOException, ProductNotFoundException{
