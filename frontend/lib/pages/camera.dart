@@ -25,8 +25,20 @@ class CameraApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: CameraPreviewScreen(cameras: CameraManager.instance.cameras),
-    );
+       home: Scaffold(
+        appBar: AppBar(
+          backgroundColor: const Color(0xFF5C795B),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pop(); // Add navigation logic as needed
+            },
+          ),
+          title: const Text('Home'),
+          centerTitle: true,
+        ),
+      body: CameraPreviewScreen(cameras: CameraManager.instance.cameras),
+    ));
   }
 }
 
