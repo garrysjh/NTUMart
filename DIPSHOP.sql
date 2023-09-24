@@ -55,11 +55,11 @@ CREATE TABLE IF NOT EXISTS PRODUCT (
     description VARCHAR(250),
     price DECIMAL(6,2),
     quantity INT,
-    productPic1 VARCHAR(255) DEFAULT NULL,
-    productPic2 VARCHAR(255) DEFAULT NULL,
-    productPic3 VARCHAR(255) DEFAULT NULL,
-    productPic4 VARCHAR(255) DEFAULT NULL,
-    productLikes INT DEFAULT 0,
+    productPic VARCHAR(255) DEFAULT 'products/',
+    productPic2 VARCHAR(255) DEFAULT 'products/',
+    productPic3 VARCHAR(255) DEFAULT 'products/',
+    productPic4 VARCHAR(255) DEFAULT 'products/',
+    productLikes INT, 
     date DATETIME,
     category VARCHAR(50)
 );

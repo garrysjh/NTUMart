@@ -8,6 +8,8 @@ import com.ntumart.dipapp.exceptions.ProductNotFoundException;
 import com.ntumart.dipapp.models.Product;
 import java.nio.file.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.io.*;
 import java.util.Arrays;
 import java.util.Date;
@@ -27,13 +29,13 @@ public class ProductService {
 
     private String uploadDir = ".//src//main//resources//images//uploads";
 
-    public void addProduct(Product product, ProductDTO productDTO, MultipartFile productPicture)
+    public void addProduct(Product product, ProductDTO productDTO, MultipartFile productPicture, MultipartFile productPicture2, MultipartFile productPicture3, MultipartFile productPicture4)
             throws IOException, EmptyFileException {
         try {
-            if (!productPicture.isEmpty()) {
+            if (!productPicture.isEmpty() && !productPicture2.isEmpty() && !productPicture3.isEmpty() && !productPicture4.isEmpty()) {
                 byte[] fileBytes = productPicture.getBytes();
                 String fileName = StringUtils.cleanPath(productPicture.getOriginalFilename());
-                
+                product.setDate(LocalDateTime.now());
                 product.setProductPic(String.format("images/uploads/%s/", product.getSellerID()) + fileName);
                 String dir = uploadDir + "//" + product.getSellerID();
                 Files.createDirectories(Paths.get(dir));
@@ -41,6 +43,39 @@ public class ProductService {
                 OutputStream os = Files.newOutputStream(filePath);
                 os.write(fileBytes);
                 os.close();
+
+                byte[] fileBytes2 = productPicture2.getBytes();
+                String fileName2 = StringUtils.cleanPath(productPicture2.getOriginalFilename());
+                
+                product.setProductPic2(String.format("images/uploads/%s/", product.getSellerID()) + fileName2);
+                String dir2 = uploadDir + "//" + product.getSellerID();
+                Files.createDirectories(Paths.get(dir2));
+                Path filePath2 = Paths.get(dir2, fileName2);
+                OutputStream os2 = Files.newOutputStream(filePath2);
+                os2.write(fileBytes2);
+                os2.close();
+
+                byte[] fileBytes3 = productPicture3.getBytes();
+                String fileName3 = StringUtils.cleanPath(productPicture3.getOriginalFilename());
+                
+                product.setProductPic3(String.format("images/uploads/%s/", product.getSellerID()) + fileName3);
+                String dir3 = uploadDir + "//" + product.getSellerID();
+                Files.createDirectories(Paths.get(dir3));
+                Path filePath3 = Paths.get(dir3, fileName3);
+                OutputStream os3 = Files.newOutputStream(filePath3);
+                os3.write(fileBytes3);
+                os3.close();
+
+                byte[] fileBytes4 = productPicture4.getBytes();
+                String fileName4 = StringUtils.cleanPath(productPicture4.getOriginalFilename());
+                
+                product.setProductPic4(String.format("images/uploads/%s/", product.getSellerID()) + fileName4);
+                String dir4 = uploadDir + "//" + product.getSellerID();
+                Files.createDirectories(Paths.get(dir4));
+                Path filePath4 = Paths.get(dir4, fileName4);
+                OutputStream os4 = Files.newOutputStream(filePath4);
+                os4.write(fileBytes4);
+                os4.close();
                 productRepository.save(product);
             } else {
                 throw new EmptyFileException("The uploaded file is empty.");
@@ -59,24 +94,60 @@ public class ProductService {
         return product;
     }
 
-    public void updateProduct(int productID, ProductDTO productDTO, MultipartFile data)
+    public void updateProduct(int productID, ProductDTO productDTO, MultipartFile productPicture, MultipartFile productPicture2, MultipartFile productPicture3, MultipartFile productPicture4)
             throws IOException, ProductNotFoundException { // Change Long to int
         Product product = getProductById(productID);
-        byte[] fileBytes = data.getBytes();
-        String fileName = StringUtils.cleanPath(data.getOriginalFilename());
-        int sellerID = product.getSellerID();
+        byte[] fileBytes = productPicture.getBytes();
+        String fileName = StringUtils.cleanPath(productPicture.getOriginalFilename());
+        //int sellerID = product.getSellerID();
         product.setName(productDTO.getName());
         product.setDescription(productDTO.getDescription());
         product.setPrice(productDTO.getPrice());
         product.setQuantity(productDTO.getQuantity());
-        String dir = uploadDir + "//" + sellerID;
+        String dir = uploadDir + "//" + product.getSellerID();;
         Files.createDirectories(Paths.get(dir));
         Path filePath = Paths.get(dir, fileName);
         Files.createFile(filePath);
         OutputStream os = Files.newOutputStream(filePath);
         os.write(fileBytes);
         os.close();
-        product.setProductPic(String.format("images/uploads/%s/", sellerID) + fileName);
+        product.setProductPic(String.format("images/uploads/%s/", product.getSellerID()) + fileName);
+
+        // FOR 2ND PRODUCT PICTURE
+        byte[] fileBytes2 = productPicture2.getBytes();
+        String fileName2 = StringUtils.cleanPath(productPicture2.getOriginalFilename());
+        String dir2 = uploadDir + "//" + product.getSellerID();;
+        Files.createDirectories(Paths.get(dir2));
+        Path filePath2 = Paths.get(dir2, fileName2);
+        Files.createFile(filePath2);
+        OutputStream os2 = Files.newOutputStream(filePath2);
+        os2.write(fileBytes2);
+        os2.close();
+        product.setProductPic2(String.format("images/uploads/%s/", product.getSellerID()) + fileName2);
+
+        // FOR 3RD PRODUCT PICTURE
+        byte[] fileBytes3 = productPicture3.getBytes();
+        String fileName3 = StringUtils.cleanPath(productPicture3.getOriginalFilename());
+        String dir3 = uploadDir + "//" + product.getSellerID();;
+        Files.createDirectories(Paths.get(dir3));
+        Path filePath3 = Paths.get(dir3, fileName3);
+        Files.createFile(filePath3);
+        OutputStream os3 = Files.newOutputStream(filePath3);
+        os3.write(fileBytes3);
+        os3.close();
+        product.setProductPic3(String.format("images/uploads/%s/", product.getSellerID()) + fileName3);
+
+        // FOR 4TH PRODUCT PICTURE
+        byte[] fileBytes4 = productPicture4.getBytes();
+        String fileName4 = StringUtils.cleanPath(productPicture4.getOriginalFilename());
+        String dir4 = uploadDir + "//" + product.getSellerID();;
+        Files.createDirectories(Paths.get(dir4));
+        Path filePath4 = Paths.get(dir4, fileName4);
+        Files.createFile(filePath4);
+        OutputStream os4 = Files.newOutputStream(filePath4);
+        os4.write(fileBytes4);
+        os4.close();
+        product.setProductPic4(String.format("images/uploads/%s/", product.getSellerID()) + fileName4);
         productRepository.save(product);
     }
 
