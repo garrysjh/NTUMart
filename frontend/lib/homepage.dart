@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                 const SizedBox(
                     width: 60 //Width = size of button + sized box in between button and text
                 ),
-                Image.asset('assets/images/ntumart_logo.png', height:50,
+                Image.asset('assets/img/ntumart_logo.png', height:50,
                 ),
                 const FittedBox(
                     fit: BoxFit.fitWidth,
@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                     shape: const CircleBorder(),
                     backgroundColor: const Color(0xFFFFFFFF),
                   ),
-                  child: Image.asset('assets/images/chatbot_icon.png', fit: BoxFit.fill,
+                  child: Image.asset('../../assets/images/chatbot_icon.png', fit: BoxFit.fill,
                   ),
                 ),
 
