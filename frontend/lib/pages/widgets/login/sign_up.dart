@@ -281,6 +281,7 @@ class _SignUpState extends State<SignUp> {
   }
 }
 
+
 Future<int> registerUser(String phone ,String username, String email, String password) async {
   final url = Uri.parse('$URL/user/register');
   try {

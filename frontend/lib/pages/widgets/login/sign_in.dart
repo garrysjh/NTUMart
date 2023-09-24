@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 import 'package:frontend/main.dart';
+import 'package:frontend/pages/home.dart';
 
 
 class SignIn extends StatefulWidget {
@@ -198,6 +199,8 @@ class _SignInState extends State<SignIn> {
 
       if (authenticated == 1) {
         CustomSnackBar(context, Text('Sign-in successful'));
+        await Future.delayed(Duration(seconds: 1));
+        moveToHome();
       } else if (authenticated == 0) {
         CustomSnackBar(context, Text('Wrong email/password'));
       } else {
@@ -210,6 +213,9 @@ class _SignInState extends State<SignIn> {
       // Handle sign-in errors, e.g., wrong credentials.
       CustomSnackBar(context, Text('Sign-In Error: $e'));
     }
+  }
+  void moveToHome(){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const Home()));
   }
 
   void _toggleLogin() {

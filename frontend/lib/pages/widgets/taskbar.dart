@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/pages/item_screen.dart';
+import 'package:frontend/pages/profile.dart';
 
 
 class Taskbar extends StatefulWidget {
@@ -42,12 +44,16 @@ return Container(
                 icon: const Icon(Icons.group),
                 onPressed: () {
                   // Handle community button click
+                 
                 },
               ),
               IconButton(
                 icon: const Icon(Icons.person),
                 onPressed: () {
                   // Handle profile button click
+                  Navigator.of(context).push(
+              MaterialPageRoute(
+              builder: (context) => const ProfileScreen(),),);
                 },
               ),
               
