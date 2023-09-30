@@ -40,14 +40,13 @@ class ItemCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 6.0),
             child: Text(
               "${product.name}",
-              
               textScaleFactor: 1.15,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 1.0 ),
+            padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 1.0),
             child: Text("\$${product.price}",
                 style: TextStyle(fontWeight: FontWeight.bold),
                 textScaleFactor: 1.13),
