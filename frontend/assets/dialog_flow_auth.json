@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "ntumarket-bot-evsp",
+  "private_key_id": "3bff0919270e06cfc62f07d9a1679dfa0735c912",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCb1+OAieLGCMmo\nOqc9CA2q1qWK8VW1krcqnuWq16ANL4TSY5qBcFk5wygsulFusJbqbWNVgfO+2IEl\npTUZ8G+IqbthukJY6G/feTQvWduQAxy4Tt4SmKNpB25V69ugSJMlBefMjSYe+RuA\nHBwA70BPnp3asPr6ar57hlDq+U9rynPsaJLGTS1Vunnn/l9xGSVi7zh5/zIh7k24\ngNZzLPkt3oYffk+qQCd+Cjsp8t0wRX6oo8Tvyf4FQHjfGIegtEuePpW7TkRNzDoj\nhPs5YGB291UX9ZKV5d8H56vv/irOPlfqMtK6hIU6nz4+Tmos1Lf/L8x78p/Wtr4M\nHcswV8DfAgMBAAECggEAEq10pC6iYaai+IkTCxMAhFWWYIkdAxZy4mZJ00hlc78a\ntZZfaZz77JrRoU6xPMloRO9YROK+wkQzcj4TF6lDzMa+4O8QTZSJ9+gQU4567I8a\n7ZHyNptZllhgJmcOmu6nx/ultNPD2llzrM5xosEJ3aD+fTvR0Jpjeu11nDvGA35/\nkGHzW/4lUMPM6lriWTd49tcOdfphbZwLwah9DJczaQ5f7RWcvcrCUWjrzWX/U8fn\nNlQRL217rBrHs3vpTexlgcYWWmj0pZpDIdv8+17n4dLbHOkUDKEBFdS2I/bCqzGs\nCDM5chttkBexIdFhAda+4WU79+PWAN/vPpqNjTxSOQKBgQDYIwEH6/avRuKP+rfJ\nds3fxvuAMo99fGsUNgcYwEhmMI1fnlbvkyxHo1sZlDAqFrHf+KK6PXmUGkHGDP89\nOZJJfpdzKJi2zfVPyNsYUj64G0wQELJMbmcmYc2kQw2uL7V4tcKnxxDxyDjBWXXB\nWEmcIqOv3GHMHCmlozbm5nH3CQKBgQC4lhpa1EqvDD+ePclTPZ7I9tYZeDd0HPdK\nunIXW+UDny4EFn4gcIdMVXQMw5vbouHsm/ulsRHySIV+BzBTB28TgZ+qy3FywU4Z\nfuL2Ix9FJ4ufxje4oTHYH16nryBYT/mWL1Q7I4ep85b+scG8ddY6YUtBsYwKFivm\nWJRcnJ9KpwKBgD1BfnNOTvXSMzf3KMtyXlrDvFfS/JPmBTsPLOe450v/CrJE4AK6\nRVxwUctoElZ7ZCJEB2qdLa3p2yZUXKpvfKRTunyqzs1Qhev80wuLk7b+FYqgEMhU\nqetY4L1jO6dYYig561c9tfGwe1VhE1yetw4HSzj2TslYWf1VyqOaQEZxAoGBAIVu\nC9MIjowG4J30r+l6K6O9unpiykMnBSOBryNvjBaYJF1UHQw6C7OEOgVYCPw1u/ab\nssbNPtnSzpyReb8rKoIBO3fs5C89yMTpUgr2zI3izi1KzdCqxSsjUfsIvurXtOV5\nhPvS7ShPKyElQZSH4boFxq7QNxi7ejRiZ6yikwsVAoGAHP5SjkwVYRVyW7IckAlk\nHrz/wr+qCzs2Xh4IGlfY/ASCekYfTTqKRkEnSTr5uYU3g0kRcNMAEC+3Cr2OIxUl\nQfL5nQsLN1skxS+JfPN+4ZZsBUdV8JGLXKp1wXwdpqgQr4ad1wCln9HRkpAMz+3X\nu3WlC+Kl929hjRHbtMuzIGA=\n-----END PRIVATE KEY-----\n",
+  "client_email": "ntumarketbot@ntumarket-bot-evsp.iam.gserviceaccount.com",
+  "client_id": "115935296767137347751",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ntumarketbot%40ntumarket-bot-evsp.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

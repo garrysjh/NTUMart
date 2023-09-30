@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/pages/item_screen.dart';
-import 'package:frontend/pages/profile.dart';
+
 
 class Taskbar extends StatefulWidget {
   const Taskbar({Key? key}) : super(key: key);
@@ -9,11 +8,11 @@ class Taskbar extends StatefulWidget {
   State<Taskbar> createState() => _TaskbarState();
 }
 
-class _TaskbarState extends State<Taskbar> {
+class _TaskbarState extends State<Taskbar>{
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return Container(
-      constraints: BoxConstraints(maxWidth: 1000),
+      constraints: BoxConstraints(maxWidth:1000),
       child: BottomAppBar(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -31,10 +30,12 @@ class _TaskbarState extends State<Taskbar> {
               },
             ),
             FloatingActionButton(
+
               onPressed: () {
                 // Handle sell button click
               },
               child: const Icon(Icons.add),
+
               backgroundColor: Color(0xFF5C795B),
             ),
             IconButton(
@@ -47,16 +48,15 @@ class _TaskbarState extends State<Taskbar> {
               icon: const Icon(Icons.person),
               onPressed: () {
                 // Handle profile button click
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ProfileScreen(),
-                  ),
-                );
               },
             ),
+
           ],
         ),
+
       ),
+
     );
   }
+
 }
