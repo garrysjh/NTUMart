@@ -5,6 +5,7 @@ import 'package:frontend/widgets/snackbar.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+
 import 'package:frontend/main.dart';
 
 
@@ -279,6 +280,7 @@ class _SignUpState extends State<SignUp> {
     });
   }
 }
+
 
 Future<int> registerUser(String phone ,String username, String email, String password) async {
   final url = Uri.parse('$URL/user/register');
