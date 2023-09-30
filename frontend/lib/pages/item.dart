@@ -1,4 +1,4 @@
-import 'package:dip/widgets/taskbar.dart';
+import 'package:frontend/widgets/taskbar.dart';
 import 'package:flutter/material.dart';
 
 class ItemDetailsScreen extends StatelessWidget {
