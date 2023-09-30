@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'product.dart';
 import 'item_card.dart';
+import 'package:frontend/pages/widgets/vertical_view_listings.dart'; 
 //import 'searchBar.dart';
 
 class Body extends StatelessWidget {
@@ -89,20 +90,7 @@ class Body extends StatelessWidget {
                     hintText: 'Search for a listing',
                   ),
                 ),
-                Expanded(
-                    child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 3.0),
-                  child: GridView.builder(
-                      itemCount: products.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 10.0,
-                        crossAxisSpacing: 10.0,
-                        childAspectRatio: 0.73,
-                      ),
-                      itemBuilder: (context, index) =>
-                          ItemCard(product: products[index])),
-                ))
+                VerticalViewListings(products: products)
               ],
             )),
       ],
