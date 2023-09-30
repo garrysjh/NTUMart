@@ -69,19 +69,23 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
-      appBar: AppBar(
-        title: const Text('NTUMart'),
-        centerTitle: true,
-        backgroundColor: Colors.green[400],
-      ),
-      body: Stack(children: <Widget>[Body(), Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Taskbar(),
-              )],  
-    ));
+        backgroundColor: Colors.grey,
+        appBar: AppBar(
+          title: const Text('NTUMart'),
+          centerTitle: true,
+          backgroundColor: Colors.green[400],
+        ),
+        body: Stack(
+          children: <Widget>[
+            Body(),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Taskbar(),
+            )
+          ],
+        ));
   }
 }
 

@@ -9,7 +9,6 @@ import 'dart:convert';
 import 'package:frontend/main.dart';
 import 'package:frontend/pages/home.dart';
 
-
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
 
@@ -167,9 +166,7 @@ class _SignInState extends State<SignIn> {
                           fontFamily: 'WorkSansBold'),
                     ),
                   ),
-                  onPressed: () => { 
-                    _toggleSignInButton()
-                  },
+                  onPressed: () => {_toggleSignInButton()},
                 ),
               )
             ],
@@ -214,8 +211,10 @@ class _SignInState extends State<SignIn> {
       CustomSnackBar(context, Text('Sign-In Error: $e'));
     }
   }
-  void moveToHome(){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => const Home()));
+
+  void moveToHome() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const Home()));
   }
 
   void _toggleLogin() {
@@ -226,8 +225,7 @@ class _SignInState extends State<SignIn> {
 }
 
 Future<int> loginUser(String username, String password) async {
-  final url = Uri.parse(
-      '$URL/user/login'); // Replace with your server URL
+  final url = Uri.parse('$URL/user/login'); // Replace with your server URL
 
   try {
     final response = await http.post(
