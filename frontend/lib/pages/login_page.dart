@@ -7,7 +7,7 @@ class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
   @override
-   _LoginPageState createState() => _LoginPageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage>
@@ -41,9 +41,7 @@ class _LoginPageState extends State<LoginPage>
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          decoration: const BoxDecoration(
-           color: Color(0xFFFFFFFF)
-          ),
+          decoration: const BoxDecoration(color: Color(0xFFFFFFFF)),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
@@ -86,11 +84,11 @@ class _LoginPageState extends State<LoginPage>
                     ConstrainedBox(
                       constraints: const BoxConstraints.expand(),
                       child: const SignUp(),
-                    ), 
+                    ),
                   ],
-                ), 
-              ), 
-            ], 
+                ),
+              ),
+            ],
           ),
         ),
       ),

@@ -356,8 +356,6 @@ class ItemDetailsScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 150.0),
-
-                       
                       ],
                     ),
                   ),

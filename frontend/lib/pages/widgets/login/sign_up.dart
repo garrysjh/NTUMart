@@ -5,9 +5,7 @@ import 'package:frontend/widgets/snackbar.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-
 import 'package:frontend/main.dart';
-
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -21,7 +19,7 @@ class _SignUpState extends State<SignUp> {
   final FocusNode focusNodeConfirmPassword = FocusNode();
   final FocusNode focusNodeEmail = FocusNode();
   final FocusNode focusNodeName = FocusNode();
-  final FocusNode focusNodePhone = FocusNode(); 
+  final FocusNode focusNodePhone = FocusNode();
 
   bool _obscureTextPassword = true;
   bool _obscureTextConfirmPassword = true;
@@ -31,14 +29,14 @@ class _SignUpState extends State<SignUp> {
   TextEditingController signupPasswordController = TextEditingController();
   TextEditingController signupConfirmPasswordController =
       TextEditingController();
-  TextEditingController signupPhoneNumberController = TextEditingController(); 
+  TextEditingController signupPhoneNumberController = TextEditingController();
   @override
   void dispose() {
     focusNodePassword.dispose();
     focusNodeConfirmPassword.dispose();
     focusNodeEmail.dispose();
     focusNodeName.dispose();
-    focusNodePhone.dispose(); 
+    focusNodePhone.dispose();
     super.dispose();
   }
 
@@ -153,7 +151,7 @@ class _SignUpState extends State<SignUp> {
                             focusNodePhone.requestFocus();
                           },
                         ),
-                      ), 
+                      ),
                       Container(
                         width: 250.0,
                         height: 1.0,
@@ -254,8 +252,11 @@ class _SignUpState extends State<SignUp> {
 
   void _toggleSignUpButton() async {
     try {
-      int authenticated = await registerUser(signupPhoneNumberController.text, signupUserNameController.text,
-          signupEmailController.text, signupPasswordController.text);
+      int authenticated = await registerUser(
+          signupPhoneNumberController.text,
+          signupUserNameController.text,
+          signupEmailController.text,
+          signupPasswordController.text);
 
       if (authenticated == 1) {
         CustomSnackBar(context, Text("Registered user succesfully"));
@@ -281,28 +282,24 @@ class _SignUpState extends State<SignUp> {
   }
 }
 
-
-Future<int> registerUser(String phone ,String username, String email, String password) async {
+Future<int> registerUser(
+    String phone, String username, String email, String password) async {
   final url = Uri.parse('$URL/user/register');
   try {
-    final response = await http.post(
-      url,
-      headers: {
-        'Content-Type': 'application/json',
-        // 'Access-Control-Allow-Origin': '*', // Required for CORS support to work
-  // "Access-Control-Allow-Credentials": 'true', // Required for cookies, authorization headers with HTTPS
-  // "Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
-  // "Access-Control-Allow-Methods": "POST, OPTIONS"
-      },
-      body: 
-        jsonEncode({
+    final response = await http.post(url,
+        headers: {
+          'Content-Type': 'application/json',
+          // 'Access-Control-Allow-Origin': '*', // Required for CORS support to work
+          // "Access-Control-Allow-Credentials": 'true', // Required for cookies, authorization headers with HTTPS
+          // "Access-Control-Allow-Headers": "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
+          // "Access-Control-Allow-Methods": "POST, OPTIONS"
+        },
+        body: jsonEncode({
           'username': username,
           'email': email,
           'password': password,
           "phone": phone
-        } 
-        )
-    );
+        }));
 
     if (response.statusCode == 200) {
       // Request was successful
