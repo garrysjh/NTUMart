@@ -56,23 +56,11 @@ class HomePage extends StatefulWidget {
 
 //
 class _HomePageState extends State<HomePage> {
-  final OverlayEntry _overlayEntry = OverlayEntry(
-    builder: (context) => const Positioned(
-      bottom: 0,
-      left: 0,
-      right: 0,
-      child:  Taskbar(),
-    ),
-  );
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-      Overlay(
-            initialEntries: [_overlayEntry],
-          ),   
           Padding(
               padding: const EdgeInsets.only(
                 top: 50.0,
@@ -269,14 +257,19 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-                    Container(height: 510, child: VerticalViewListings(products: products),)
-                    
+                    Container(
+                      child: VerticalViewListings(products: products),
+                    ),
+                    const Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: Taskbar(),
+                    )
                   ],
                 ),
               )),
-               
         ],
-        
       ),
     );
   }
