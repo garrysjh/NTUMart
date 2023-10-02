@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 import 'package:frontend/main.dart';
-
+import 'package:frontend/pages/home.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -166,9 +166,7 @@ class _SignInState extends State<SignIn> {
                           fontFamily: 'WorkSansBold'),
                     ),
                   ),
-                  onPressed: () => { 
-                    _toggleSignInButton()
-                  },
+                  onPressed: () => {_toggleSignInButton()},
                 ),
               )
             ],
@@ -198,6 +196,8 @@ class _SignInState extends State<SignIn> {
 
       if (authenticated == 1) {
         CustomSnackBar(context, Text('Sign-in successful'));
+        await Future.delayed(Duration(seconds: 1));
+        moveToHome();
       } else if (authenticated == 0) {
         CustomSnackBar(context, Text('Wrong email/password'));
       } else {
@@ -212,6 +212,11 @@ class _SignInState extends State<SignIn> {
     }
   }
 
+  void moveToHome() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const Home()));
+  }
+
   void _toggleLogin() {
     setState(() {
       _obscureTextPassword = !_obscureTextPassword;
@@ -220,8 +225,7 @@ class _SignInState extends State<SignIn> {
 }
 
 Future<int> loginUser(String username, String password) async {
-  final url = Uri.parse(
-      '$URL/user/login'); // Replace with your server URL
+  final url = Uri.parse('$URL/user/login'); // Replace with your server URL
 
   try {
     final response = await http.post(

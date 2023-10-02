@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'product.dart';
-import 'body.dart';
+import 'package:frontend/pages/widgets/taskbar.dart';
+import '../body.dart';
 
 /*
 class Products extends StatefulWidget {
@@ -63,18 +63,29 @@ class _ProductsState extends State<Products> {
 }
 */
 
-class HomeScreen extends StatelessWidget {
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
-      appBar: AppBar(
-        title: const Text('NTUMart'),
-        centerTitle: true,
-        backgroundColor: Colors.green[400],
-      ),
-      body: Body(),
-    );
+        backgroundColor: Colors.grey,
+        appBar: AppBar(
+          title: const Text('NTUMart'),
+          centerTitle: true,
+          backgroundColor: Colors.green[400],
+        ),
+        body: Stack(
+          children: <Widget>[
+            Body(),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Taskbar(),
+            )
+          ],
+        ));
   }
 }
 
