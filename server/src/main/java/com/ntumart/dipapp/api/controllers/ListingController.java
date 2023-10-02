@@ -2,24 +2,25 @@ package com.ntumart.dipapp.api.controllers;
 
 import java.util.List;
 
-import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.ntumart.dipapp.models.Product;
-import java.util.ArrayList;
+import org.springframework.web.bind.annotation.RequestParam;
 import com.ntumart.dipapp.api.service.ListingService;
+import com.ntumart.dipapp.models.Product;
 
 @RestController
 @RequestMapping("/api/v1")
 public class ListingController {
     @Autowired
     ListingService listingService;
-     @GetMapping("/listing")
-    public ResponseEntity<List<Product>> listAllProducts(){
-        List<Product> products = listingService.getAllProducts();
+    @GetMapping("/product/listing")
+    public ResponseEntity<List<Product>> listFilteredAndSortedProducts(
+            @RequestParam(required = false) String sortBy)  {
+
+        List<Product> products = listingService.getFilteredAndSortedProducts(sortBy);
         return ResponseEntity.ok(products);
     }
 }
