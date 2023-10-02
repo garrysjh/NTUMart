@@ -18,4 +18,13 @@ public interface ReviewsRepository extends JpaRepository<Reviews, Integer> {
             @Param("sellerID") int sellerID,
             @Param("stars") String stars,
             @Param("reviewDesc") String reviewDesc);
+
+
+    @Query(value =  "UPDATE reviews SET stars = :stars, reviewDesc = :reviewDesc WHERE reviewID = :reviewID", nativeQuery = true)
+    int updateReview(@Param("reviewID") int reviewID,
+            @Param("stars") String stars,
+            @Param("reviewDesc") String reviewDesc);
+
+    @Query(value = "DELETE FROM reviews WHERE reviewID = :reviewID", nativeQuery = true)
+    int deleteReview(@Param("reviewID") int reviewID);
 }

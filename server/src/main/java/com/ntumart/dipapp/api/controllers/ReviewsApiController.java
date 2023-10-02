@@ -21,6 +21,8 @@ public class ReviewsApiController {
     // ProductService productService;
     ReviewsService reviewsService;
 
+    // When Testing for Postman
+    // Add another line in Body>Raw for "sellerID"
     @RequestMapping(value = "/add/{reviewerId}", method = RequestMethod.POST, produces = { "application/json" })
     @ResponseBody
     public ResponseEntity<String> addReview(@RequestBody Reviews reviews, @PathVariable Integer reviewerId) {
@@ -35,5 +37,30 @@ public class ReviewsApiController {
         
     }
 
+    // Update base on ReviewID, as User One to Many Reviews
+    @PostMapping("/update/{reviewId}")
+    public ResponseEntity<String> updateReview(@RequestBody Reviews reviews, @PathVariable Integer reviewId) {
+        try {
+
+            reviewsService.updateReview(reviews, reviewId);
+
+            return ResponseEntity.ok("Review Updated Successfully");
+        } catch (Exception e) {
+            return ResponseEntity.ok("Not Updated");
+        }
+    }
+
+    // Delete base on ReviewID, as User One to Many Reviews
+    @PostMapping("/delete/{reviewId}")
+    public ResponseEntity<String> deleteReview(@RequestBody Reviews reviews, @PathVariable Integer reviewId) {
+        try {
+
+            reviewsService.deleteReview(reviews, reviewId);
+
+            return ResponseEntity.ok("Review Deleted Successfully");
+        } catch (Exception e) {
+            return ResponseEntity.ok("Not Deleted");
+        }
+    }
     
 }

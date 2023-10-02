@@ -60,7 +60,7 @@ public class Reviews {
         return reviewerID;
     }
 
-    public void setReviewerID() {
+    public void setReviewerID(int reviewerID) {
         this.reviewerID = reviewerID;
     }
 
