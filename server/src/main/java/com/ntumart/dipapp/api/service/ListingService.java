@@ -16,9 +16,7 @@ public class ListingService {
     public List<Product> getAllProducts() {
         return listingRepository.findAll();
     }
-    public List<Product> getFilteredAndSortedProducts(String sortBy) {
-        List<Product> products = getAllProducts();
-
+    public List<Product> sortProducts(List<Product> products, String sortBy) { 
         if (sortBy != null) {
             switch (sortBy) {
                 case "name":
@@ -36,7 +34,6 @@ public class ListingService {
                     throw new IllegalArgumentException("Invalid sortBy parameter");
             }
         }
-
 
         return products;
     }
