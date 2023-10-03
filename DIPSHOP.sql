@@ -17,20 +17,6 @@ CREATE TABLE IF NOT EXISTS USER (
     UNIQUE KEY email (`email`)
 );
 
--- Create the INTERESTS table
-CREATE TABLE IF NOT EXISTS INTERESTS (
-    interest_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    interest_name VARCHAR(255)
-);
-
--- Create the USER_INTERESTS table
-CREATE TABLE IF NOT EXISTS USER_INTERESTS (
-    userID INT,
-    interest_id INT,
-    PRIMARY KEY (userID, interest_id),
-    FOREIGN KEY (userID) REFERENCES USER(userID),
-    FOREIGN KEY (interest_id) REFERENCES INTERESTS(interest_id)
-);
 
 -- Create the CHAT table
 CREATE TABLE IF NOT EXISTS CHAT (
@@ -59,7 +45,7 @@ CREATE TABLE IF NOT EXISTS PRODUCT (
     productPic2 VARCHAR(255) DEFAULT 'products/',
     productPic3 VARCHAR(255) DEFAULT 'products/',
     productPic4 VARCHAR(255) DEFAULT 'products/',
-    productLikes INT, 
+    productLikes INT DEFAULT 0, 
     date DATETIME,
     category VARCHAR(50)
 );
@@ -115,3 +101,20 @@ CREATE TABLE IF NOT EXISTS BOOKING (
     fee DECIMAL(6,2),
     bookingDate DATE
 );
+
+
+	--=== THIS CHUNK NOT IN USE ===--
+	-- Create the INTERESTS table
+	CREATE TABLE IF NOT EXISTS INTERESTS (
+	    interest_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	    interest_name VARCHAR(255)
+	);
+	
+	-- Create the USER_INTERESTS table
+	CREATE TABLE IF NOT EXISTS USER_INTERESTS (
+	    userID INT,
+	    interest_id INT,
+	    PRIMARY KEY (userID, interest_id),
+	    FOREIGN KEY (userID) REFERENCES USER(userID),
+	    FOREIGN KEY (interest_id) REFERENCES INTERESTS(interest_id)
+	);
