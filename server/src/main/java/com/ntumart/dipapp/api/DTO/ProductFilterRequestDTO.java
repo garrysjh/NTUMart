@@ -1,12 +1,13 @@
-public class ProductFilterRequest {
+package com.ntumart.dipapp.api.DTO; 
+
+public class ProductFilterRequestDTO{
     private String name;
     private String startDate;
     private String endDate;
     private int userId;
     private String category;
 
-    // Getters and setters 
-
+    // Getters and setters
 
     // Getter and setter for 'name'
     public String getName() {
@@ -40,7 +41,7 @@ public class ProductFilterRequest {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

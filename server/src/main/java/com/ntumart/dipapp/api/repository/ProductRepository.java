@@ -14,7 +14,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     @Transactional

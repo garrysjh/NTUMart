@@ -81,7 +81,7 @@ public class Product {
     //     this.description = description;
     // }
 
-    public int ProductID() {
+    public int getProductID() {
         return productID;
     }
 
@@ -89,7 +89,7 @@ public class Product {
         this.productID = id;
     }
 
-    public int sellerId() {
+    public int getSellerID() {
         return sellerID;
     }
 

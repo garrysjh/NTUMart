@@ -22,10 +22,10 @@ public interface ListingRepository extends JpaRepository<Product, Long> {
       "  AND (:date is null OR date <= :endDate)" +
       "  AND (:userId is null OR userID = :userId)"
       + "  AND (:category is null OR category = :category)", nativeQuery = true)
-  public List<Object> getProducts(
-      @Param(value = "name", defaultValue = null) String name,
-      @Param(value = "startDate", defaultValue = null) LocalDateTime startDate,
-      @Param(value = "endDate", defaultValue = null) LocalDateTime endDate,
-      @Param(value = "userId", defaultValue = userId) LocalDateTime userId,
-      @Param(value = "category", defaultValue = null) String category);
+  public List<Product> getProducts(
+      @Param(value = "name") String name,
+      @Param(value = "startDate") LocalDateTime startDate,
+      @Param(value = "endDate") LocalDateTime endDate,
+      @Param(value = "userId") int userId,
+      @Param(value = "category") String category);
 }
