@@ -1,4 +1,4 @@
-package com.ntumart.dipapp.api.service; 
+package com.ntumart.dipapp.api.service;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -6,7 +6,7 @@ import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ntumart.dipapp.api.configuration.JwtConfig; 
+import com.ntumart.dipapp.api.configuration.JwtConfig;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,7 +19,8 @@ public class JwtTokenService {
     private JwtConfig jwtConfig;
 
     @Autowired
-    private UserRepository userRepository; 
+    private UserRepository userRepository;
+
     public String generateToken(String username) {
         Key secretKey = jwtConfig.secretKey();
         Map<String, Object> claims = new HashMap<>();
@@ -43,20 +44,20 @@ public class JwtTokenService {
 
     public int getUserID(String token) {
         if (!validateToken(token)) {
-            return -1;  // Assuming RuntimeException is appropriate for your use case
+            return -1; // Assuming RuntimeException is appropriate for your use case
         }
-    
+
         // If the token is valid, extract the user ID and return it
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(jwtConfig.secretKey())
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-        
+
         // user is "sub"
         String username = claims.get("sub", String.class);
-        return userRepository.getUserID(username); 
-        
+        return userRepository.getUserID(username);
+
     }
-    
+
 }
