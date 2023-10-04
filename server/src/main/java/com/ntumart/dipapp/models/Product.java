@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name="product")
+@Table(name = "product")
 @Data
 
 public class Product {
@@ -25,48 +25,50 @@ public class Product {
     @Column(name = "name")
     private String name;
 
-    @Column(name="description")
+    @Column(name = "description")
     private String description;
 
-    @Column(name="price")
+    @Column(name = "price")
     private double price;
 
-    @Column(name="quantity")
+    @Column(name = "quantity")
     private int quantity;
 
-    @Column(name="productPic")
+    @Column(name = "productPic")
     private String productPic;
 
-    @Column(name="productPic2")
+    @Column(name = "productPic2")
     private String productPic2;
 
-    @Column(name="productPic3")
+    @Column(name = "productPic3")
     private String productPic3;
 
-    @Column(name="productPic4")
+    @Column(name = "productPic4")
     private String productPic4;
 
-    @Column(name="productLikes")
+    @Column(name = "productLikes")
     private int productLikes;
 
-    @Column(name="date")
+    @Column(name = "date")
     private LocalDateTime date;
 
-    @Column(name="category")
+    @Column(name = "category")
     private String category;
 
-
-    //No Argument Constructor
+    // No Argument Constructor
     public Product() {
         // Default Constructor with no parameters
     }
-    public Product(int productID, int sellerID, String name, String description, double price, int quantity, String productPic, String productPic2, String productPic3, String productPic4, int productLikes, LocalDateTime date, String category) {
+
+    public Product(int productID, int sellerID, String name, String description, double price, int quantity,
+            String productPic, String productPic2, String productPic3, String productPic4, int productLikes,
+            LocalDateTime date, String category) {
         this.productID = productID;
         this.sellerID = sellerID;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.quantity = quantity; 
+        this.quantity = quantity;
         this.productPic = productPic;
         this.productPic2 = productPic2;
         this.productPic3 = productPic3;
@@ -77,8 +79,8 @@ public class Product {
     }
 
     // public Product(String name, String description) {
-    //     this.name = name;
-    //     this.description = description;
+    // this.name = name;
+    // this.description = description;
     // }
 
     public int getProductID() {
@@ -129,7 +131,6 @@ public class Product {
         this.quantity = quantity;
     }
 
-   
     public String getProductPic() {
         return productPic;
     }
@@ -145,7 +146,7 @@ public class Product {
     public void setProductPic2(String productPic2) {
         this.productPic2 = productPic2;
     }
-    
+
     public String getProductPic3() {
         return productPic3;
     }
@@ -186,19 +187,18 @@ public class Product {
         this.category = category;
     }
 
-    
     // @Override
     // public String toString() {
-    //     return "Product{" +
-    //             "productID=" + productID +
-    //             ", sellerID='" + sellerID + '\'' +
-    //             ", name='" + name + '\'' +
-    //             ", description='" + description + '\'' +
-    //             ", price='" + price + '\'' +
-    //             ", quantity='" + quantity + '\'' +
-    //             ", productPic='" + productPic + '\'' +
-    //             ", category='" + category + '\'' +
-    //             '}';
+    // return "Product{" +
+    // "productID=" + productID +
+    // ", sellerID='" + sellerID + '\'' +
+    // ", name='" + name + '\'' +
+    // ", description='" + description + '\'' +
+    // ", price='" + price + '\'' +
+    // ", quantity='" + quantity + '\'' +
+    // ", productPic='" + productPic + '\'' +
+    // ", category='" + category + '\'' +
+    // '}';
     // }
     @Override
     public String toString() {
@@ -219,5 +219,4 @@ public class Product {
                 '}';
     }
 
-    
 }

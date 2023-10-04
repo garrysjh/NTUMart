@@ -30,22 +30,25 @@ public class ListingController {
     @Autowired
     UserRepository userRepository;
 
-
     @PostMapping("/product/listing")
-    public ResponseEntity<List<Product>> listAllProducts(@ModelAttribute ProductFilterRequestDTO request,
-            @RequestParam(required = false) String sortBy) {
+    public ResponseEntity<List<Product>> listAllProducts(
+            @ModelAttribute ProductFilterRequestDTO request,
+            @RequestParam(required = false) String sortBy
+    ) {
         LocalDateTime startDateTime = (request.getStartDate() != null) ? LocalDateTime.parse(request.getStartDate())
                 : null;
         LocalDateTime endDateTime = (request.getEndDate() != null) ? LocalDateTime.parse(request.getEndDate()) : null;
-                
+
+        String name = (request != null) ? request.getName() : null;
+        Integer userId = (name != null) ? userRepository.getUserId(name) : null;
+
         List<Product> products = listingRepository.getProducts(
-                 (request != null ? request.getName()
-                        : null) , 
+                name,
                 startDateTime,
                 endDateTime,
-                (request != null && request.getName() != null) ? userRepository.getUserId(request.getName())
-                        : null,
-                (request != null) ? request.getCategory() : null);
+                userId,
+                (request != null) ? request.getCategory() : null
+        );
 
         if (sortBy != null) {
             products = listingService.sortProducts(products, sortBy);
