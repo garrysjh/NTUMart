@@ -1,6 +1,7 @@
 package com.ntumart.dipapp.api.controllers;
 
 
+import com.ntumart.dipapp.api.service.JwtTokenService;
 import com.ntumart.dipapp.api.service.ReviewsService;
 import com.ntumart.dipapp.exceptions.ProductNotFoundException;
 import com.ntumart.dipapp.models.Reviews;
@@ -11,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 @RequestMapping("/api/v1/reviews")
 
@@ -21,12 +21,20 @@ public class ReviewsApiController {
     // ProductService productService;
     ReviewsService reviewsService;
 
+    @Autowired
+    JwtTokenService jwtTokenService; 
     // When Testing for Postman
     // Add another line in Body>Raw for "sellerID"
     @RequestMapping(value = "/add/{reviewerId}", method = RequestMethod.POST, produces = { "application/json" })
     @ResponseBody
-    public ResponseEntity<String> addReview(@RequestBody Reviews reviews, @PathVariable Integer reviewerId) {
+    public ResponseEntity<String> addReview(@RequestBody Reviews reviews, @RequestHeader("Authorization") String token) {
         try {
+
+            int reviewerId = jwtTokenService.getUserID(token); 
+            if (reviewerId==-1) { // user is not found
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("User not found"); 
+            }
             reviewsService.addReview(reviews, reviewerId);
 
             return ResponseEntity.ok("Review Added Successfully");
@@ -62,5 +70,4 @@ public class ReviewsApiController {
             return ResponseEntity.ok("Not Deleted");
         }
     }
-    
 }
