@@ -42,7 +42,6 @@ class CustomInterests extends StatelessWidget {
           surface: Color(0xFFEAEAEA),
           onSurface: Color(0xFF5C795B),
         ),
-        useMaterial3: true,
       ),
       home: const CategorySelectionPage(title: 'Category Selection Page'),
     );
@@ -199,8 +198,11 @@ class _CategorySelectionPageState extends State<CategorySelectionPage> {
                     fixedSize: MaterialStateProperty.all( const Size(double.infinity, 30.0), // Change the button height
               ),
                 ),
-                child: const Text('   Get Started   ',
-                  style: TextStyle(color: Color(0xFFFFFFFF), fontWeight: FontWeight.w300, fontSize: 20),
+                child: const Padding(
+                  padding: EdgeInsets.only(left:15.0, right:15.0),
+                  child: Text('Get Started',
+                    style: TextStyle(color: Color(0xFFFFFFFF), fontWeight: FontWeight.w300, fontSize: 20),
+                  ),
                 ),
               )
             ),
