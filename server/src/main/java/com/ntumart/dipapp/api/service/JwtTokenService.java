@@ -1,21 +1,28 @@
-package com.ntumart.dipapp.api.service; 
+package com.ntumart.dipapp.api.service;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ntumart.dipapp.api.configuration.JwtConfig; 
+import com.ntumart.dipapp.api.configuration.JwtConfig;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
+import com.ntumart.dipapp.api.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class JwtTokenService {
+    private static final Logger logger = LoggerFactory.getLogger(JwtTokenService.class);
     @Autowired
     private JwtConfig jwtConfig;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public String generateToken(String username) {
         Key secretKey = jwtConfig.secretKey();
@@ -37,4 +44,26 @@ public class JwtTokenService {
             return false;
         }
     }
+
+    public int getUserID(String token) {
+        if (validateToken(token) == false) {
+           logger.info("INVALID TOKEN"); 
+            return -1;
+        }
+
+        // If the token is valid, extract the user ID and return it
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(jwtConfig.secretKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        // user is "sub"
+        String username = claims.get("sub", String.class);
+        
+        // logger.info("Username: {}", username); for testing 
+        return userRepository.getUserID(username);
+
+    }
+
 }
