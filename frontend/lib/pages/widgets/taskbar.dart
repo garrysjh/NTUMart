@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/pages/item_screen.dart';
 import 'package:frontend/pages/profile.dart';
 
 class Taskbar extends StatefulWidget {
@@ -13,8 +12,10 @@ class _TaskbarState extends State<Taskbar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(maxWidth: 1000),
+      constraints: BoxConstraints( maxWidth: 1000),
       child: BottomAppBar(
+        elevation: 0,
+         clipBehavior: Clip.none,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[

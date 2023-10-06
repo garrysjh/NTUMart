@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'product.dart';
-import 'item_card.dart';
 import 'package:frontend/pages/widgets/vertical_view_listings.dart'; 
 //import 'searchBar.dart';
 

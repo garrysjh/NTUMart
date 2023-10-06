@@ -16,7 +16,7 @@ class VerticalViewListings extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 3.0),
         child: GridView.builder(
           itemCount: products.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             mainAxisSpacing: 10.0,
             crossAxisSpacing: 10.0,
