@@ -108,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                               backgroundColor: const Color(0xFFFFFFFF),
                             ),
                             child: Image.asset(
-                              '../../assets/images/chatbot_icon.png',
+                              '../../assets/img/chatbot_icon.png',
                               fit: BoxFit.fill,
                             ),
                           ),
