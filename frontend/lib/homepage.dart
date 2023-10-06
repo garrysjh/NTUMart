@@ -87,7 +87,8 @@ class _HomePageState extends State<HomePage> {
                               child: Text(' NTU Mart ',
                                   style: TextStyle(
                                       fontSize: 25,
-                                      fontWeight: FontWeight.w700))),
+                                      fontWeight: FontWeight.w700,
+                                  color: Color(0xFF5C795B),))),
                           const SizedBox(width: 10),
                           ElevatedButton(
                             onPressed: () {
@@ -117,9 +118,15 @@ class _HomePageState extends State<HomePage> {
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: SearchBar(
-                        leading: const Icon(Icons.search),
+                        leading: const Icon(Icons.search,
+                          color: Colors.black45,
+                        size: 32,),
                         hintText: 'Search for a product',
-                        //hintStyle: const MaterialStatePropertyAll<TextStyle>(TextStyle(fontWeight: FontWeight.w200)),
+                        hintStyle: const MaterialStatePropertyAll<TextStyle>(
+                            TextStyle(
+                              color: Colors.black54,
+                              fontSize: 17,
+                            )),
                         backgroundColor: const MaterialStatePropertyAll<Color>(
                             Color(0xFFFFFFFF)),
                         surfaceTintColor: const MaterialStatePropertyAll<Color>(
@@ -153,7 +160,8 @@ class _HomePageState extends State<HomePage> {
                               child: Text(' Your Categories ',
                                   style: TextStyle(
                                       fontSize: 20,
-                                      fontWeight: FontWeight.w600))),
+                                      fontWeight: FontWeight.w600,
+                                    color: Color(0xFF5C795B),))),
                           const SizedBox(
                             width: 5,
                           ),
