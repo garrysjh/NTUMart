@@ -32,7 +32,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     int checkExistingMobile(String phone);
 
     @Query(value = "select userID from user where username=:username", nativeQuery = true)
-    int getUserId(String username);
+    int getUserID(String username);
 
     @Query(value = "select username from user where userID=:userID", nativeQuery = true)
     String getNameFromID(int userID);
