@@ -89,6 +89,7 @@
 			<groupId>org.projectlombok</groupId>
 			  <version>1.18.30</version>
 			<artifactId>lombok</artifactId>
+			<version>1.18.30</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>

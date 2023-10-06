@@ -72,7 +72,8 @@ flutter:
   -   assets/img/flat_login.png
   -   assets/
   -   assets/img/
-
+  -   assets/img/ntumart_logo.png
+  -   assets/img/chatbot_icon.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
