@@ -28,6 +28,7 @@ public class Reviews {
     private String reviewDesc;
 
     public enum StarRating {
+        ZERO_STARS,
         ONE_STAR,
         TWO_STARS,
         THREE_STARS,
