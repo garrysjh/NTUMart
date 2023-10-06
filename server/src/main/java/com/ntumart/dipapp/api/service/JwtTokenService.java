@@ -12,9 +12,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import com.ntumart.dipapp.api.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class JwtTokenService {
+    private static final Logger logger = LoggerFactory.getLogger(JwtTokenService.class);
     @Autowired
     private JwtConfig jwtConfig;
 
@@ -43,8 +46,9 @@ public class JwtTokenService {
     }
 
     public int getUserID(String token) {
-        if (!validateToken(token)) {
-            return -1; // Assuming RuntimeException is appropriate for your use case
+        if (validateToken(token) == false) {
+           logger.info("INVALID TOKEN"); 
+            return -1;
         }
 
         // If the token is valid, extract the user ID and return it
@@ -56,6 +60,8 @@ public class JwtTokenService {
 
         // user is "sub"
         String username = claims.get("sub", String.class);
+        
+        // logger.info("Username: {}", username); for testing 
         return userRepository.getUserID(username);
 
     }

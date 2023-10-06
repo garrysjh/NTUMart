@@ -54,4 +54,8 @@ public class ReviewsService {
         reviews.setId(reviewId);
         reviewsRepository.delete(reviews);
     }
+
+    public int getReviewerIDFromReviewID(Reviews reviews){ 
+        return reviewsRepository.getReviewerIDFromReviewID(reviews.getReviewID()); 
+    }
 }

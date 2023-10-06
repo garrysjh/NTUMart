@@ -25,7 +25,7 @@ public class ReviewsApiController {
 
     // When Testing for Postman
     // Add another line in Body>Raw for "sellerID"
-    @RequestMapping(value = "/add/{reviewerId}", method = RequestMethod.POST, produces = { "application/json" })
+    @RequestMapping(value = "/add", method = RequestMethod.POST, produces = { "application/json" })
     @ResponseBody
     public ResponseEntity<String> addReview(@RequestBody Reviews reviews,
             @RequestHeader("Authorization") String token) {
@@ -47,11 +47,20 @@ public class ReviewsApiController {
     }
 
     // Update base on ReviewID, as User One to Many Reviews
-    @PostMapping("/update/{reviewId}")
-    public ResponseEntity<String> updateReview(@RequestBody Reviews reviews, @PathVariable Integer reviewId) {
+    @PostMapping("/update")
+    public ResponseEntity<String> updateReview(@RequestBody Reviews reviews,
+            @RequestHeader("Authorization") String token) {
         try {
-
-            reviewsService.updateReview(reviews, reviewId);
+            int reviewerId = jwtTokenService.getUserID(token);
+            if (reviewerId == -1) { // user is not found
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("User not found");
+            }
+            if (reviewerId != reviewsService.getReviewerIDFromReviewID(reviews)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body("Not authorised to edit review");
+            }
+            reviewsService.updateReview(reviews, reviews.getReviewerID());
 
             return ResponseEntity.ok("Review Updated Successfully");
         } catch (Exception e) {
@@ -60,11 +69,20 @@ public class ReviewsApiController {
     }
 
     // Delete base on ReviewID, as User One to Many Reviews
-    @PostMapping("/delete/{reviewId}")
-    public ResponseEntity<String> deleteReview(@RequestBody Reviews reviews, @PathVariable Integer reviewId) {
+    @PostMapping("/delete")
+    public ResponseEntity<String> deleteReview(@RequestBody Reviews reviews,
+            @RequestHeader("Authorization") String token) {
         try {
-
-            reviewsService.deleteReview(reviews, reviewId);
+            int reviewerId = jwtTokenService.getUserID(token);
+            if (reviewerId == -1) { // user is not found
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("User not found");
+            }
+            if (reviewerId != reviewsService.getReviewerIDFromReviewID(reviews)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                        .body("Not authorised to edit review");
+            }
+            reviewsService.deleteReview(reviews, reviews.getReviewerID());
 
             return ResponseEntity.ok("Review Deleted Successfully");
         } catch (Exception e) {
