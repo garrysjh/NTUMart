@@ -1,26 +1,14 @@
 package com.ntumart.dipapp.models;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import org.springframework.stereotype.Service;
 import java.util.List;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import org.springframework.web.multipart.MultipartFile;
-import com.ntumart.dipapp.api.repository.UserRepository;
-import com.ntumart.dipapp.models.FileData;
-import com.ntumart.dipapp.models.Product;
+import java.time.LocalDateTime;
 
 public class ProductResponse {
 
-    @Autowired
-    private UserRepository userRepository;
-
     private String sellerName;
-    private String name;
+    private String productName;
     private String description;
     private double price;
     private int quantity;
@@ -30,34 +18,18 @@ public class ProductResponse {
     private LocalDateTime date;
     private String category;
 
-    public ProductResponse(Product product) {
+    public ProductResponse(String sellerName, String productName, String description, double price, int quantity,
+            List<FileData> productImages, int productLikes, LocalDateTime time, String category) {
 
-        this.sellerName = userRepository.getNameFromID(product.getSellerID());
-        this.name = product.getName();
-        this.description = product.getDescription();
-        this.price = product.getPrice();
-        this.quantity = product.getQuantity();
-        this.productImages = new ArrayList<>();
-
-        if (product.getProductPic() != null) {
-            this.productImages.add(getImageDataFromReference(product.getProductPic()));
-        }
-
-        if (product.getProductPic2() != null) {
-            this.productImages.add(getImageDataFromReference(product.getProductPic2()));
-        }
-
-        if (product.getProductPic3() != null) {
-            this.productImages.add(getImageDataFromReference(product.getProductPic3()));
-        }
-
-        if (product.getProductPic4() != null) {
-            this.productImages.add(getImageDataFromReference(product.getProductPic4()));
-        }
-        
-        this.productLikes = product.getProductLikes();
-        this.date = product.getDate();
-        this.category = product.getCategory();
+        this.sellerName = sellerName;
+        this.productName = productName;
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+        this.productImages = productImages;
+        this.productLikes = productLikes;
+        this.date = time;
+        this.category = category;
     }
 
     public String getSellerName() {
@@ -68,12 +40,12 @@ public class ProductResponse {
         this.sellerName = sellerName;
     }
 
-    public String getName() {
-        return name;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String productName) {
+        this.productName = productName;
     }
 
     public String getDescription() {
@@ -100,13 +72,14 @@ public class ProductResponse {
         this.quantity = quantity;
     }
 
-    public List<FileData> getProductImages(){ 
-        return productImages; 
+    public List<FileData> getProductImages() {
+        return productImages;
     }
 
-    public void setProductImages(List<FileData> productImages){ 
-        this.productImages = productImages; 
+    public void setProductImages(List<FileData> productImages) {
+        this.productImages = productImages;
     }
+
     public int getProductLikes() {
         return productLikes;
     }
@@ -131,17 +104,4 @@ public class ProductResponse {
         this.category = category;
     }
 
-    public FileData getImageDataFromReference(String filePath) {
-        try {
-            Path path = Paths.get(filePath);
-            String fileName = path.getFileName().toString();
-            String fileType = Files.probeContentType(path);
-            byte[] content = Files.readAllBytes(path);
-
-            return new FileData(fileName, fileType, content);
-        } catch (IOException e) {
-            e.printStackTrace(); // Handle the exception as per your application's requirements
-            return null; // or throw an exception
-        }
-    }
 }

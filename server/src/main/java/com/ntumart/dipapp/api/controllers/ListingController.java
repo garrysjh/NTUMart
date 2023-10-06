@@ -9,13 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.ntumart.dipapp.models.Product;
+import com.ntumart.dipapp.models.ProductResponse;
 import java.time.LocalDateTime;
 import com.ntumart.dipapp.api.repository.ListingRepository;
 import com.ntumart.dipapp.api.repository.UserRepository;
 import com.ntumart.dipapp.api.service.ListingService;
+import com.ntumart.dipapp.api.service.ProductResponseService;
 import com.ntumart.dipapp.api.DTO.ProductFilterRequestDTO; 
 import org.springframework.web.bind.annotation.ModelAttribute;
-import com.ntumart.dipapp.models.ProductResponse;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -28,6 +29,9 @@ public class ListingController {
 
     @Autowired
     UserRepository userRepository;
+    
+    @Autowired
+    ProductResponseService productResponseService; 
 
     @PostMapping("/product/listing")
     public ResponseEntity<List<ProductResponse>> listAllProducts(
@@ -55,7 +59,7 @@ public class ListingController {
         List<ProductResponse> productResponses = new ArrayList<>();
         
         for (Product product : products) {
-            productResponses.add(new ProductResponse(product));
+            productResponses.add(productResponseService.getProductResponse(product));
         }
     
         return ResponseEntity.ok(productResponses);
