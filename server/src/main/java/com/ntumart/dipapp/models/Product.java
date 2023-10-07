@@ -162,11 +162,11 @@ public class Product {
         this.productPic4 = productPic4;
     }
 
-    public int setProductLikes() {
+    public int getProductLikes() {
         return productLikes;
     }
 
-    public void getProductLikes(int productLikes) {
+    public void setProductLikes(int productLikes) {
         this.productLikes = productLikes;
     }
 
