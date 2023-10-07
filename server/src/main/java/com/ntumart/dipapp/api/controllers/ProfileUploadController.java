@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ntumart.dipapp.api.service.JwtTokenService;
 import com.ntumart.dipapp.api.service.ProfUploadService;
 
 import net.minidev.json.JSONObject;
@@ -19,10 +20,17 @@ public class ProfileUploadController {
     @Autowired
     ProfUploadService profUploadService;
 
-    @PostMapping("/user/update-profile-pic/{userId}")
-    public ResponseEntity<String> uploadImage(@PathVariable Integer userId, @RequestParam("profilePic") MultipartFile file) {
+    @Autowired
+    JwtTokenService jwtTokenService;
+
+    @PostMapping("/user/update-profile-pic")
+    public ResponseEntity<String> uploadImage(@RequestHeader("Authorization") String token, @RequestParam("profilePic") MultipartFile file) {
         try {
-            
+            int userId = jwtTokenService.getUserID(token);
+            if (userId == -1) { // user is not found
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("User not found");
+            }
             profUploadService.uploadFile(userId,file);
 
             return ResponseEntity.ok("Image uploaded successfully!");
