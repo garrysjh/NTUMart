@@ -7,17 +7,10 @@ import com.ntumart.dipapp.exceptions.EmptyFileException;
 import com.ntumart.dipapp.exceptions.ProductNotFoundException;
 import com.ntumart.dipapp.models.Product;
 import java.nio.file.*;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.io.*;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service

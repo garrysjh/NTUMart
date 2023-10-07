@@ -65,7 +65,7 @@ public class ReviewsApiController {
 
             return ResponseEntity.ok("Review Updated Successfully");
         } catch (Exception e) {
-            return ResponseEntity.ok("Not Updated");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Not Updated. e: {"  + e.toString()  + "}");
         }
     }
 
@@ -88,7 +88,7 @@ public class ReviewsApiController {
 
             return ResponseEntity.ok("Review Deleted Successfully");
         } catch (Exception e) {
-            return ResponseEntity.ok("Not Deleted");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Not deleted. e: {"  + e.toString()  + "}");
         }
     }
 }
