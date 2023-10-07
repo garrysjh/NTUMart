@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/pages/profile.dart';
+import 'package:frontend/pages/widgets/searchbar.dart';
 import 'package:frontend/product.dart';
 import 'package:frontend/pages/widgets/vertical_view_listings.dart';
 import 'package:frontend/pages/widgets/taskbar.dart';
@@ -106,34 +107,9 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ]),
                     const SizedBox(height: 15),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: SearchBar(
-                        leading: const Icon(Icons.search),
-                        hintText: 'Search for a product',
-                        //hintStyle: const MaterialStatePropertyAll<TextStyle>(TextStyle(fontWeight: FontWeight.w200)),
-                        backgroundColor: const MaterialStatePropertyAll<Color>(
-                            Color(0xFFFFFFFF)),
-                        surfaceTintColor: const MaterialStatePropertyAll<Color>(
-                            Color(0xFFF9F9F9)),
-                        shape: MaterialStateProperty.all(
-                            const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        )),
-                        padding: const MaterialStatePropertyAll<EdgeInsets>(
-                            EdgeInsets.symmetric(horizontal: 16.0)),
-                        elevation: null,
-                        onTap: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content:
-                                  Text("browse page navigation coming soon!"),
-                              duration: Duration(milliseconds: 1500),
-                              behavior: SnackBarBehavior.floating,
-                            ),
-                          );
-                        },
-                      ),
+                    const Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Searchbar()
                     ),
                     Padding(
                       padding: const EdgeInsets.all(5.0),

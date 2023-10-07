@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/homepage.dart';
+import 'package:frontend/pages/widgets/searchbar.dart';
 
 
 void main() {
@@ -72,35 +73,8 @@ class _BrowseState extends State<BrowsePage> {
             );
                       },
                     ),
-                    Expanded(
-                      child: SearchBar(
-                        leading: const Icon(Icons.search),
-                        hintText: 'Search for a product',
-                        backgroundColor: const MaterialStatePropertyAll<Color>(
-                          Color(0xFFFFFFFF),
-                        ),
-                        surfaceTintColor: const MaterialStatePropertyAll<Color>(
-                          Color(0xFFF9F9F9),
-                        ),
-                        shape: MaterialStateProperty.all(
-                          const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                          ),
-                        ),
-                        padding: const MaterialStatePropertyAll<EdgeInsets>(
-                          EdgeInsets.symmetric(horizontal: 16.0),
-                        ),
-                        elevation: null,
-                        onTap: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("browse page navigation coming soon!"),
-                              duration: Duration(milliseconds: 1500),
-                              behavior: SnackBarBehavior.floating,
-                            ),
-                          );
-                        },
-                      ),
+                    const Expanded(
+                      child: Searchbar(),
                     ),
                   ],
                 ),
