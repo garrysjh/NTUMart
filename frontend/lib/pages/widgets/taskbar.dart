@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/browse.dart';
 import 'package:frontend/pages/profile.dart';
 import 'package:frontend/homepage.dart';
 import 'package:frontend/selling.dart';
@@ -54,7 +55,18 @@ class _TaskbarState extends State<Taskbar> {
             IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
-                // Handle browse button click
+                Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) {
+                  return const BrowsePage();
+                },
+                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                  // Disable animation by returning child directly
+                  return child;
+                },
+              ),
+            );
               },
             ),
             FloatingActionButton(
