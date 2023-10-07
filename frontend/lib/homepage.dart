@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/pages/profile.dart';
 import 'package:frontend/product.dart';
 import 'package:frontend/pages/widgets/vertical_view_listings.dart';
 import 'package:frontend/pages/widgets/taskbar.dart';
+import 'package:frontend/selling.dart';
 
 void main() {
   runApp(const Home());
@@ -15,23 +17,13 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'HomePage',
-      /*theme: ThemeData(
-        colorScheme: const ColorScheme(
-          brightness: Brightness.light,
-          primary: Color(0xFF5C795B),
-          onPrimary: Color(0xFFEAEAEA),
-          secondary: Color(0xFF5D7395),
-          onSecondary: Color(0xFFEAEAEA),
-          error: Color(0xFFF32424),
-          onError: Color(0xFFF32424),
-          background: Color(0xFFF9F9F9),
-          onBackground: Color(0xFFFFFFFF),
-          surface: Color(0xFFEAEAEA),
-          onSurface: Color(0xFF5C795B),
-        ),
-        useMaterial3: true,
-      ),*/
       home: const HomePage(title: 'Home Page'),
+      initialRoute: '/',
+      routes:{
+        '/profile': (context) => const ProfileScreen(),
+        '/home': (context) => Home(),
+        '/sell': (context) => const Sell()
+      }
     );
   }
 }
