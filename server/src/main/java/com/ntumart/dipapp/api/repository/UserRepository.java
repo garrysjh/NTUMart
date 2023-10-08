@@ -33,4 +33,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query(value = "select userID from user where username=:username", nativeQuery = true)
     int getUserID(String username);
+
+    @Query(value = "select username from user where userID=:userID", nativeQuery = true)
+    String getNameFromID(int userID);
+
 }
