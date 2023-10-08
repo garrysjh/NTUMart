@@ -1,14 +1,43 @@
 import 'package:flutter/material.dart';
-import 'product.dart';
+import 'package:frontend/pages/login_page.dart';
+import 'package:flutter/services.dart';
+import 'dart:io';
 import 'body.dart';
+import 'package:frontend/pages/profile.dart';
 
+
+var URL =
+    'http://10.0.2.2:8080/api/v1'; //replace this with ur local ip / lan ip for devices connecting on same lan / server ip if hosted
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(<DeviceOrientation>[
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'NTUMart',
+      home: ProfileScreen(),
+
+    );
+  }
+}
+
+/*
 void main() {
   runApp(MaterialApp(
     home: HomeScreen(),
+    routes: (context)
     //home:Products(),
   ));
 }
-
+*/
 
 /*
 class Products extends StatefulWidget {
@@ -125,77 +154,8 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-/*
 
-class NinjaCard extends StatefulWidget {
-  @override
-  State<NinjaCard> createState() => _NinjaCardState();
-}
-
-class _NinjaCardState extends State<NinjaCard> {
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white60,
-      appBar: AppBar(
-        title: const Text('NTUMart'),
-        centerTitle: true,
-        backgroundColor: Colors.green[400],
-      ),
-
-      body: const Padding(
-        padding: EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            CircleAvatar(
-              backgroundImage: AssetImage('assets/profilepic.jpf'),
-              radius: 40.0,
-            ),
-            Divider(
-              height: 50.0,
-              color: Colors.white,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children:<Widget>[
-                Text(
-                  'Keegan Lee', //Username
-                  style:TextStyle(
-                    letterSpacing: 2.0,
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
-                  )
-                ),
-                Icon(
-                  Icons.settings,
-                  color: Colors.black54,
-                )
-
-                ],
-            ),
-            Row(
-              children:<Widget>[
-                Icon(
-                  Icons.telegram,
-                  color: Colors.black54,
-                ),
-                Text(
-                    '@kiwigan', //Telegram
-                    style:TextStyle(
-                      letterSpacing: 2.0,
-                    ),
-                ),
-              ],
-            ),
-
-          ],
-        ),
-      )
-    );
-  }
-}
-
-*/
+// psuedocode for main() jwt token
+// check local storage/cookies for jwt token
+// if found: navigate to home page
+// else: login page
