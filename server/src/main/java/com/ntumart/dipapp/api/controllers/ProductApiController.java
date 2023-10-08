@@ -56,6 +56,20 @@ public class ProductApiController {
         return ResponseEntity.ok("Product updated successfully");
     }
 
+    //INCREASE ProductLikes
+    @PutMapping("/{productID}/uplike")
+    public ResponseEntity<Product> incrementProductLikes(@PathVariable int productID) throws ProductNotFoundException {
+        Product updatedLikes = productService.incrementProductLikes(productID);
+        return ResponseEntity.ok(updatedLikes);
+    }
+
+    //DECREASE PRODUCTLIKES
+    @PutMapping("/{productID}/downlike")
+    public ResponseEntity<Product> decrementProductLikes(@PathVariable int productID) throws ProductNotFoundException {
+        Product updatedLikes = productService.decrementProductLikes(productID);
+        return ResponseEntity.ok(updatedLikes);
+    }
+
     @DeleteMapping("/delete/{productID}")
     public ResponseEntity<String> deleteProduct(@PathVariable("productID") int productID) throws IOException, ProductNotFoundException{
             productService.deleteProduct(productID);
