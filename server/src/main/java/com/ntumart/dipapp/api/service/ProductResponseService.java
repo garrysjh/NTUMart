@@ -11,8 +11,6 @@ import com.ntumart.dipapp.models.Product;
 import com.ntumart.dipapp.models.ProductResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service; 
-
-import com.ntumart.dipapp.models.ProductResponse;
 import java.util.List;
 import java.time.LocalDateTime;
 import com.ntumart.dipapp.api.repository.UserRepository;
