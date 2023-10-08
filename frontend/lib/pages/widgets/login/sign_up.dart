@@ -29,7 +29,8 @@ class _SignUpState extends State<SignUp> {
   TextEditingController signupTelegramController = TextEditingController();
   TextEditingController signupUserNameController = TextEditingController();
   TextEditingController signupPasswordController = TextEditingController();
-  TextEditingController signupConfirmPasswordController = TextEditingController();
+  TextEditingController signupConfirmPasswordController =
+      TextEditingController();
   TextEditingController signupPhoneNumberController = TextEditingController();
   @override
   void dispose() {
@@ -274,7 +275,10 @@ class _SignUpState extends State<SignUp> {
                           fontFamily: 'WorkSansBold'),
                     ),
                   ),
-                  onPressed: () => _toggleSignUpButton(),
+                  onPressed: () =>{
+                    _toggleSignUpButton(),
+                    _resetFields()
+                  } ,
                 ),
               )
             ],
@@ -302,6 +306,15 @@ class _SignUpState extends State<SignUp> {
       // Handle sign-up errors, e.g., email already in use.
       CustomSnackBar(context, Text('Sign-Up Error: $e'));
     }
+  }
+
+  void _resetFields() {
+    signupUserNameController.clear();
+    signupEmailController.clear();
+    signupTelegramController.clear();
+    signupPhoneNumberController.clear();
+    signupPasswordController.clear();
+    signupConfirmPasswordController.clear();
   }
 
   void _toggleSignup() {
@@ -334,7 +347,7 @@ Future<int> registerUser(String telegramHandle, String phone, String username,
           'username': username,
           'email': email,
           'password': password,
-          "address"  : null, 
+          "address": null,
           "phone": phone
         }));
 
