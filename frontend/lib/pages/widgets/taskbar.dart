@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/homepage.dart';
+import 'package:frontend/browse.dart';
 import 'package:frontend/pages/profile.dart';
 
 class Taskbar extends StatefulWidget {
@@ -23,12 +25,21 @@ class _TaskbarState extends State<Taskbar> {
               icon: const Icon(Icons.home),
               onPressed: () {
                 // Handle home button click
+                Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const Home(),
+                    ),
+                );
               },
             ),
             IconButton(
               icon: const Icon(Icons.search),
               onPressed: () {
                 // Handle browse button click
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Browse()),
+                );
               },
             ),
             FloatingActionButton(
