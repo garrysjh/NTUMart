@@ -48,17 +48,56 @@ class _CreateListingPageState extends State<CreateListingPage> {
   Future<void> _pickImages() async {
     final List<XFile>? selectedImages = await _picker.pickMultiImage();
 
-    if (selectedImages != null) {
+    if (selectedImages != null && selectedImages.isNotEmpty) {
       setState(() {
         _imageFiles = selectedImages;
       });
     }
   }
+  Widget _buildImageSelectionButton(int index) {
+  return InkWell(
+    onTap: () {
+      // Add logic to select an image when the square button is tapped.
+      // You can use _pickImages or any other image selection method.
+      _pickImages();
+    },
+    child: Container(
+      width: 80.0,
+      height: 80.0,
+      decoration: BoxDecoration(
+        color: Colors.grey[300],
+        border: Border.all(
+          color: Colors.grey,
+        ),
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Center(
+          child: _imageFiles != null &&
+                  _imageFiles!.isNotEmpty &&
+                  index < _imageFiles!.length
+              ? Image.file(
+                  File(_imageFiles![index].path),
+                  width: 70.0,
+                  height: 70.0,
+                  fit: BoxFit.cover,
+                )
+              : Icon(
+                  Icons.add,
+                  size: 40.0,
+                  color: Colors.grey,
+                ),
+        ),
+
+    ),
+  );
+}
+
 
   void _submitForm() {
     if (_formKey.currentState?.validate() ?? false) {
       // Add logic here to save the listing to your marketplace.
       // For this example, we'll print the input values.
+      _formKey.currentState?.save();
       print('Category: $_category');
       print('Condition: $_condition');
       print('Item Details: $_itemDetails');
@@ -72,7 +111,7 @@ class _CreateListingPageState extends State<CreateListingPage> {
     )).then((value) {
       if (value != null) {
         setState(() {
-          _itemDetails = value;
+          _itemDetails = value.description;
         });
       }
     });
@@ -130,12 +169,12 @@ class _CreateListingPageState extends State<CreateListingPage> {
                   _buildImageSelectionButton(3),
                 ],
               ),
-              if (_imageFiles != null && _imageFiles!.isNotEmpty)
-                Column(
-                  children: _imageFiles!
-                      .map((image) => Image.file(File(image.path)))
-                      .toList(),
-                ),
+              // if (_imageFiles != null && _imageFiles!.isNotEmpty)
+              //   Column(
+              //     children: _imageFiles!
+              //         .map((image) => Image.file(File(image.path)))
+              //         .toList(),
+              //   ),
 
               SizedBox(height: 16.0),
 
@@ -298,32 +337,6 @@ class _CreateListingPageState extends State<CreateListingPage> {
   }
 }
 
-Widget _buildImageSelectionButton(int index) {
-  return InkWell(
-    onTap: () {
-      // Add logic to select an image when the square button is tapped.
-      // You can use _pickImages or any other image selection method.
-    },
-    child: Container(
-      width: 80.0,
-      height: 80.0,
-      decoration: BoxDecoration(
-        color: Colors.grey[300],
-        border: Border.all(
-          color: Colors.grey,
-        ),
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Center(
-        child: Icon(
-          Icons.add,
-          size: 40.0,
-          color: Colors.grey,
-        ),
-      ),
-    ),
-  );
-}
 
 class ItemDetailsPage extends StatefulWidget {
   @override
