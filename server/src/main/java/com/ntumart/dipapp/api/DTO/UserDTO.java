@@ -102,14 +102,14 @@ public class UserDTO {
     }
 
 
-    // Getter and Setter for address
-    public String getTelegramHandle() {
-        return telegramHandle;
-    }
-
-    public void setTelegramHandle(String telegramHandle) {
-        this.telegramHandle = telegramHandle;
-    }
+//    // Getter and Setter for address
+//    public String getTelegramHandle() {
+//        return telegramHandle;
+//    }
+//
+//    public void setTelegramHandle(String telegramHandle) {
+//        this.telegramHandle = telegramHandle;
+//    }
     // Getter and Setter for profilePic
     public FileData getProfilePic() {
         return profilePic;
