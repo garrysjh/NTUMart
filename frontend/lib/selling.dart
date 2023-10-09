@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(MyApp());
@@ -42,6 +44,7 @@ class _CreateListingPageState extends State<CreateListingPage> {
   String? _condition;
   String? _itemDetails;
   double? _price;
+  String? _title;
   List<XFile>? _imageFiles = [];
   final ImagePicker _picker = ImagePicker();
 
@@ -93,7 +96,7 @@ class _CreateListingPageState extends State<CreateListingPage> {
 }
 
 
-  void _submitForm() {
+  Future<void> _submitForm() async {
     if (_formKey.currentState?.validate() ?? false) {
       // Add logic here to save the listing to your marketplace.
       // For this example, we'll print the input values.
@@ -102,6 +105,41 @@ class _CreateListingPageState extends State<CreateListingPage> {
       print('Condition: $_condition');
       print('Item Details: $_itemDetails');
       print('Price: $_price');
+      print('Name: $_title');
+    // Create a MultipartRequest
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse('$URL/product/add'), // Replace with your actual backend URL
+      );
+
+      // Add form fields
+      request.fields['category'] = _category!;
+      request.fields['condition'] = _condition!;
+      request.fields['description'] = _itemDetails!;
+      request.fields['price'] = _price.toString();
+      request.fields['quantity'] = '1';
+      request.fields['name'] = _title!;
+
+      // Add image files
+      for (int i = 0; i < _imageFiles!.length; i++) {
+      var fieldName = i == 0 ? 'productPicture' : 'productPicture${i + 1}';
+      var file = await http.MultipartFile.fromPath(
+        fieldName,
+        _imageFiles![i].path,
+      );
+      request.files.add(file);
+    }
+      try {
+        var response = await request.send();
+        if (response.statusCode == 200) {
+          print('Product successfully added');
+        } else {
+          print('Error adding product. Status code: ${response.statusCode}');
+        }
+      } catch (error) {
+        print('Error sending request: $error');
+      }
+      
     }
   }
 
@@ -115,6 +153,7 @@ class _CreateListingPageState extends State<CreateListingPage> {
         print(value);
         print(value['description']);
         setState(() {
+          _title = value['title'];
           _itemDetails = value['description'];
         });
       }

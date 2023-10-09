@@ -3,8 +3,7 @@ import 'package:frontend/pages/login_page.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';
 
-var URL =
-    'http://localhost:8080/api/v1'; //replace this with ur local ip / lan ip for devices connecting on same lan / server ip if hosted
+var URL ='http://10.0.2.2:8080/api/v1'; //replace this with ur local ip / lan ip for devices connecting on same lan / server ip if hosted
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(<DeviceOrientation>[
