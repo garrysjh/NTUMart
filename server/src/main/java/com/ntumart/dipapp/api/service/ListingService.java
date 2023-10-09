@@ -28,6 +28,9 @@ public class ListingService {
                 case "date":
                     products.sort(Comparator.comparing(Product::getDate));
                     break;
+                case "category":
+                    products.sort(Comparator.comparing(Product::getCategory));
+                    break;
                 // Add more cases as needed for different sorting criteria
                 default:
                     // Handle unknown sortBy parameter
