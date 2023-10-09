@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 import 'package:frontend/main.dart';
-import 'package:frontend/pages/home.dart';
+import 'package:frontend/homepage.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);

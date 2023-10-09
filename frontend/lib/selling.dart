@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+
 import 'package:frontend/main.dart';
+
+import 'package:frontend/homepage.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 
 void main() {
-  runApp(MyApp());
+  runApp(Sell());
 }
 
-class MyApp extends StatelessWidget {
+class Sell extends StatelessWidget {
+  const Sell({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -176,7 +181,30 @@ class _CreateListingPageState extends State<CreateListingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Marketplace'),
+          backgroundColor: Colors.green[400],
+          leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) {
+                  return const Home();
+                },
+                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(0.0, 1.0);
+                  const end = Offset.zero;
+                  const curve = Curves.easeInOut;
+                  var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                  var offsetAnimation = animation.drive(tween);
+                  return SlideTransition(
+                    position: offsetAnimation,
+                    child: child,);
+        },
+              ),
+            );
+          },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
