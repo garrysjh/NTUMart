@@ -103,6 +103,14 @@ public class User {
         this.phone = phone;
     }
 
+    public String getTelegramHandle() {
+        return telegramHandle;
+    }
+
+    public void setTelegramHandle(String telegramHandle) {
+        this.telegramHandle = telegramHandle;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -137,6 +145,7 @@ public class User {
                 ", phone='" + phone + '\'' +
                 ", password='" + password + '\'' +
                 ", address='" + address + '\'' +
+                ", telegramHandle='" + telegramHandle + '\'' +
                 ", profilePic='" + profilePic + '\'' +
                 '}';
     }
