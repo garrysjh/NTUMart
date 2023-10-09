@@ -94,6 +94,22 @@ public class ProductService {
         return product;
     }
 
+    public Product incrementProductLikes(int productID) throws ProductNotFoundException {
+        Product product = productRepository.findById(productID)
+                .orElse(null);
+        product.setProductLikes(product.getProductLikes() + 1);
+
+        return productRepository.save(product);
+    }
+
+    public Product decrementProductLikes(int productID) throws ProductNotFoundException {
+        Product product = productRepository.findById(productID)
+                .orElse(null);
+        product.setProductLikes(product.getProductLikes() - 1);
+
+        return productRepository.save(product);
+    }
+
     public void updateProduct(int productID, ProductDTO productDTO, MultipartFile productPicture, MultipartFile productPicture2, MultipartFile productPicture3, MultipartFile productPicture4)
             throws IOException, ProductNotFoundException { // Change Long to int
         Product product = getProductById(productID);
@@ -104,6 +120,7 @@ public class ProductService {
         product.setDescription(productDTO.getDescription());
         product.setPrice(productDTO.getPrice());
         product.setQuantity(productDTO.getQuantity());
+        product.setCategory(productDTO.getCategory());
         String dir = uploadDir + "//" + product.getSellerID();;
         Files.createDirectories(Paths.get(dir));
         Path filePath = Paths.get(dir, fileName);
