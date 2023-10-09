@@ -110,8 +110,12 @@ class _CreateListingPageState extends State<CreateListingPage> {
       builder: (context) => ItemDetailsPage(),
     )).then((value) {
       if (value != null) {
+        _formKey.currentState?.save();
+        print("HERE!");
+        print(value);
+        print(value['description']);
         setState(() {
-          _itemDetails = value.description;
+          _itemDetails = value['description'];
         });
       }
     });
