@@ -65,20 +65,17 @@ class _ProductsState extends State<Products> {
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
+  // Add a static property to define the route name
+  static const String routeName = '/profile';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.grey,
-        appBar: AppBar(
-          title: const Text('NTUMart'),
-          centerTitle: true,
-          backgroundColor: Colors.green[400],
-        ),
         body: Stack(
           children: <Widget>[
             Body(),
-            Positioned(
+            const Positioned(
               bottom: 0,
               left: 0,
               right: 0,
