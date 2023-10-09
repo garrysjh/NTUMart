@@ -56,6 +56,15 @@ public class UserDTO {
         this.fullname = fullname;
     }
 
+    // Getter and Setter for fullname
+    public String getTelegramHandle() {
+        return telegramHandle;
+    }
+
+    public void setTelegramHandle(String telegramHandle) {
+        this.telegramHandle = telegramHandle;
+    }
+
     // Getter and Setter for email
     public String getEmail() {
         return email;
