@@ -22,7 +22,7 @@ public class ProfUploadService {
     @Autowired
     private ProfUploadRepository uploadRepository;
 
-    private String uploadDir = ".//src//main//resources//images//profpic";
+    private String uploadDir = ".//src//main//resources";
 
     public void uploadFile(Integer userId, MultipartFile file) throws IOException {
 
@@ -42,7 +42,7 @@ public class ProfUploadService {
         Files.createDirectories(Paths.get(dir));
         Path filePath = Paths.get(dir, fileName);
         Files.write(filePath, file.getBytes());
-        userImage.setProfilePic("images/profpic/" + fileName);
+        userImage.setProfilePic("images/profpic/" +  userId + "/" + fileName);
         userImage = uploadRepository.save(userImage);
 
         // throw new IllegalArgumentException("Image file Uploaded");

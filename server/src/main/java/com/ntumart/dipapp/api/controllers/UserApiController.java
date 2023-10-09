@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import com.ntumart.dipapp.api.service.UserService;
 import com.ntumart.dipapp.models.User;
 import com.ntumart.dipapp.models.LoginRequest;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.ntumart.dipapp.api.service.JwtTokenService;
 import net.minidev.json.JSONObject;
 import java.util.HashMap;
@@ -11,9 +12,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.ntumart.dipapp.api.DTO.UserDTO;
+
 
 @RestController
 @RequestMapping("/api/v1")
@@ -81,5 +81,16 @@ public class UserApiController {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Authentication failed");
         }
+    }
+
+
+    @GetMapping("/user/info/")
+    public ResponseEntity<?> getUserInfo(@RequestParam String username) {
+        if (userService.checkExistingUsername(username)<=0){ 
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with username: " + username+  "not found");
+        }
+        UserDTO userDTO = new UserDTO(userService.getUserInfo(username));
+        
+        return ResponseEntity.ok().body(userDTO); 
     }
 }

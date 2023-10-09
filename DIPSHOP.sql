@@ -3,11 +3,12 @@ CREATE DATABASE IF NOT EXISTS dip;
 
 -- Use the 'dip' database
 USE dip;
-
 -- Create the USER table
 CREATE TABLE IF NOT EXISTS USER (
+    
     userID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL,
+    telegramHandle VARCHAR(50) NOT NULL, 
     fullname VARCHAR(50),
     email VARCHAR(50) NOT NULL,
     phone VARCHAR(20) NOT NULL,
