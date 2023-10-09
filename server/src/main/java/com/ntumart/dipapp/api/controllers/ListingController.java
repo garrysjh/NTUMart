@@ -38,7 +38,7 @@ public class ListingController {
     public ResponseEntity<List<ProductResponse>> listAllProducts(
             @ModelAttribute ProductFilterRequestDTO request,
             @RequestParam(required = false) String sortBy,
-            @RequestParam(name = "sortOrder", defaultValue = "desc") String sortOrder
+            @RequestParam(name = "sortOrder", defaultValue = "asc") String sortOrder
     ) {
         LocalDateTime startDateTime = (request.getStartDate() != null) ? LocalDateTime.parse(request.getStartDate())
                 : null;
@@ -60,13 +60,13 @@ public class ListingController {
         }
         List<ProductResponse> productResponses = new ArrayList<>();
         
-        if ("desc".equalsIgnoreCase(sortOrder)) {
+        if ("asc".equalsIgnoreCase(sortOrder)) {
 
             for (Product product : products) {
                 productResponses.add(productResponseService.getProductResponse(product));
             }
 
-        } else if ("asc".equalsIgnoreCase(sortOrder)) {
+        } else if ("desc".equalsIgnoreCase(sortOrder)) {
 
             for (Product product : products) {
                 productResponses.add(productResponseService.getProductResponse(product));
