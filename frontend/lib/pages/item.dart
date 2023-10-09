@@ -1,12 +1,82 @@
-import 'package:frontend/widgets/taskbar.dart';
+import 'package:dip/widgets/taskbar.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
-class ItemDetailsScreen extends StatelessWidget {
+class ItemDetailsScreen extends StatefulWidget {
   const ItemDetailsScreen({super.key});
+
+  @override
+  State<ItemDetailsScreen> createState() => _ItemDetailsScreenState();
+}
+
+class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
+  Map<String, dynamic>? productData;
+  Map<String, dynamic>? userData;
+  String? userName;
+
+  @override
+  void initState() {
+    super.initState();
+    // Call fetchProduct when the screen is first loaded
+    fetchProduct();
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
+
+    // product's information
+    String productName = productData?["productName"] ?? '';
+    String description = productData?["description"] ?? '';
+    double price = productData?["price"]?.toDouble() ?? -1.0;
+    int quantity = productData?["quantity"]?.toInt() ?? -1;
+    String productPic = productData?["productImages"][0]["content"] ?? '';
+    String productPic2 = productData?["productImages"][1]["content"] ?? '';
+    String productPic3 = productData?["productImages"][2]["content"] ?? '';
+    String productPic4 = productData?["productImages"][3]["content"] ?? '';
+
+    List<String?> binaryImageDataList = [
+      productPic,
+      productPic2,
+      productPic3,
+      productPic4,
+    ];
+
+    // Create a list to store Image widgets
+    List<Image> imageWidgets = [];
+
+    // Iterate through the binaryImageDataList and convert each string to an Image widget
+    for (String? binaryImageData in binaryImageDataList) {
+      if (binaryImageData != null && binaryImageData.isNotEmpty) {
+        List<int> imageBytes = base64.decode(binaryImageData);
+        Image imageWidget = Image.memory(Uint8List.fromList(imageBytes));
+        imageWidgets.add(imageWidget);
+      }
+      else {
+    // Handle the case where the binary image data is empty or null
+      }
+    }
+
+    // seller's information
+    String sellerName = userData?["username"] ?? '';
+    String fullName = userData?["fullname"] ?? '';
+    String telegramHandle = userData?["telegramHandle"] ?? '';
+    String phone = userData?["phone"] ?? '';
+    String profilePic = userData?["profilePic"]["content"] ?? '';
+
+    // profile pic
+    List<int> profilePicBytes = base64.decode(profilePic);
+    Image profilePicWidget = Image.memory(Uint8List.fromList(profilePicBytes));
+
+
     return MaterialApp(
       home: Scaffold(
 
@@ -20,13 +90,9 @@ class ItemDetailsScreen extends StatelessWidget {
                 // Slide show of item's images
                 Container(
                   height: 280,
-                  child: ListView.builder(
+                  child: ListView(
                     scrollDirection: Axis.horizontal,
-                    itemCount: 5,
-                    itemBuilder: (context, index) {
-                      // Replace 'assets/img' with the actual path to your images
-                      return Image.asset('assets/img/product${index + 1}.jpg');
-                    },
+                    children: imageWidgets,
                   ),
                 ),
 
@@ -40,15 +106,15 @@ class ItemDetailsScreen extends StatelessWidget {
                       bottomRight: Radius.circular(30.0),
                     ),
                   ),
-                  child: const Column(
+                  child: Column(
                     children: <Widget>[
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Flexible(
                             child: Text(
-                              'Nike Air Jordan 1',
-                              style: TextStyle(
+                              productName,
+                              style: const TextStyle(
                                 fontSize: 24.0,
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xFF5C795B),
@@ -57,8 +123,8 @@ class ItemDetailsScreen extends StatelessWidget {
                           ),
                           Flexible(
                             child: Text(
-                              '\$150.00',
-                              style: TextStyle(
+                              '\$${price.toStringAsFixed(2)}',
+                              style: const TextStyle(
                                 fontSize: 24.0,
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xFF5D7395),
@@ -68,12 +134,12 @@ class ItemDetailsScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(height: 8.0), // Add spacing between rows
+                      const SizedBox(height: 8.0), // Add spacing between rows
                       Row(
                         children: <Widget>[
                           Text(
-                            'Quantity: 1',
-                            style: TextStyle(
+                            'Quantity: $quantity',
+                            style: const TextStyle(
                               fontSize: 14.0,
                             ),
                           ),
@@ -83,18 +149,18 @@ class ItemDetailsScreen extends StatelessWidget {
                   ),
                 ),
 
-                const Padding(
-                  padding: EdgeInsets.all(16.0),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text(
+                      const Text(
                         'Description',
                         style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(height: 12.0), // Adjust the spacing as needed
+                      const SizedBox(height: 12.0), // Adjust the spacing as needed
                       Text(
-                        "Perhaps the most iconic sneaker of all-time, this original \"Chicago\" colorway is the cornerstone to any sneaker collection. Made famous in 1985 by Michael Jordan, the shoe has stood the test of time, becoming the most famous colorway of the Air Jordan 1. This 2015 release saw the ...More",
+                        description,
                         textAlign: TextAlign.justify,
                       ),
                     ],
@@ -114,16 +180,17 @@ class ItemDetailsScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        const Row(
+                        Row(
                           children: <Widget>[
                             CircleAvatar(
                               radius: 24.0, // Make the avatar smaller
-                              backgroundImage: AssetImage('assets/img/avatar.jpg'),
+                              // backgroundImage: AssetImage('assets/img/avatar.jpg'),
+                              backgroundImage: profilePicWidget.image,
                             ),
-                            SizedBox(width: 12.0), // Increase the space between the avatar and text
+                            const SizedBox(width: 12.0), // Increase the space between the avatar and text
                             // Bold the username
                             Text(
-                              'Miyamura Izumi',
+                                fullName,
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ],
@@ -133,9 +200,9 @@ class ItemDetailsScreen extends StatelessWidget {
                           children: <Widget>[
                             Image.asset('assets/img/telegram.png', height: 14.0), // Make icons smaller
                             const SizedBox(width: 12.0),
-                            const Text(
-                              'Telegram: @horimiya',
-                              style: TextStyle(fontSize: 14),
+                            Text(
+                              'Telegram: @$telegramHandle',
+                              style: const TextStyle(fontSize: 14),
                             ),
                           ],
                         ),
@@ -144,9 +211,9 @@ class ItemDetailsScreen extends StatelessWidget {
                           children: <Widget>[
                             Image.asset('assets/img/whatsapp.png', height: 14.0),
                             const SizedBox(width: 12.0),
-                            const Text(
-                              'Phone/WhatsApp: +6512345678',
-                              style: TextStyle(fontSize: 14),
+                            Text(
+                              'Phone/WhatsApp: $phone',
+                              style: const TextStyle(fontSize: 14),
                             ),
                           ],
                         ),
@@ -183,6 +250,7 @@ class ItemDetailsScreen extends StatelessWidget {
                           child: ElevatedButton(
                             onPressed: () {
                               // Handle contact seller button click
+                              _launchTelegram(telegramHandle);
                             },
                             style: ElevatedButton.styleFrom(
                               primary: const Color(0xFF5D7395), // Background color
@@ -214,4 +282,77 @@ class ItemDetailsScreen extends StatelessWidget {
       ),
     );
   }
+
+  void fetchProduct() async {
+    print('fetchProduct called');
+    const url = "http://192.168.0.2:8080/api/v1/product/1"; // Replace with the device's IPv4 address (the one that's hosting the backend)
+    final uri = Uri.parse(url);
+
+    try {
+      final response = await http.get(uri);
+
+      if (response.statusCode == 200) {
+        final body = response.body;
+        final json = jsonDecode(body);
+
+        setState(() {
+          productData = json;
+          userName = productData?["sellerName"] ?? '';
+          fetchUser(userName);
+        });
+
+        print('fetchProduct completed');
+      } else {
+        // Handle non-200 HTTP status codes (e.g., server errors)
+        print('Error: HTTP Status Code ${response.statusCode}');
+      }
+    } catch (e) {
+      // Handle network-related errors (e.g., SocketException, HttpException)
+      print('Error: $e');
+    }
+  } // function fetchProduct
+
+  void fetchUser(String? userName) async {
+    print('fetchUser called');
+    final url = "http://192.168.0.2:8080/api/v1/user/info/?username=$userName"; // Replace with the device's IPv4 address (the one that's hosting the backend)
+    final uri = Uri.parse(url);
+
+    try {
+      final response = await http.get(uri);
+
+      if (response.statusCode == 200) {
+        final body = response.body;
+        final json = jsonDecode(body);
+
+        setState(() {
+          userData = json;
+        });
+
+        print('fetchUser completed');
+      } else {
+        // Handle non-200 HTTP status codes (e.g., server errors)
+        print('Error: HTTP Status Code ${response.statusCode}');
+      }
+    } catch (e) {
+      // Handle network-related errors (e.g., SocketException, HttpException)
+      print('Error: $e');
+    }
+  } // function fetchUser
+
+  void _launchTelegram(String telegramHandle) async {
+    final url = "https://t.me/$telegramHandle";
+    final uri = Uri.parse(url);
+    try {
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri);
+      } else {
+        // Handle the error, e.g., show an error dialog or message
+        print("Could not launch Telegram: Invalid URL");
+      }
+    } catch (e) {
+      // Handle any exceptions that occur during the launching process
+      print("Error launching Telegram: $e");
+    }
+  } // function launchTelegram
+
 }
