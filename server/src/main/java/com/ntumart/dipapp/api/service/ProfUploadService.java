@@ -38,11 +38,11 @@ public class ProfUploadService {
         // Renames the profile image. Helps to Override Profile Image (Naming Convention
         // can change)
         fileName = userId + "_pp.jpg";
-        String dir = uploadDir + "//" + userId;
+        String dir = uploadDir + "//images//profpic//" + userId;
         Files.createDirectories(Paths.get(dir));
         Path filePath = Paths.get(dir, fileName);
         Files.write(filePath, file.getBytes());
-        userImage.setProfilePic(userId + "/" + fileName);
+        userImage.setProfilePic("images/profpic/" +  userId + "/" + fileName);
         userImage = uploadRepository.save(userImage);
 
         // throw new IllegalArgumentException("Image file Uploaded");
