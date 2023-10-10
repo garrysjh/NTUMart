@@ -20,7 +20,7 @@ public class ListingService {
         if (sortBy != null) {
             switch (sortBy) {
                 case "name":
-                    products.sort(Comparator.comparing(Product::getName));
+                    products.sort(Comparator.comparing(Product::getName, String.CASE_INSENSITIVE_ORDER));
                     break;
                 case "price":
                     products.sort(Comparator.comparing(Product::getPrice));
@@ -29,9 +29,10 @@ public class ListingService {
                     products.sort(Comparator.comparing(Product::getDate));
                     break;
                 case "category":
-                    products.sort(Comparator.comparing(Product::getCategory));
+                    products.sort(Comparator.comparing(Product::getCategory, String.CASE_INSENSITIVE_ORDER));
                     break;
                 // Add more cases as needed for different sorting criteria
+                // Add Case Insensitive to those that get String data
                 default:
                     // Handle unknown sortBy parameter
                     throw new IllegalArgumentException("Invalid sortBy parameter");
