@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:frontend/pages/widgets/taskbar.dart';
 import '../body.dart';
 
+void main() => runApp(MaterialApp(home: ProfileScreen()));
+
 /*
 class Products extends StatefulWidget {
   @override
@@ -70,6 +72,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("test");
     return Scaffold(
         backgroundColor: Colors.grey,
         body: Stack(

@@ -3,6 +3,10 @@ import 'product.dart';
 import 'package:frontend/pages/widgets/vertical_view_listings.dart'; 
 //import 'searchBar.dart';
 
+void main() {
+  runApp( Body());
+}
+
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:frontend/homepage.dart';
+import 'package:frontend/main.dart';
 import 'package:frontend/pages/widgets/searchbar.dart';
+import 'package:frontend/pages/widgets/vertical_view_listings.dart';
+import 'package:frontend/product.dart';
 
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const Search());
@@ -10,34 +16,22 @@ void main() {
 class Search extends StatelessWidget {
   const Search({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Search',
       home: BrowsePage(),
-      );
+    );
   }
 }
 
 class BrowsePage extends StatefulWidget {
   const BrowsePage({super.key});
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-
   @override
   State<BrowsePage> createState() => _BrowseState();
 }
 
-//
 class _BrowseState extends State<BrowsePage> {
   @override
   Widget build(BuildContext context) {
@@ -58,19 +52,19 @@ class _BrowseState extends State<BrowsePage> {
                 child: Row(
                   children: [
                     IconButton(
-                      icon: Icon(Icons.arrow_back),
+                      icon: const Icon(Icons.arrow_back),
                       onPressed: () {
-                         Navigator.push(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (context, animation, secondaryAnimation) {
-                  return const Home();
-                },
-                transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return child;
-        },
-              ),
-            );
+                        Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder: (context, animation, secondaryAnimation) {
+                              return const Home();
+                            },
+                            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                              return child;
+                            },
+                          ),
+                        );
                       },
                     ),
                     const Expanded(
@@ -81,7 +75,6 @@ class _BrowseState extends State<BrowsePage> {
               ),
               GestureDetector(
                 onTap: () {
-                  // Handle press on the box
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text("Search for user pressed!"),
@@ -109,10 +102,41 @@ class _BrowseState extends State<BrowsePage> {
                   ),
                 ),
               ),
+
+              // Add VerticalViewListings widget below
+              VerticalViewListings(products: products),
             ],
           ),
         ),
       ),
     );
+  }
+}
+
+Future<List<Product>>  getAllProducts() async {
+  final url = Uri.parse('$URL/product/listing'); // Replace with your server URL
+
+  try {
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      // Request was successful
+      final jsonResponse = json.decode(response.body);
+      return List<Product>.from(jsonResponse.map((model) => Product.fromJson(model)));
+
+    } else {
+      // Request failed
+      return null;
+    }
+  } catch (e) {
+    print('Error: $e');
+
   }
 }
