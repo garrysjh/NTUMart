@@ -1,5 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:frontend/models/interestmodel.dart';
 import 'homepage.dart';
+
+import 'package:http/http.dart' as http;
+import 'package:frontend/main.dart';
 
 void main() {
   runApp(const CustomInterests());
@@ -176,18 +182,40 @@ class _CategorySelectionPageState extends State<CategorySelectionPage> {
             Center(
               child: ElevatedButton(
                 onPressed: (){
-                  //Edit this later to link to homepage
+                  if (selectedCategories.isNotEmpty){
+                  Interest interest = Interest.fromArray(userId, selectedCategories);
+                  insertInterest(userId, interest);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Home()),
+                  );
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text('Lets Go!'),
                       duration: Duration(milliseconds: 1500),
                       behavior: SnackBarBehavior.floating,
+                      
                     ),
+                    
+
+                    
                   );
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Home()),
+                  Future.delayed(Duration(seconds: 3));
+                  ;}
+                  else{
+                    ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Please select at least one category!'),
+                      duration: Duration(milliseconds: 1500),
+                      behavior: SnackBarBehavior.floating,
+                      
+                    ),
+                    
+
+                    
                   );
+                  }
+                  
                 },
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -213,4 +241,36 @@ class _CategorySelectionPageState extends State<CategorySelectionPage> {
       ),
     );
   }
+}
+
+//userId = 1 for testing purposes
+const userId = 1;
+
+Future<int> insertInterest(int userID, Interest interest) async {
+  final url = Uri.parse('$URL/user/interest'); // Replace with your server URL
+  try {
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({
+        'userID': userID,
+        'category1': interest.getCategory1,
+        'category2': interest.getCategory2,
+        'category3': interest.getCategory3,
+        'category4': interest.getCategory4,
+        'category5': interest.getCategory4
+      }),
+    );
+
+    if (response.statusCode == 200) {
+        return 1;
+      }
+  }
+   catch (e) {
+    print('Error: $e');
+    return -1;
+  }
+  return 0;
 }

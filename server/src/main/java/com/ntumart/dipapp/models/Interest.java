@@ -37,6 +37,15 @@ public class Interest {
         //Default Contructor with no parameters
     }
 
+    public Interest(int userID, String category1, String category2, String category3, String category4, String category5) {
+        this.userID = userID;
+        this.category1 = category1;
+        this.category2 = category2;
+        this.category3 = category3;
+        this.category4 = category4;
+        this.category5 = category5;
+    }
+
     public Interest(int interestID, int userID, String category1, String category2, String category3, String category4, String category5) {
         this.interestID = interestID;
         this.userID = userID;
@@ -103,20 +112,31 @@ public class Interest {
         this.category5 = category5;
     }
 
+    public int getInterestID() {
+        return interestID;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
     @Override
     public String toString() {
         return "Interest{" +
-                    "interestID=" + interestID +
-                    ", userID='" + userID + '\'' +
-                    ", category1='" + category1 + '\'' +
-                    ", category2='" + category2 + '\'' +
-                    ", category3='" + category3 + '\'' +
-                    ", category4='" + category4 + '\'' +
-                    ", category5='" + category5 + '\'' +
-                    '}';
-        }
+                "interestID=" + interestID +
+                ", userID=" + userID +
+                ", category1='" + category1 + '\'' +
+                ", category2='" + category2 + '\'' +
+                ", category3='" + category3 + '\'' +
+                ", category4='" + category4 + '\'' +
+                ", category5='" + category5 + '\'' +
+                '}';
+    }
 
-
+    public String[] toArray() {
+        String[] array ={category1, category2, category3, category4, category5};
+        return array;
+    }
 
 
 }
