@@ -1,4 +1,5 @@
 import 'package:frontend/main.dart';
+import 'package:frontend/models/productresponsemodel.dart';
 import 'package:frontend/widgets/taskbar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -21,6 +22,7 @@ class ItemDetailsScreen extends StatefulWidget {
 
 class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
   Map<String, dynamic>? productData;
+  late ProductResponse product;
   Map<String, dynamic>? userData;
   String? userName;
 
@@ -37,28 +39,20 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
 
-    // product's information
-    String productName = productData?["productName"] ?? '';
-    String description = productData?["description"] ?? '';
-    double price = productData?["price"]?.toDouble() ?? -1.0;
-    int quantity = productData?["quantity"]?.toInt() ?? -1;
-    String productPic = productData?["productImages"][0]["content"] ?? '';
-    String productPic2 = productData?["productImages"][1]["content"] ?? '';
-    String productPic3 = productData?["productImages"][2]["content"] ?? '';
-    String productPic4 = productData?["productImages"][3]["content"] ?? '';
 
-    List<String?> binaryImageDataList = [
-      productPic,
-      productPic2,
-      productPic3,
-      productPic4,
-    ];
+
+    // product's information
+  
+
+    
+    
+
 
     // Create a list to store Image widgets
     List<Image> imageWidgets = [];
 
-    // Iterate through the binaryImageDataList and convert each string to an Image widget
-    for (String? binaryImageData in binaryImageDataList) {
+    if (product.getBinaryImageDataList?.isNotEmpty ?? false){// Iterate through the binaryImageDataList and convert each string to an Image widget
+    for (String? binaryImageData in product.getBinaryImageDataList!) {
       if (binaryImageData != null && binaryImageData.isNotEmpty) {
         List<int> imageBytes = base64.decode(binaryImageData);
         Image imageWidget = Image.memory(Uint8List.fromList(imageBytes));
@@ -67,7 +61,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
       else {
     // Handle the case where the binary image data is empty or null
       }
-    }
+    }}
 
     // seller's information
     String sellerName = userData?["username"] ?? '';
@@ -117,7 +111,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                         children: <Widget>[
                           Flexible(
                             child: Text(
-                              productName,
+                              product.getProductName ?? '',
                               style: const TextStyle(
                                 fontSize: 24.0,
                                 fontWeight: FontWeight.bold,
@@ -127,7 +121,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                           ),
                           Flexible(
                             child: Text(
-                              '\$${price.toStringAsFixed(2)}',
+                              '\$${product.getPrice?.toStringAsFixed(2) ?? ''}',
                               style: const TextStyle(
                                 fontSize: 24.0,
                                 fontWeight: FontWeight.bold,
@@ -142,7 +136,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                       Row(
                         children: <Widget>[
                           Text(
-                            'Quantity: $quantity',
+                            'Quantity: ${product.getQuantity}',
                             style: const TextStyle(
                               fontSize: 14.0,
                             ),
@@ -164,7 +158,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                       ),
                       const SizedBox(height: 12.0), // Adjust the spacing as needed
                       Text(
-                        description,
+                        product.getDescription ?? '',
                         textAlign: TextAlign.justify,
                       ),
                     ],
@@ -297,8 +291,8 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
       if (response.statusCode == 200) {
         final body = response.body;
         final json = jsonDecode(body);
-
         setState(() {
+          product = ProductResponse.fromMap(json);
           productData = json;
           userName = productData?["sellerName"] ?? '';
           fetchUser("example_username");
