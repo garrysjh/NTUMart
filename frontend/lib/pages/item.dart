@@ -1,4 +1,5 @@
-import 'package:dip/widgets/taskbar.dart';
+import 'package:frontend/main.dart';
+import 'package:frontend/widgets/taskbar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
@@ -7,6 +8,9 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+
+void main() => runApp(ItemDetailsScreen());
+
 
 class ItemDetailsScreen extends StatefulWidget {
   const ItemDetailsScreen({super.key});
@@ -285,11 +289,10 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
 
   void fetchProduct() async {
     print('fetchProduct called');
-    const url = "http://192.168.0.2:8080/api/v1/product/1"; // Replace with the device's IPv4 address (the one that's hosting the backend)
-    final uri = Uri.parse(url);
+    final url = Uri.parse('$URL/product/1');
 
     try {
-      final response = await http.get(uri);
+      final response = await http.get(url);
 
       if (response.statusCode == 200) {
         final body = response.body;
@@ -298,7 +301,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
         setState(() {
           productData = json;
           userName = productData?["sellerName"] ?? '';
-          fetchUser(userName);
+          fetchUser("example_username");
         });
 
         print('fetchProduct completed');
@@ -314,7 +317,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
 
   void fetchUser(String? userName) async {
     print('fetchUser called');
-    final url = "http://192.168.0.2:8080/api/v1/user/info/?username=$userName"; // Replace with the device's IPv4 address (the one that's hosting the backend)
+    final url = "$URL/user/info/?username=$userName"; // Replace with the device's IPv4 address (the one that's hosting the backend)
     final uri = Uri.parse(url);
 
     try {
