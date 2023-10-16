@@ -1,11 +1,17 @@
 import 'dart:convert';
 
+
 import 'package:flutter/material.dart';
+import 'package:frontend/body.dart';
 import 'package:frontend/homepage.dart';
 import 'package:frontend/main.dart';
+import 'package:frontend/models/productresponsemodel.dart';
 import 'package:frontend/pages/widgets/searchbar.dart';
 import 'package:frontend/pages/widgets/vertical_view_listings.dart';
 import 'package:frontend/product.dart';
+
+import 'dart:convert';
+import 'dart:async';
 
 import 'package:http/http.dart' as http;
 
@@ -33,6 +39,13 @@ class BrowsePage extends StatefulWidget {
 }
 
 class _BrowseState extends State<BrowsePage> {
+  late List<ProductResponse> productsFuture = [];
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,18 +116,21 @@ class _BrowseState extends State<BrowsePage> {
                 ),
               ),
 
-              // Add VerticalViewListings widget below
-              VerticalViewListings(products: products),
+              // Use FutureBuilder to handle asynchronous operation
+              // Use FutureBuilder to handle asynchronous operation
+if (productsFuture != null)
+                VerticalViewListings(products: productsFuture),
+              if (productsFuture == null)
+                Text('No data available'),
             ],
           ),
         ),
       ),
     );
   }
-}
 
-Future<List<Product>>  getAllProducts() async {
-  final url = Uri.parse('$URL/product/listing'); // Replace with your server URL
+ void getAllProducts() async {
+  final url = Uri.parse('$URL/product/listing');
 
   try {
     final response = await http.post(
@@ -122,21 +138,26 @@ Future<List<Product>>  getAllProducts() async {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: json.encode({
-      }),
+      body: json.encode({}),
     );
 
     if (response.statusCode == 200) {
-      // Request was successful
-      final jsonResponse = json.decode(response.body);
-      return List<Product>.from(jsonResponse.map((model) => Product.fromJson(model)));
-
+      final jsonResponse = jsonDecode(response.body);
+      List<ProductResponse> products = [];
+        for (var i = 0; i < jsonResponse.length; i++) {
+        final product = ProductResponse.fromMap(jsonResponse[i]);
+        products.add(product);
+      }
+        setState(() {
+          productsFuture = products;
+        });
     } else {
-      // Request failed
-      return null;
+      print('Failed to load products. Status code: ${response.statusCode}');
+      throw Exception('Failed to load products: ${response.statusCode}');
     }
   } catch (e) {
     print('Error: $e');
-
+    throw Exception('Failed to load products: $e');
   }
+}
 }

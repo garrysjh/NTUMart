@@ -1,53 +1,100 @@
-import 'file_data.dart'; // Import the FileData class if it exists
-
 class ProductResponse {
-  late String sellerName;
-  late String productName;
-  late String description;
-  late double price;
-  late int quantity;
-  late List<FileData> productImages;
-  late int productLikes;
-  late DateTime date;
-  late String category;
+  String? productName;
+  String? description;
+  double? price;
+  int? quantity;
+  String? productPic;
+  String? productPic2;
+  String? productPic3;
+  String? productPic4;
+  List<String?>? binaryImageDataList;
 
   ProductResponse({
-    required this.sellerName,
-    required this.productName,
-    required this.description,
-    required this.price,
-    required this.quantity,
-    required this.productImages,
-    required this.productLikes,
-    required this.date,
-    required this.category,
-  });
+    this.productName,
+    this.description,
+    this.price,
+    this.quantity,
+    this.productPic,
+    this.productPic2,
+    this.productPic3,
+    this.productPic4,
+    List<String?>? binaryImageDataList,
+  }) : binaryImageDataList = binaryImageDataList ?? [productPic, productPic2, productPic3, productPic4];
 
-  // Named constructor for creating an instance from JSON data
-  ProductResponse.fromJson(Map<String, dynamic> json) {
-    sellerName = json['sellerName'];
-    productName = json['productName'];
-    description = json['description'];
-    price = json['price'].toDouble();
-    quantity = json['quantity'];
-    productImages = List<FileData>.from(json['productImages'].map((x) => FileData.fromJson(x)));
-    productLikes = json['productLikes'];
-    date = DateTime.parse(json['date']);
-    category = json['category'];
+  // Getters and Setters
+  // Getters
+  String? get getProductName => productName;
+  String? get getDescription => description;
+  double? get getPrice => price;
+  int? get getQuantity => quantity;
+  String? get getProductPic => productPic;
+  String? get getProductPic2 => productPic2;
+  String? get getProductPic3 => productPic3;
+  String? get getProductPic4 => productPic4;
+  List<String?>? get getBinaryImageDataList => binaryImageDataList;
+
+  // Setters
+  set setProductName(String? value) => productName = value;
+  set setDescription(String? value) => description = value;
+  set setPrice(double? value) => price = value;
+  set setQuantity(int? value) => quantity = value;
+  set setProductPic(String? value) => productPic = value;
+  set setProductPic2(String? value) => productPic2 = value;
+  set setProductPic3(String? value) => productPic3 = value;
+  set setProductPic4(String? value) => productPic4 = value;
+  set setBinaryImageDataList(List<String?>? value) => binaryImageDataList = value ?? [productPic, productPic2, productPic3, productPic4];
+
+  // Additional constructor to create an instance from a map
+  ProductResponse.fromMap(Map<String, dynamic> productData)
+      : productName = productData["productName"] ?? '',
+        description = productData["description"] ?? '',
+        price = productData["price"]?.toDouble() ?? -1.0,
+        quantity = productData["quantity"]?.toInt() ?? -1,
+        productPic = productData["productImages"][0]["content"] ?? '',
+        productPic2 = productData["productImages"][1]["content"] ?? '',
+        productPic3 = productData["productImages"][2]["content"] ?? '',
+        productPic4 = productData["productImages"][3]["content"] ?? '',
+        binaryImageDataList = [
+          productData["productImages"][0]["content"] ?? '',
+          productData["productImages"][1]["content"] ?? '',
+          productData["productImages"][2]["content"] ?? '',
+          productData["productImages"][3]["content"] ?? '',
+        ];
+
+  // Factory method to create an instance from JSON
+  factory ProductResponse.fromJson(Map<String, dynamic> json) {
+    return ProductResponse(
+      productName: json['productName'],
+      description: json['description'],
+      price: json['price']?.toDouble(),
+      quantity: json['quantity']?.toInt(),
+      productPic: json['productPic'],
+      productPic2: json['productPic2'],
+      productPic3: json['productPic3'],
+      productPic4: json['productPic4'],
+      binaryImageDataList: List<String?>.from(json['binaryImageDataList']),
+    );
   }
 
-  // Method to convert the object to a JSON representation
+  // Convert the instance to a JSON representation
   Map<String, dynamic> toJson() {
     return {
-      'sellerName': sellerName,
       'productName': productName,
       'description': description,
       'price': price,
       'quantity': quantity,
-      'productImages': productImages.map((x) => x?.toJson()).toList(),
-      'productLikes': productLikes,
-      'date': date.toIso8601String(),
-      'category': category,
+      'productPic': productPic,
+      'productPic2': productPic2,
+      'productPic3': productPic3,
+      'productPic4': productPic4,
+      'binaryImageDataList': binaryImageDataList,
     };
+  }
+
+  @override
+  String toString() {
+    return 'ProductResponse{productName: $productName, description: $description, price: $price, quantity: $quantity, '
+        'productPic: $productPic, productPic2: $productPic2, productPic3: $productPic3, productPic4: $productPic4, '
+        'binaryImageDataList: $binaryImageDataList}';
   }
 }

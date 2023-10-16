@@ -93,7 +93,7 @@ class Body extends StatelessWidget {
                     hintText: 'Search for a listing',
                   ),
                 ),
-                VerticalViewListings(products: products)
+                // VerticalViewListings(products: products)
               ],
             )),
       ],
