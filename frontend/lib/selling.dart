@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+
+import 'package:frontend/main.dart';
+
 import 'package:frontend/homepage.dart';
+
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(Sell());
@@ -44,27 +49,102 @@ class _CreateListingPageState extends State<CreateListingPage> {
   String? _condition;
   String? _itemDetails;
   double? _price;
+  String? _title;
   List<XFile>? _imageFiles = [];
   final ImagePicker _picker = ImagePicker();
 
   Future<void> _pickImages() async {
     final List<XFile>? selectedImages = await _picker.pickMultiImage();
 
-    if (selectedImages != null) {
+    if (selectedImages != null && selectedImages.isNotEmpty) {
       setState(() {
         _imageFiles = selectedImages;
       });
     }
   }
+  Widget _buildImageSelectionButton(int index) {
+  return InkWell(
+    onTap: () {
+      // Add logic to select an image when the square button is tapped.
+      // You can use _pickImages or any other image selection method.
+      _pickImages();
+    },
+    child: Container(
+      width: 80.0,
+      height: 80.0,
+      decoration: BoxDecoration(
+        color: Colors.grey[300],
+        border: Border.all(
+          color: Colors.grey,
+        ),
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: Center(
+          child: _imageFiles != null &&
+                  _imageFiles!.isNotEmpty &&
+                  index < _imageFiles!.length
+              ? Image.file(
+                  File(_imageFiles![index].path),
+                  width: 70.0,
+                  height: 70.0,
+                  fit: BoxFit.cover,
+                )
+              : Icon(
+                  Icons.add,
+                  size: 40.0,
+                  color: Colors.grey,
+                ),
+        ),
 
-  void _submitForm() {
+    ),
+  );
+}
+
+
+  Future<void> _submitForm() async {
     if (_formKey.currentState?.validate() ?? false) {
       // Add logic here to save the listing to your marketplace.
       // For this example, we'll print the input values.
+      _formKey.currentState?.save();
       print('Category: $_category');
       print('Condition: $_condition');
       print('Item Details: $_itemDetails');
       print('Price: $_price');
+      print('Name: $_title');
+    // Create a MultipartRequest
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse('$URL/product/add'), // Replace with your actual backend URL
+      );
+
+      // Add form fields
+      request.fields['category'] = _category!;
+      request.fields['condition'] = _condition!;
+      request.fields['description'] = _itemDetails!;
+      request.fields['price'] = _price.toString();
+      request.fields['quantity'] = '1';
+      request.fields['name'] = _title!;
+
+      // Add image files
+      for (int i = 0; i < _imageFiles!.length; i++) {
+      var fieldName = i == 0 ? 'productPicture' : 'productPicture${i + 1}';
+      var file = await http.MultipartFile.fromPath(
+        fieldName,
+        _imageFiles![i].path,
+      );
+      request.files.add(file);
+    }
+      try {
+        var response = await request.send();
+        if (response.statusCode == 200) {
+          print('Product successfully added');
+        } else {
+          print('Error adding product. Status code: ${response.statusCode}');
+        }
+      } catch (error) {
+        print('Error sending request: $error');
+      }
+      
     }
   }
 
@@ -73,8 +153,13 @@ class _CreateListingPageState extends State<CreateListingPage> {
       builder: (context) => ItemDetailsPage(),
     )).then((value) {
       if (value != null) {
+        _formKey.currentState?.save();
+        print("HERE!");
+        print(value);
+        print(value['description']);
         setState(() {
-          _itemDetails = value;
+          _title = value['title'];
+          _itemDetails = value['description'];
         });
       }
     });
@@ -155,12 +240,12 @@ class _CreateListingPageState extends State<CreateListingPage> {
                   _buildImageSelectionButton(3),
                 ],
               ),
-              if (_imageFiles != null && _imageFiles!.isNotEmpty)
-                Column(
-                  children: _imageFiles!
-                      .map((image) => Image.file(File(image.path)))
-                      .toList(),
-                ),
+              // if (_imageFiles != null && _imageFiles!.isNotEmpty)
+              //   Column(
+              //     children: _imageFiles!
+              //         .map((image) => Image.file(File(image.path)))
+              //         .toList(),
+              //   ),
 
               SizedBox(height: 16.0),
 
@@ -323,32 +408,6 @@ class _CreateListingPageState extends State<CreateListingPage> {
   }
 }
 
-Widget _buildImageSelectionButton(int index) {
-  return InkWell(
-    onTap: () {
-      // Add logic to select an image when the square button is tapped.
-      // You can use _pickImages or any other image selection method.
-    },
-    child: Container(
-      width: 80.0,
-      height: 80.0,
-      decoration: BoxDecoration(
-        color: Colors.grey[300],
-        border: Border.all(
-          color: Colors.grey,
-        ),
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Center(
-        child: Icon(
-          Icons.add,
-          size: 40.0,
-          color: Colors.grey,
-        ),
-      ),
-    ),
-  );
-}
 
 class ItemDetailsPage extends StatefulWidget {
   @override
