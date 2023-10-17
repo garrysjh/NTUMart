@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:frontend/models/productresponsemodel.dart';
+import 'package:frontend/models/productResponsemodel.dart';
 
 class ItemCard extends StatelessWidget {
   final ProductResponse productResponse;
