@@ -39,11 +39,12 @@ class BrowsePage extends StatefulWidget {
 }
 
 class _BrowseState extends State<BrowsePage> {
-  late List<ProductResponse> productsFuture = [];
+  late Future<List<ProductResponse>> productsFuture;
 
   @override
   void initState() {
     super.initState();
+    productsFuture = getAllProducts();
   }
 
   @override
@@ -117,11 +118,20 @@ class _BrowseState extends State<BrowsePage> {
               ),
 
               // Use FutureBuilder to handle asynchronous operation
-              // Use FutureBuilder to handle asynchronous operation
-if (productsFuture != null)
-                VerticalViewListings(products: productsFuture),
-              if (productsFuture == null)
-                Text('No data available'),
+              FutureBuilder<List<ProductResponse>>(
+                future: productsFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return Text('Snapshot Error: ${snapshot.error}');
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return Text('No data available');
+                  } else {
+                    return VerticalViewListings(products: snapshot.data!);
+                  }
+                },
+              ),
             ],
           ),
         ),
@@ -129,35 +139,39 @@ if (productsFuture != null)
     );
   }
 
- void getAllProducts() async {
-  final url = Uri.parse('$URL/product/listing');
+  Future<List<ProductResponse>> getAllProducts() async {
+    final url = Uri.parse('$URL/product/listing');
 
-  try {
-    final response = await http.post(
-      url,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: json.encode({}),
-    );
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: json.encode({}),
+      );
 
-    if (response.statusCode == 200) {
-      final jsonResponse = jsonDecode(response.body);
-      List<ProductResponse> products = [];
-        for (var i = 0; i < jsonResponse.length; i++) {
-        final product = ProductResponse.fromMap(jsonResponse[i]);
-        products.add(product);
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body);
+        print("jsonResponse: ");
+        print(jsonResponse.runtimeType);
+        print("Type of item in jsonresponse: ");
+        print(jsonResponse[0].runtimeType);
+        List<ProductResponse> products = [];
+        for (var item in jsonResponse) {
+          final product = ProductResponse.fromMap(item);
+          print("Item: ");
+          print(item);
+          products.add(product);
+        }
+        return products;
+      } else {
+        print('Failed to load products. Status code: ${response.statusCode}');
+        throw Exception('Failed to load products: ${response.statusCode}');
       }
-        setState(() {
-          productsFuture = products;
-        });
-    } else {
-      print('Failed to load products. Status code: ${response.statusCode}');
-      throw Exception('Failed to load products: ${response.statusCode}');
+    } catch (e) {
+      print('Error: $e');
+      throw Exception('Failed to load products: $e');
     }
-  } catch (e) {
-    print('Error: $e');
-    throw Exception('Failed to load products: $e');
   }
-}
 }

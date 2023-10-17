@@ -46,20 +46,32 @@ class ProductResponse {
 
   // Additional constructor to create an instance from a map
   ProductResponse.fromMap(Map<String, dynamic> productData)
-      : productName = productData["productName"] ?? '',
-        description = productData["description"] ?? '',
-        price = productData["price"]?.toDouble() ?? -1.0,
-        quantity = productData["quantity"]?.toInt() ?? -1,
-        productPic = productData["productImages"][0]["content"] ?? '',
-        productPic2 = productData["productImages"][1]["content"] ?? '',
-        productPic3 = productData["productImages"][2]["content"] ?? '',
-        productPic4 = productData["productImages"][3]["content"] ?? '',
-        binaryImageDataList = [
+    : productName = productData["productName"] ?? '',
+      description = productData["description"] ?? '',
+      price = productData["price"]?.toDouble() ?? -1.0,
+      quantity = productData["quantity"]?.toInt() ?? -1,
+      productPic = (productData["productImages"].length > 0)
+          ? productData["productImages"][0]["content"] ?? ''
+          : '',
+      productPic2 = (productData["productImages"].length > 1)
+          ? productData["productImages"][1]["content"] ?? ''
+          : '',
+      productPic3 = (productData["productImages"].length > 2)
+          ? productData["productImages"][2]["content"] ?? ''
+          : '',
+      productPic4 = (productData["productImages"].length > 3)
+          ? productData["productImages"][3]["content"] ?? ''
+          : '',
+      binaryImageDataList = [
+        if (productData["productImages"].length > 0)
           productData["productImages"][0]["content"] ?? '',
+        if (productData["productImages"].length > 1)
           productData["productImages"][1]["content"] ?? '',
+        if (productData["productImages"].length > 2)
           productData["productImages"][2]["content"] ?? '',
+        if (productData["productImages"].length > 3)
           productData["productImages"][3]["content"] ?? '',
-        ];
+      ];
 
   // Factory method to create an instance from JSON
   factory ProductResponse.fromJson(Map<String, dynamic> json) {
