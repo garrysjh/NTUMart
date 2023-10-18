@@ -15,7 +15,7 @@ public class Interest {
     @Column(name = "interestID")
     private int interestID;
 
-    @Column(name = "userID")
+    @Column(name = "userID", unique = true)
     private int userID;
 
     @Column(name = "category1")
@@ -47,7 +47,7 @@ public class Interest {
         this.category5 = category5;
     }
 
-    public int interestID() {
+    public int getInterestID() {
         return interestID;
     }
 
@@ -55,7 +55,7 @@ public class Interest {
         this.interestID = interestID;
     }
 
-    public int userID() {
+    public int getUserID() {
         return userID;
     }
 
