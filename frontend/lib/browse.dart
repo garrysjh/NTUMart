@@ -168,7 +168,7 @@ class _BrowsePageState extends State<BrowsePage> {
 
                     Container(
                       height: MediaQuery.of(context).size.height * .68,
-                      child: SingleChildScrollView(
+                      child: SingleChildScrollView( //makes everything below searchbar scrollable
                         child: Column(
                           children: [
                             const Padding(

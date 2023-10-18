@@ -3,6 +3,8 @@ import 'package:frontend/product.dart';
 import 'package:frontend/browse.dart';
 import 'package:frontend/pages/widgets/vertical_view_listings.dart';
 import 'package:frontend/pages/widgets/taskbar.dart';
+import 'package:frontend/category_button.dart';
+import 'package:frontend/custominterests.dart';
 
 void main() {
   runApp(const Home());
@@ -57,6 +59,12 @@ class HomePage extends StatefulWidget {
 
 //
 class _HomePageState extends State<HomePage> {
+  List<String> selectedCategories = [
+    "Women's Fashion",
+    'Footwear',
+    'Books & Notes',
+    'Services',
+    'Personal Care',]; //placeholder selected categories
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -148,14 +156,6 @@ class _HomePageState extends State<HomePage> {
                                 context,
                                 MaterialPageRoute(builder: (context) => const Browse()),
                               );
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content:
-                                      Text("browse page navigation coming soon!"),
-                                  duration: Duration(milliseconds: 1500),
-                                  behavior: SnackBarBehavior.floating,
-                                ),
-                              );
                             },
                           ),
                         ),
@@ -206,8 +206,8 @@ class _HomePageState extends State<HomePage> {
                                   ],
                                 ),
                               ),
-                              //Separate Sort & Filter buttons
                               /*
+                              //Separate Sort & Filter buttons
                               const SizedBox(
                                 width: 5,
                               ),
@@ -310,8 +310,24 @@ class _HomePageState extends State<HomePage> {
                             ],
                           ),
                         ), //for row of category text + sort + filter
-
-
+                        Container(
+                        padding: const EdgeInsets.only(left:12, right:12),
+                        height: 110,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal, // Set the scroll direction to horizontal
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 3.0),
+                              child: Row(
+                                children: [
+                                  for (int index = 0; index < selectedCategories.length; index++)
+                                    CategoryButton(selectedString: selectedCategories[index],),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        ),
                         Container(
                           child: VerticalViewListings(products: products),
                         ),
