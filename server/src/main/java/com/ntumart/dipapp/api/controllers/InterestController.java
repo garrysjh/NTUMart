@@ -6,13 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ntumart.dipapp.api.repository.InterestRepository;
 import com.ntumart.dipapp.api.service.InterestService;
@@ -33,9 +27,10 @@ public class InterestController {
 
         @RequestMapping(value = "/interest", method = RequestMethod.POST, produces = {"application/json"})
         @ResponseBody
-        public ResponseEntity<String> addInterest(@ModelAttribute Interest interest){
+        public ResponseEntity<String> addInterest(@RequestBody Interest interest){
             try {
                 interestService.addInterest(interest);
+                System.out.println("Received Interest object: " + interest);
                 return ResponseEntity.ok("Interest Added Successfully");
             } catch (EmptyFileException e) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("File is empty");
@@ -45,14 +40,14 @@ public class InterestController {
     }
 
     @GetMapping("/{userID}/interest")
-    public ResponseEntity<List<Object>> userID(@PathVariable int userID) throws ProductNotFoundException {
-        List<Object> interest = interestRepository.userID(userID);
+    public ResponseEntity<String[]> userID(@PathVariable int userID) throws ProductNotFoundException {
+        Interest interest = interestRepository.userID(userID);
         
-        if (interest.isEmpty()) {
+        if (interest == null) {
             return ResponseEntity.notFound().build();
         }
         
-        return ResponseEntity.ok(interest);
+        return ResponseEntity.ok(interest.toArray());
     }
         
 }

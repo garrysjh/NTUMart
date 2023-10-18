@@ -1,5 +1,8 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:frontend/custominterests.dart';
 import 'package:frontend/theme.dart';
 import 'package:frontend/widgets/snackbar.dart';
 import 'package:http/http.dart' as http;
@@ -189,16 +192,28 @@ class _SignInState extends State<SignIn> {
     );
   }
 
+  //userId == 1 for has interest
+  //userId == 2 for doesnt have interest
+  final userId = 2;
+  // move to customInterest if interest dont exist, 
+  // move to home if interest exist
+
   void _toggleSignInButton() async {
     try {
-      int authenticated = await loginUser(
+          int authenticated = await loginUser(
           loginUsernameController.text, loginPasswordController.text);
+          int hasInterest = await checkInterest(userId);
 
-      if (authenticated == 1) {
+      if (authenticated == 1 && hasInterest == 1) {
         CustomSnackBar(context, Text('Sign-in successful'));
         await Future.delayed(Duration(seconds: 1));
         moveToHome();
-      } else if (authenticated == 0) {
+      } else if (authenticated == 1 && hasInterest == 0) {
+        CustomSnackBar(context, Text('Sign-in successful'));
+        await Future.delayed(Duration(seconds: 1));
+        moveToInterest();
+      }
+      else if (authenticated == 0) {
         CustomSnackBar(context, Text('Wrong email/password'));
       } else {
         CustomSnackBar(
@@ -217,10 +232,38 @@ class _SignInState extends State<SignIn> {
         context, MaterialPageRoute(builder: (context) => const Home()));
   }
 
+    void moveToInterest() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => const CustomInterests()));
+  }
+
   void _toggleLogin() {
     setState(() {
       _obscureTextPassword = !_obscureTextPassword;
     });
+  }
+}
+
+
+Future<int> checkInterest(int id) async{
+  final url = Uri.parse('$URL/user/$id/interest');
+  try{
+    final response = await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    );
+    if (response.statusCode == 200) {
+      return 1;
+    } else {
+      // Request failed
+      print('Failed to login. Status code: ${response.statusCode}');
+      return 0;
+    }
+  } catch (e) {
+    print('Error: $e');
+    return 0;
   }
 }
 

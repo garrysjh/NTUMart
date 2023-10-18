@@ -27,6 +27,6 @@ public interface InterestRepository extends JpaRepository<Interest, Integer>{
                     @Param("category5") String category5);
 
     // MAPPING 2 DIFFERENT TABLE USING SAME VARIABLE
-    @Query(value = "SELECT * FROM USER INNER JOIN INTEREST ON USER.userID = INTEREST.userID where INTEREST.userID = :userID", nativeQuery = true)
-    List<Object> userID(int userID);
+    @Query(value = "SELECT * FROM INTEREST WHERE INTEREST.userID = :userID limit 1", nativeQuery = true)
+    Interest userID(int userID);
 }
