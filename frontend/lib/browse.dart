@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/body.dart';
 import 'package:frontend/homepage.dart';
 import 'package:frontend/main.dart';
-import 'package:frontend/models/productResponsemodel.dart';
+import 'package:frontend/models/productresponsemodel.dart';
 import 'package:frontend/pages/widgets/searchbar.dart';
 import 'package:frontend/pages/widgets/vertical_view_listings.dart';
 import 'package:frontend/product.dart';
