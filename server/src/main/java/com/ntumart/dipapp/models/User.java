@@ -17,6 +17,9 @@ public class User {
     @Column(name="fullname")
     private String fullname;
 
+    @Column(name="telegramHandle")
+    private String telegramHandle;
+
     @Column(unique = true, name="email")
     private String email;
 
@@ -37,7 +40,8 @@ public class User {
         
     }
 
-    public User(int id, String username, String fullname, String email, String phone, String password, String address, String profilePic) {
+    public User(int id, String username, String telegramHandle , String fullname, String email, String phone, String password, String address, String profilePic) {
+        this.telegramHandle = telegramHandle; 
         this.userId = id;
         this.username = username;
         this.fullname = fullname;
@@ -99,6 +103,14 @@ public class User {
         this.phone = phone;
     }
 
+    public String getTelegramHandle() {
+        return telegramHandle;
+    }
+
+    public void setTelegramHandle(String telegramHandle) {
+        this.telegramHandle = telegramHandle;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -133,6 +145,7 @@ public class User {
                 ", phone='" + phone + '\'' +
                 ", password='" + password + '\'' +
                 ", address='" + address + '\'' +
+                ", telegramHandle='" + telegramHandle + '\'' +
                 ", profilePic='" + profilePic + '\'' +
                 '}';
     }

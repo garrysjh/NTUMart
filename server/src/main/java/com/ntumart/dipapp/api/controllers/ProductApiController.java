@@ -1,16 +1,19 @@
 package com.ntumart.dipapp.api.controllers;
 
 import com.ntumart.dipapp.api.DTO.ProductDTO;
+import com.ntumart.dipapp.api.service.ProductResponseService;
 import com.ntumart.dipapp.api.service.ProductService;
 import com.ntumart.dipapp.exceptions.EmptyFileException;
 import com.ntumart.dipapp.exceptions.ProductNotFoundException;
 import com.ntumart.dipapp.models.Product;
+import com.ntumart.dipapp.models.ProductResponse;
 import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.mock.web.MockMultipartFile;
 
 @RestController
 @RequestMapping("/api/v1/product")
@@ -20,15 +23,21 @@ public class ProductApiController {
     @Autowired
     ProductService productService;
 
+    @Autowired
+    ProductResponseService productResponseService;
+
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces = { "application/json" })
     @ResponseBody
     public ResponseEntity<String> addProduct(@ModelAttribute Product product, @ModelAttribute ProductDTO productDTO,
-            @RequestParam("productPicture") MultipartFile productPicture,
-            @RequestParam("productPicture2") MultipartFile productPicture2,
-            @RequestParam("productPicture3") MultipartFile productPicture3,
-            @RequestParam("productPicture4") MultipartFile productPicture4) {
+                                             @RequestParam("productPicture") MultipartFile productPicture,
+                                             @RequestParam(name = "productPicture2", required = false) MultipartFile productPicture2,
+                                             @RequestParam(name = "productPicture3", required = false) MultipartFile productPicture3,
+                                             @RequestParam(name = "productPicture4", required = false) MultipartFile productPicture4) {
         try {
-            productService.addProduct(product, productDTO, productPicture, productPicture2, productPicture3, productPicture4);
+            productService.addProduct(product, productDTO, productPicture,
+                    productPicture2 != null ? productPicture2 : new MockMultipartFile("empty", new byte[0]),
+                    productPicture3 != null ? productPicture3 : new MockMultipartFile("empty", new byte[0]),
+                    productPicture4 != null ? productPicture4 : new MockMultipartFile("empty", new byte[0]));
             return ResponseEntity.ok("Product Successfully");
         } catch (EmptyFileException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("File is empty");
@@ -38,9 +47,10 @@ public class ProductApiController {
     }
 
     @GetMapping("/{productID}")
-    public ResponseEntity<Product> getProductById(@PathVariable int productID) throws ProductNotFoundException {
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable int productID) throws ProductNotFoundException {
         Product product = productService.getProductById(productID);
-        return ResponseEntity.ok(product);
+        ProductResponse productResponse = productResponseService.getProductResponse(product); 
+        return ResponseEntity.ok(productResponse);
     }
 
     //WITH DTO

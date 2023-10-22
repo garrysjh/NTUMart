@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import com.ntumart.dipapp.api.repository.InterestRepository;
 import com.ntumart.dipapp.api.service.InterestService;
 import com.ntumart.dipapp.exceptions.EmptyFileException;
@@ -37,9 +38,10 @@ public class InterestController {
 
         @RequestMapping(value = "/addinterest", method = RequestMethod.POST, produces = {"application/json"})
         @ResponseBody
-        public ResponseEntity<String> addInterest(@ModelAttribute Interest interest){
+        public ResponseEntity<String> addInterest(@RequestBody Interest interest){
             try {
                 interestService.addInterest(interest);
+                System.out.println("Received Interest object: " + interest);
                 return ResponseEntity.ok("Interest Added Successfully");
             } catch (EmptyFileException e) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("File is empty");
@@ -51,12 +53,13 @@ public class InterestController {
     @GetMapping("/interest/{userID}")
     public ResponseEntity<List<Object>> userID(@PathVariable int userID) throws ProductNotFoundException {
         List<Object> interest = interestRepository.userID(userID);
+
         
-        if (interest.isEmpty()) {
+        if (interest == null) {
             return ResponseEntity.notFound().build();
         }
         
-        return ResponseEntity.ok(interest);
+        return ResponseEntity.ok(interest.toArray());
     }
 
     @GetMapping("/{userID}/checkInterest")
