@@ -16,8 +16,8 @@ class HorizontalViewListings extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 3.0),
           child: Row(
             children: [
-              for (int index = 0; index < products.length; index++)
-                ItemCard(product: products[index]),
+              // for (int index = 0; index < products.length; index++)
+              //   ItemCard(product: products[index]),
             ],
           ),
         ),
