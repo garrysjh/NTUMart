@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/browse.dart';
+import 'package:frontend/showall.dart';
 import 'package:frontend/pages/profile.dart';
 import 'package:frontend/homepage.dart';
 import 'package:frontend/selling.dart';
