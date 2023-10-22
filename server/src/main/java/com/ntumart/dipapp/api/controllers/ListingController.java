@@ -1,6 +1,7 @@
 package com.ntumart.dipapp.api.controllers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,8 @@ public class ListingController {
     @PostMapping("/product/listing")
     public ResponseEntity<List<ProductResponse>> listAllProducts(
             @ModelAttribute ProductFilterRequestDTO request,
-            @RequestParam(required = false) String sortBy
+            @RequestParam(required = false) String sortBy,
+            @RequestParam(name = "sortOrder", defaultValue = "asc") String sortOrder
     ) {
         LocalDateTime startDateTime = (request.getStartDate() != null) ? LocalDateTime.parse(request.getStartDate())
                 : null;
@@ -58,9 +60,21 @@ public class ListingController {
         }
         List<ProductResponse> productResponses = new ArrayList<>();
         
-        for (Product product : products) {
-            productResponses.add(productResponseService.getProductResponse(product));
+        if ("asc".equalsIgnoreCase(sortOrder)) {
+
+            for (Product product : products) {
+                productResponses.add(productResponseService.getProductResponse(product));
+            }
+
+        } else if ("desc".equalsIgnoreCase(sortOrder)) {
+
+            for (Product product : products) {
+                productResponses.add(productResponseService.getProductResponse(product));
+            }
+
+            Collections.reverse(productResponses);
         }
+        
     
         return ResponseEntity.ok(productResponses);
     }

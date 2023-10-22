@@ -1,7 +1,18 @@
-import 'package:flutter/material.dart';
-import 'package:frontend/homepage.dart';
-import 'package:frontend/pages/widgets/searchbar.dart';
+import 'dart:convert';
 
+
+import 'package:flutter/material.dart';
+import 'package:frontend/body.dart';
+import 'package:frontend/homepage.dart';
+import 'package:frontend/main.dart';
+import 'package:frontend/models/productresponsemodel.dart';
+import 'package:frontend/pages/widgets/searchbar.dart';
+import 'package:frontend/pages/widgets/vertical_view_listings.dart';
+import 'package:frontend/product.dart';
+
+import 'dart:async';
+
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const Search());
@@ -10,35 +21,31 @@ void main() {
 class Search extends StatelessWidget {
   const Search({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Search',
       home: BrowsePage(),
-      );
+    );
   }
 }
 
 class BrowsePage extends StatefulWidget {
   const BrowsePage({super.key});
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-
   @override
   State<BrowsePage> createState() => _BrowseState();
 }
 
-//
 class _BrowseState extends State<BrowsePage> {
+  late Future<List<ProductResponse>> productsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    productsFuture = getAllProducts();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,19 +65,19 @@ class _BrowseState extends State<BrowsePage> {
                 child: Row(
                   children: [
                     IconButton(
-                      icon: Icon(Icons.arrow_back),
+                      icon: const Icon(Icons.arrow_back),
                       onPressed: () {
-                         Navigator.push(
-              context,
-              PageRouteBuilder(
-                pageBuilder: (context, animation, secondaryAnimation) {
-                  return const Home();
-                },
-                transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return child;
-        },
-              ),
-            );
+                        Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder: (context, animation, secondaryAnimation) {
+                              return const Home();
+                            },
+                            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                              return child;
+                            },
+                          ),
+                        );
                       },
                     ),
                     const Expanded(
@@ -81,7 +88,6 @@ class _BrowseState extends State<BrowsePage> {
               ),
               GestureDetector(
                 onTap: () {
-                  // Handle press on the box
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text("Search for user pressed!"),
@@ -109,10 +115,62 @@ class _BrowseState extends State<BrowsePage> {
                   ),
                 ),
               ),
+
+              // Use FutureBuilder to handle asynchronous operation
+              FutureBuilder<List<ProductResponse>>(
+                future: productsFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return Text('Snapshot Error: ${snapshot.error}');
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return Text('No data available');
+                  } else {
+                    return VerticalViewListings(products: snapshot.data!);
+                  }
+                },
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Future<List<ProductResponse>> getAllProducts() async {
+    final url = Uri.parse('$URL/product/listing');
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: json.encode({}),
+      );
+
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body);
+        print("jsonResponse: ");
+        print(jsonResponse.runtimeType);
+        print("Type of item in jsonresponse: ");
+        print(jsonResponse[0].runtimeType);
+        List<ProductResponse> products = [];
+        for (var item in jsonResponse) {
+          final product = ProductResponse.fromMap(item);
+          print("Item: ");
+          print(item);
+          products.add(product);
+        }
+        return products;
+      } else {
+        print('Failed to load products. Status code: ${response.statusCode}');
+        throw Exception('Failed to load products: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error: $e');
+      throw Exception('Failed to load products: $e');
+    }
   }
 }
