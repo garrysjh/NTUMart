@@ -29,59 +29,63 @@ public class ProductService {
 
     private String uploadDir = ".//src//main//resources//images//uploads";
 
-    public void addProduct(Product product, ProductDTO productDTO, MultipartFile productPicture, MultipartFile productPicture2, MultipartFile productPicture3, MultipartFile productPicture4)
-            throws IOException, EmptyFileException {
+    public void addProduct(Product product, ProductDTO productDTO, MultipartFile productPicture, MultipartFile productPicture2,
+                           MultipartFile productPicture3, MultipartFile productPicture4) throws IOException, EmptyFileException {
         try {
-            if (!productPicture.isEmpty() && !productPicture2.isEmpty() && !productPicture3.isEmpty() && !productPicture4.isEmpty()) {
-                byte[] fileBytes = productPicture.getBytes();
-                String fileName = StringUtils.cleanPath(productPicture.getOriginalFilename());
-                product.setDate(LocalDateTime.now());
-                product.setProductPic(String.format("images/uploads/%s/", product.getSellerID()) + fileName);
-                String dir = uploadDir + "//" + product.getSellerID();
-                Files.createDirectories(Paths.get(dir));
-                Path filePath = Paths.get(dir, fileName);
-                OutputStream os = Files.newOutputStream(filePath);
-                os.write(fileBytes);
-                os.close();
-
-                byte[] fileBytes2 = productPicture2.getBytes();
-                String fileName2 = StringUtils.cleanPath(productPicture2.getOriginalFilename());
-                
-                product.setProductPic2(String.format("images/uploads/%s/", product.getSellerID()) + fileName2);
-                String dir2 = uploadDir + "//" + product.getSellerID();
-                Files.createDirectories(Paths.get(dir2));
-                Path filePath2 = Paths.get(dir2, fileName2);
-                OutputStream os2 = Files.newOutputStream(filePath2);
-                os2.write(fileBytes2);
-                os2.close();
-
-                byte[] fileBytes3 = productPicture3.getBytes();
-                String fileName3 = StringUtils.cleanPath(productPicture3.getOriginalFilename());
-                
-                product.setProductPic3(String.format("images/uploads/%s/", product.getSellerID()) + fileName3);
-                String dir3 = uploadDir + "//" + product.getSellerID();
-                Files.createDirectories(Paths.get(dir3));
-                Path filePath3 = Paths.get(dir3, fileName3);
-                OutputStream os3 = Files.newOutputStream(filePath3);
-                os3.write(fileBytes3);
-                os3.close();
-
-                byte[] fileBytes4 = productPicture4.getBytes();
-                String fileName4 = StringUtils.cleanPath(productPicture4.getOriginalFilename());
-                
-                product.setProductPic4(String.format("images/uploads/%s/", product.getSellerID()) + fileName4);
-                String dir4 = uploadDir + "//" + product.getSellerID();
-                Files.createDirectories(Paths.get(dir4));
-                Path filePath4 = Paths.get(dir4, fileName4);
-                OutputStream os4 = Files.newOutputStream(filePath4);
-                os4.write(fileBytes4);
-                os4.close();
-                productRepository.save(product);
-            } else {
-                throw new EmptyFileException("The uploaded file is empty.");
+            if (!isEmpty(productPicture)) {
+                saveProductPicture(product, productPicture);
             }
+            if (!isEmpty(productPicture2)) {
+                saveProductPicture(product, productPicture2);
+            }
+            if (!isEmpty(productPicture3)) {
+                saveProductPicture(product, productPicture3);
+            }
+            if (!isEmpty(productPicture4)) {
+                saveProductPicture(product, productPicture4);
+            }
+
+            productRepository.save(product);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void saveProductPicture(Product product, MultipartFile file) throws IOException, EmptyFileException {
+        if (isEmpty(file)) {
+            throw new EmptyFileException("The uploaded file is empty.");
+        }
+
+        byte[] fileBytes = file.getBytes();
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        product.setDate(LocalDateTime.now());
+        String dir = uploadDir + "//" + product.getSellerID();
+        Files.createDirectories(Paths.get(dir));
+        String productPicField = getNextAvailableProductPicField(product);
+
+        product.setProductPic(String.format("images/uploads/%s/", product.getSellerID()) + fileName);
+        Path filePath = Paths.get(dir, fileName);
+        try (OutputStream os = Files.newOutputStream(filePath)) {
+            os.write(fileBytes);
+        }
+    }
+
+    private boolean isEmpty(MultipartFile file) {
+        return file == null || file.isEmpty();
+    }
+
+    private String getNextAvailableProductPicField(Product product) {
+        if (StringUtils.isEmpty(product.getProductPic())) {
+            return "productPic";
+        } else if (StringUtils.isEmpty(product.getProductPic2())) {
+            return "productPic2";
+        } else if (StringUtils.isEmpty(product.getProductPic3())) {
+            return "productPic3";
+        } else if (StringUtils.isEmpty(product.getProductPic4())) {
+            return "productPic4";
+        } else {
+            // Handle the case where all fields are already populated
+            return null;
         }
     }
 
@@ -94,6 +98,22 @@ public class ProductService {
         return product;
     }
 
+    public Product incrementProductLikes(int productID) throws ProductNotFoundException {
+        Product product = productRepository.findById(productID)
+                .orElse(null);
+        product.setProductLikes(product.getProductLikes() + 1);
+
+        return productRepository.save(product);
+    }
+
+    public Product decrementProductLikes(int productID) throws ProductNotFoundException {
+        Product product = productRepository.findById(productID)
+                .orElse(null);
+        product.setProductLikes(product.getProductLikes() - 1);
+
+        return productRepository.save(product);
+    }
+
     public void updateProduct(int productID, ProductDTO productDTO, MultipartFile productPicture, MultipartFile productPicture2, MultipartFile productPicture3, MultipartFile productPicture4)
             throws IOException, ProductNotFoundException { // Change Long to int
         Product product = getProductById(productID);
@@ -104,6 +124,7 @@ public class ProductService {
         product.setDescription(productDTO.getDescription());
         product.setPrice(productDTO.getPrice());
         product.setQuantity(productDTO.getQuantity());
+        product.setCategory(productDTO.getCategory());
         String dir = uploadDir + "//" + product.getSellerID();;
         Files.createDirectories(Paths.get(dir));
         Path filePath = Paths.get(dir, fileName);

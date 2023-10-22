@@ -269,7 +269,7 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-                    Container(height: 510, child: VerticalViewListings(products: products),)
+                    // Container(height: 510, child: VerticalViewListings(products: products),)
 
                   ],
                 ),

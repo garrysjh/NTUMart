@@ -20,11 +20,13 @@ class _SignUpState extends State<SignUp> {
   final FocusNode focusNodeEmail = FocusNode();
   final FocusNode focusNodeName = FocusNode();
   final FocusNode focusNodePhone = FocusNode();
+  final FocusNode focusNodeTelegram = FocusNode();
 
   bool _obscureTextPassword = true;
   bool _obscureTextConfirmPassword = true;
 
   TextEditingController signupEmailController = TextEditingController();
+  TextEditingController signupTelegramController = TextEditingController();
   TextEditingController signupUserNameController = TextEditingController();
   TextEditingController signupPasswordController = TextEditingController();
   TextEditingController signupConfirmPasswordController =
@@ -37,6 +39,7 @@ class _SignUpState extends State<SignUp> {
     focusNodeEmail.dispose();
     focusNodeName.dispose();
     focusNodePhone.dispose();
+    focusNodeTelegram.dispose();
     super.dispose();
   }
 
@@ -57,7 +60,7 @@ class _SignUpState extends State<SignUp> {
                 ),
                 child: Container(
                   width: 300.0,
-                  height: 360.0,
+                  height: 460.0,
                   child: Column(
                     children: <Widget>[
                       Padding(
@@ -117,6 +120,38 @@ class _SignUpState extends State<SignUp> {
                           ),
                           onSubmitted: (_) {
                             focusNodePassword.requestFocus();
+                          },
+                        ),
+                      ),
+                      Container(
+                        width: 250.0,
+                        height: 1.0,
+                        color: Colors.grey[400],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
+                        child: TextField(
+                          focusNode: focusNodeTelegram,
+                          controller: signupTelegramController,
+                          keyboardType: TextInputType.none,
+                          autocorrect: false,
+                          style: const TextStyle(
+                              fontFamily: 'WorkSansSemiBold',
+                              fontSize: 16.0,
+                              color: Colors.black),
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                            icon: Icon(
+                              FontAwesomeIcons.envelope,
+                              color: Colors.black,
+                            ),
+                            hintText: 'Telegram handle',
+                            hintStyle: TextStyle(
+                                fontFamily: 'WorkSansSemiBold', fontSize: 16.0),
+                          ),
+                          onSubmitted: (_) {
+                            focusNodeTelegram.requestFocus();
                           },
                         ),
                       ),
@@ -200,7 +235,7 @@ class _SignUpState extends State<SignUp> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(top: 340.0),
+                margin: const EdgeInsets.only(top: 420.0),
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   boxShadow: <BoxShadow>[
@@ -231,7 +266,7 @@ class _SignUpState extends State<SignUp> {
                   //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
                   child: const Padding(
                     padding:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 42.0),
+                        EdgeInsets.symmetric(vertical: 20.0, horizontal: 42.0),
                     child: Text(
                       'SIGN UP',
                       style: TextStyle(
@@ -240,7 +275,10 @@ class _SignUpState extends State<SignUp> {
                           fontFamily: 'WorkSansBold'),
                     ),
                   ),
-                  onPressed: () => _toggleSignUpButton(),
+                  onPressed: () =>{
+                    _toggleSignUpButton(),
+                    _resetFields()
+                  } ,
                 ),
               )
             ],
@@ -253,6 +291,7 @@ class _SignUpState extends State<SignUp> {
   void _toggleSignUpButton() async {
     try {
       int authenticated = await registerUser(
+          signupTelegramController.text,
           signupPhoneNumberController.text,
           signupUserNameController.text,
           signupEmailController.text,
@@ -269,6 +308,15 @@ class _SignUpState extends State<SignUp> {
     }
   }
 
+  void _resetFields() {
+    signupUserNameController.clear();
+    signupEmailController.clear();
+    signupTelegramController.clear();
+    signupPhoneNumberController.clear();
+    signupPasswordController.clear();
+    signupConfirmPasswordController.clear();
+  }
+
   void _toggleSignup() {
     setState(() {
       _obscureTextPassword = !_obscureTextPassword;
@@ -282,8 +330,8 @@ class _SignUpState extends State<SignUp> {
   }
 }
 
-Future<int> registerUser(
-    String phone, String username, String email, String password) async {
+Future<int> registerUser(String telegramHandle, String phone, String username,
+    String email, String password) async {
   final url = Uri.parse('$URL/user/register');
   try {
     final response = await http.post(url,
@@ -295,9 +343,11 @@ Future<int> registerUser(
           // "Access-Control-Allow-Methods": "POST, OPTIONS"
         },
         body: jsonEncode({
+          'telegramHandle': telegramHandle,
           'username': username,
           'email': email,
           'password': password,
+          "address": null,
           "phone": phone
         }));
 

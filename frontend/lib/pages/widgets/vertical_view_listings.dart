@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/models/productresponsemodel.dart';
 import 'package:frontend/product.dart';
 import 'package:frontend/item_card.dart'; 
 
 
 
 class VerticalViewListings extends StatelessWidget {
-  final List<Product> products; // Assuming Product is a defined class
+  final List<ProductResponse> products; // Assuming Product is a defined class
 
   VerticalViewListings({required this.products});
 
@@ -23,7 +24,7 @@ class VerticalViewListings extends StatelessWidget {
             childAspectRatio: 0.73,
           ),
           itemBuilder: (context, index) =>
-              ItemCard(product: products[index]),
+              ItemCard(productResponse: products[index]),
         ),
       ),
     );

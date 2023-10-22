@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/pages/profile.dart';
+import 'package:frontend/pages/widgets/searchbar.dart';
 import 'package:frontend/product.dart';
 import 'package:frontend/browse.dart';
 import 'package:frontend/pages/widgets/vertical_view_listings.dart';
 import 'package:frontend/pages/widgets/taskbar.dart';
+
 import 'package:frontend/category_button.dart';
 import 'package:frontend/custominterests.dart';
+
+import 'package:frontend/selling.dart';
+
 
 void main() {
   runApp(const Home());
@@ -18,23 +24,13 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'HomePage',
-      /*theme: ThemeData(
-        colorScheme: const ColorScheme(
-          brightness: Brightness.light,
-          primary: Color(0xFF5C795B),
-          onPrimary: Color(0xFFEAEAEA),
-          secondary: Color(0xFF5D7395),
-          onSecondary: Color(0xFFEAEAEA),
-          error: Color(0xFFF32424),
-          onError: Color(0xFFF32424),
-          background: Color(0xFFF9F9F9),
-          onBackground: Color(0xFFFFFFFF),
-          surface: Color(0xFFEAEAEA),
-          onSurface: Color(0xFF5C795B),
-        ),
-        useMaterial3: true,
-      ),*/
       home: const HomePage(title: 'Home Page'),
+      initialRoute: '/',
+      routes:{
+        '/profile': (context) => const ProfileScreen(),
+        '/home': (context) => Home(),
+        '/sell': (context) =>  Sell()
+      }
     );
   }
 }
@@ -123,6 +119,50 @@ class _HomePageState extends State<HomePage> {
                                 child: Image.asset(
                                   '../../assets/img/chatbot_icon.png',
                                   fit: BoxFit.fill,
+
+//                               );
+//                             },
+//                             style: ElevatedButton.styleFrom(
+//                               elevation: 5,
+//                               fixedSize: const Size(50, 50),
+//                               shape: const CircleBorder(),
+//                               backgroundColor: const Color(0xFFFFFFFF),
+//                             ),
+//                             child: Image.asset(
+//                               '../../assets/images/chatbot_icon.png',
+//                               fit: BoxFit.fill,
+//                             ),
+//                           ),
+//                         ]),
+//                     const SizedBox(height: 15),
+//                     const Padding(
+//                       padding: EdgeInsets.all(10.0),
+//                       child: Searchbar()
+//                     ),
+//                     Padding(
+//                       padding: const EdgeInsets.all(5.0),
+//                       child: Row(
+//                         mainAxisAlignment: MainAxisAlignment.start,
+//                         children: <Widget>[
+//                           const FittedBox(
+//                               fit: BoxFit.fitWidth,
+//                               child: Text(' Your Categories ',
+//                                   style: TextStyle(
+//                                       fontSize: 20,
+//                                       fontWeight: FontWeight.w600))),
+//                           const SizedBox(
+//                             width: 5,
+//                           ),
+//                           ElevatedButton(
+//                             onPressed: () {
+//                               //Edit this later to link to homepage
+//                               ScaffoldMessenger.of(context).showSnackBar(
+//                                 const SnackBar(
+//                                   content:
+//                                       Text('Sort function will be added l8r'),
+//                                   duration: Duration(milliseconds: 1500),
+//                                   behavior: SnackBarBehavior.floating,
+
                                 ),
                               ),
                             ]),
@@ -309,6 +349,7 @@ class _HomePageState extends State<HomePage> {
                               */
                             ],
                           ),
+
                         ), //for row of category text + sort + filter
                         Container(
                         padding: const EdgeInsets.only(left:12, right:12),
