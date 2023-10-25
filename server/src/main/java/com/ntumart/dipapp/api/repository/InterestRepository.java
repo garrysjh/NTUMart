@@ -42,7 +42,7 @@ public interface InterestRepository extends JpaRepository<Interest, Integer>{
     Interest getInterestByUserID(@Param("userID") int userID);
 
     @Query(value = "UPDATE product SET category1 = :category1, category2 = :category2, category3 = :category3, category4 = :category4, category5 = :category5 WHERE userID = :userID", nativeQuery = true)
-    int updateProduct(
+    int updateInterest(
             @Param("userID") int userID,
             @Param("category1") String category1, 
             @Param("category2") String category2,
@@ -52,7 +52,9 @@ public interface InterestRepository extends JpaRepository<Interest, Integer>{
 
 
 
-    @Query(value = "SELECT * FROM INTEREST WHERE INTEREST.userID = :userID limit 1", nativeQuery = true)
-    Interest userID(int userID);
+    // ISSUE WITH THIS LINE GOT NO IDEA WHATS THIS FOR
+    
+    // @Query(value = "SELECT * FROM INTEREST WHERE INTEREST.userID = :userID limit 1", nativeQuery = true)
+    // Interest userID(int userID);  
 
 }

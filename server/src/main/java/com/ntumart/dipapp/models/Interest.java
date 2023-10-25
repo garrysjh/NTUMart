@@ -56,17 +56,17 @@ public class Interest {
         this.category5 = category5;
     }
 
-    public int getInterestID() {
-        return interestID;
-    }
+    // public int getInterestID() {
+    //     return interestID;
+    // }
 
     public void setInterestID(int interestID) {
         this.interestID = interestID;
     }
 
-    public int getUserID() {
-        return userID;
-    }
+    // public int getUserID() {
+    //     return userID;
+    // }
 
     public void setUserID(int userID) {
         this.userID = userID;

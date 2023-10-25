@@ -38,7 +38,7 @@ public class InterestController {
 
         @RequestMapping(value = "/addinterest", method = RequestMethod.POST, produces = {"application/json"})
         @ResponseBody
-        public ResponseEntity<String> addInterest(@RequestBody Interest interest){
+        public ResponseEntity<String> addInterest(@ModelAttribute Interest interest){
             try {
                 interestService.addInterest(interest);
                 System.out.println("Received Interest object: " + interest);
@@ -59,7 +59,7 @@ public class InterestController {
             return ResponseEntity.notFound().build();
         }
         
-        return ResponseEntity.ok(interest.toArray());
+        return ResponseEntity.ok(interest);
     }
 
     @GetMapping("/{userID}/checkInterest")
