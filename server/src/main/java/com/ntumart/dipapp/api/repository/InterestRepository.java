@@ -52,7 +52,4 @@ public interface InterestRepository extends JpaRepository<Interest, Integer>{
 
 
 
-    @Query(value = "SELECT * FROM INTEREST WHERE INTEREST.userID = :userID limit 1", nativeQuery = true)
-    Interest userID(int userID);
-
 }
