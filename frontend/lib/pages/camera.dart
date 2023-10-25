@@ -26,21 +26,25 @@ class CameraApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF5C795B),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.of(context).pop(); // Add navigation logic as needed
-          },
-        ),
-        title: const Text('Home'),
-        centerTitle: true,
-      ),
-      body: CameraPreviewScreen(cameras: CameraManager.instance.cameras),
-    ));
+          appBar: AppBar(
+            backgroundColor: const Color(0xFF5C795B),
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.of(context).pop(); // Add navigation logic as needed
+              },
+            ),
+            title: const Text('Home'),
+            centerTitle: true,
+          ),
+          body: CameraPreviewScreen(cameras: CameraManager.instance.cameras),
+        ));
   }
 }
+
+
+
+
 
 class CameraPreviewScreen extends StatefulWidget {
   final List<CameraDescription> cameras;
@@ -95,24 +99,24 @@ class _CameraPreviewScreenState extends State<CameraPreviewScreen> {
     }
     return Material(
         child: Stack(
-      children: [
-        Center(
-          child: AspectRatio(
-            aspectRatio: controller.value.aspectRatio,
-            child: CameraPreview(controller),
-          ),
-        ),
-        Align(
-            alignment: Alignment.bottomCenter,
-            child: ClipOval(
-                child: Container(
-                    color: Colors.white,
-                    child: IconButton(
-                      icon: const Icon(Icons.camera),
-                      onPressed: _takePicture,
-                    )))),
-      ],
-    ));
+          children: [
+            Center(
+              child: AspectRatio(
+                aspectRatio: controller.value.aspectRatio,
+                child: CameraPreview(controller),
+              ),
+            ),
+            Align(
+                alignment: Alignment.bottomCenter,
+                child: ClipOval(
+                    child: Container(
+                        color: Colors.white,
+                        child: IconButton(
+                          icon: const Icon(Icons.camera),
+                          onPressed: _takePicture,
+                        )))),
+          ],
+        ));
   }
 }
 

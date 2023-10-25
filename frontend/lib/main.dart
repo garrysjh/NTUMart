@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/pages/camera.dart';
 import 'package:frontend/pages/login_page.dart';
 import 'package:flutter/services.dart';
+import 'package:frontend/pages/image_resize.dart';
 import 'dart:io';
 import 'body.dart';
 import 'package:frontend/pages/profile.dart';
+
 
 
 var URL =
@@ -24,7 +27,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'NTUMart',
-      home: ProfileScreen(),
+      home: HomeScreen(),
 
     );
   }
@@ -102,6 +105,7 @@ class _ProductsState extends State<Products> {
 */
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

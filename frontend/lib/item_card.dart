@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'product.dart';
 
+
 class ItemCard extends StatelessWidget {
   final Product product;
   const ItemCard({
@@ -70,6 +71,7 @@ class ItemCard extends StatelessWidget {
               ],
             ),
           ),
+          /*
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 6.0),
             child: Text(
@@ -85,6 +87,7 @@ class ItemCard extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.bold),
                 textScaleFactor: 1.13),
           )
+          */
         ],
       ),
     );

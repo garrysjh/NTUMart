@@ -37,9 +37,12 @@ class Body extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Icon(
-                      Icons.settings,
+                    IconButton(
+                      icon: const Icon(Icons.settings),
                       color: Colors.black54,
+                      onPressed: (){
+                        //Handle settings button click
+                      },
                     ),
                   ],
                 ),

@@ -30,6 +30,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  image_picker: ^1.0.4
+  image_cropper: ^4.0.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -71,6 +73,7 @@ flutter:
   -   assets/img/flat_login.png
   -   assets/
   -   assets/img/
+  - assets/img/product1.jpg
 
   #   - images/a_dot_ham.jpeg
 
