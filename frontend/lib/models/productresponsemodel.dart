@@ -1,4 +1,5 @@
 class ProductResponse {
+  int? productId;
   String? productName;
   String? description;
   double? price;
@@ -10,6 +11,7 @@ class ProductResponse {
   List<String?>? binaryImageDataList;
 
   ProductResponse({
+    this.productId,
     this.productName,
     this.description,
     this.price,
@@ -23,6 +25,7 @@ class ProductResponse {
 
   // Getters and Setters
   // Getters
+  int? get getProductId => productId;
   String? get getProductName => productName;
   String? get getDescription => description;
   double? get getPrice => price;
@@ -34,6 +37,7 @@ class ProductResponse {
   List<String?>? get getBinaryImageDataList => binaryImageDataList;
 
   // Setters
+  set setProductId(int? value) => productId = value;
   set setProductName(String? value) => productName = value;
   set setDescription(String? value) => description = value;
   set setPrice(double? value) => price = value;
@@ -46,7 +50,8 @@ class ProductResponse {
 
   // Additional constructor to create an instance from a map
   ProductResponse.fromMap(Map<String, dynamic> productData)
-    : productName = productData["productName"] ?? '',
+    : productId = productData["productId"] ?? '',
+      productName = productData["productName"] ?? '',
       description = productData["description"] ?? '',
       price = productData["price"]?.toDouble() ?? -1.0,
       quantity = productData["quantity"]?.toInt() ?? -1,
@@ -76,6 +81,7 @@ class ProductResponse {
   // Factory method to create an instance from JSON
   factory ProductResponse.fromJson(Map<String, dynamic> json) {
     return ProductResponse(
+      productId: json['productId'],
       productName: json['productName'],
       description: json['description'],
       price: json['price']?.toDouble(),
@@ -91,6 +97,7 @@ class ProductResponse {
   // Convert the instance to a JSON representation
   Map<String, dynamic> toJson() {
     return {
+      'productId' : productId,
       'productName': productName,
       'description': description,
       'price': price,
@@ -105,7 +112,7 @@ class ProductResponse {
 
   @override
   String toString() {
-    return 'ProductResponse{productName: $productName, description: $description, price: $price, quantity: $quantity, '
+    return 'ProductResponse{productId: $productId, productName: $productName, description: $description, price: $price, quantity: $quantity, '
         'productPic: $productPic, productPic2: $productPic2, productPic3: $productPic3, productPic4: $productPic4, '
         'binaryImageDataList: $binaryImageDataList}';
   }

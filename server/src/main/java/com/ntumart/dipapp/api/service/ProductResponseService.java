@@ -24,6 +24,7 @@ public class ProductResponseService {
 
     private String parentDir = ".//src//main//resources//";
     public ProductResponse getProductResponse(Product product) {
+        int productId = product.getProductID();
         String sellerName = userRepository.getNameFromID(product.getSellerID());
         String productName = product.getName();
         String description = product.getDescription();
@@ -52,7 +53,7 @@ public class ProductResponseService {
         LocalDateTime date = product.getDate();
         String category = product.getCategory();
 
-        return new ProductResponse(sellerName, productName, description, price, quantity, productImages, productLikes, date,
+        return new ProductResponse(productId, sellerName, productName, description, price, quantity, productImages, productLikes, date,
                 category);
     }
 
