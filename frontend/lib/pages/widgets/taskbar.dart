@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/showall.dart';
 import 'package:frontend/pages/profile.dart';
+import 'package:frontend/pages/widgets/vertical_following_view.dart';
 import 'package:frontend/homepage.dart';
 import 'package:frontend/selling.dart';
 
@@ -91,7 +92,11 @@ class _TaskbarState extends State<Taskbar> {
             IconButton(
               icon: const Icon(Icons.group),
               onPressed: () {
-                // Handle community button click
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) =>  VerticalFollowingScreen(),
+                  ),
+                );
               },
             ),
             IconButton(
