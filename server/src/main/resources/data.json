@@ -1,0 +1,62 @@
+[
+  {
+    "_class": "com.ntumart.dipapp.models.Product",
+    "productID": 1,
+    "sellerID": "1",
+    "name": "kiwi",
+    "description": "black shoe",
+    "price": "99",
+    "quantity": "23" , 
+    "productPic": "images/default.jpg" , 
+    "productLikes": "55",
+    "category": "shoe"
+  },
+  {
+    "_class": "com.ntumart.dipapp.models.Product",
+    "productID": 2,
+    "sellerID": "2",
+    "name": "orange",
+    "description": "white shoe",
+    "price": "87",
+    "quantity": "21" , 
+    "productPic": "images/default.jpg" , 
+    "productLikes": "50",
+    "category": "shoe"
+  },
+  {
+    "_class": "com.ntumart.dipapp.models.Product",
+    "productID": 3,
+    "sellerID": "3",
+    "name": "apple",
+    "description": "pink shoe",
+    "price": "70",
+    "quantity": "26" , 
+    "productPic": "images/default.jpg" , 
+    "productLikes": "59",
+    "category": "shoe"
+  },
+  {
+    "_class": "com.ntumart.dipapp.models.Product",
+    "productID": 4,
+    "sellerID": "4",
+    "name": "watermelon",
+    "description": "grey shoe",
+    "price": "121",
+    "quantity": "20" , 
+    "productPic": "images/default.jpg" , 
+    "productLikes": "55",
+    "category": "shoe"
+  },
+  {
+    "_class": "com.ntumart.dipapp.models.Product",
+    "productID": 5,
+    "sellerID": "5",
+    "name": "dragonfruit",
+    "description": "blue shoe",
+    "price": "99",
+    "quantity": "23" , 
+    "productPic": "images/default.jpg" , 
+    "productLikes": "55",
+    "category": "shoe"
+  }
+]
