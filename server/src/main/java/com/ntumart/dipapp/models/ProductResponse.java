@@ -6,7 +6,7 @@ import java.util.List;
 import java.time.LocalDateTime;
 
 public class ProductResponse {
-
+    private int productId;
     private String sellerName;
     private String productName;
     private String description;
@@ -18,9 +18,9 @@ public class ProductResponse {
     private LocalDateTime date;
     private String category;
 
-    public ProductResponse(String sellerName, String productName, String description, double price, int quantity,
+    public ProductResponse(int productId, String sellerName, String productName, String description, double price, int quantity,
             List<FileData> productImages, int productLikes, LocalDateTime time, String category) {
-
+        this.productId = productId;
         this.sellerName = sellerName;
         this.productName = productName;
         this.description = description;
@@ -104,4 +104,11 @@ public class ProductResponse {
         this.category = category;
     }
 
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
 }
