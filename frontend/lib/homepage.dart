@@ -5,6 +5,7 @@ import 'package:frontend/product.dart';
 import 'package:frontend/pages/widgets/vertical_view_listings.dart';
 import 'package:frontend/pages/widgets/taskbar.dart';
 import 'package:frontend/selling.dart';
+import 'package:frontend/pages/chatbot.dart';
 
 void main() {
   runApp(const Home());
@@ -84,14 +85,8 @@ class _HomePageState extends State<HomePage> {
                           const SizedBox(width: 10),
                           ElevatedButton(
                             onPressed: () {
-                              //Edit this later to link to chatbot
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content:
-                                      Text("Add in chatbot navigation later"),
-                                  duration: Duration(milliseconds: 1500),
-                                  behavior: SnackBarBehavior.floating,
-                                ),
+                              Navigator.of(context).push(
+                                MaterialPageRoute(builder: (context) => const ChatBotHome()),
                               );
                             },
                             style: ElevatedButton.styleFrom(
@@ -101,7 +96,7 @@ class _HomePageState extends State<HomePage> {
                               backgroundColor: const Color(0xFFFFFFFF),
                             ),
                             child: Image.asset(
-                              '../../assets/images/chatbot_icon.png',
+                              'assets/img/chatbot_icon.png',
                               fit: BoxFit.fill,
                             ),
                           ),

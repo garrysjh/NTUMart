@@ -70,6 +70,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
     String phone = userData?["phone"] ?? '';
     String profilePic = userData?["profilePic"]["content"] ?? '';
 
+
     // profile pic
     List<int> profilePicBytes = base64.decode(profilePic);
     Image profilePicWidget = Image.memory(Uint8List.fromList(profilePicBytes));
@@ -295,7 +296,8 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
           product = ProductResponse.fromMap(json);
           productData = json;
           userName = productData?["sellerName"] ?? '';
-          fetchUser("example_username");
+          // fetchUser("example_username");
+          fetchUser(userName);
         });
 
         print('fetchProduct completed');
