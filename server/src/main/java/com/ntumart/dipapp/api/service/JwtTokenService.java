@@ -28,7 +28,7 @@ public class JwtTokenService {
         Key secretKey = jwtConfig.secretKey();
         Map<String, Object> claims = new HashMap<>();
         claims.put("sub", username);
-        claims.put("id", getUserID(username));
+        claims.put("id", userRepository.getUserID(username));
         claims.put("created", new Date());
         return Jwts.builder()
                 .setClaims(claims)
