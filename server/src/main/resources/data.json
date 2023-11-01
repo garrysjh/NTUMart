@@ -9,7 +9,7 @@
     "phone": "99999999",
     "password": "pass123" , 
     "address": "123 KIWI STREET" , 
-    "profilePic": "images/uploads/1/product1.jpg"
+    "profilePic": "images/profpic/1/1_pp.jpg"
    }, 
 
    {
@@ -21,7 +21,7 @@
     "phone": "99999998",
     "password": "pass123" , 
     "address": "123 KIWI STREET" , 
-    "profilePic": "images/uploads/1/product1.jpg"
+    "profilePic": "images/uploads/2/2_pp.jpg"
    }, 
 
    {
@@ -33,7 +33,7 @@
     "phone": "99999997",
     "password": "pass123" , 
     "address": "123 KIWI STREET" , 
-    "profilePic": "images/uploads/1/product1.jpg"
+    "profilePic": "images/uploads/3/3_pp.jpg"
    }, 
 
    {
@@ -45,7 +45,7 @@
     "phone": "99999996",
     "password": "pass123" , 
     "address": "123 KIWI STREET" , 
-    "profilePic": "images/uploads/1/product1.jpg"
+    "profilePic": "images/uploads/4/4_pp.jpg"
    }, 
 
    {
@@ -57,7 +57,7 @@
     "phone": "99999995",
     "password": "pass123" , 
     "address": "123 KIWI STREET" , 
-    "profilePic": "images/uploads/1/product1.jpg"
+    "profilePic": "images/default.jpg"
    }, 
 
    {
