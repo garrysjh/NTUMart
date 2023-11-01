@@ -70,7 +70,7 @@
     "quantity": "23" , 
     "productPic": "images/uploads/1/product1.jpg" , 
     "productLikes": "55",
-    "category": "shoe"
+    "category": "Footwear"
    },
 
    {
@@ -81,10 +81,10 @@
     "description": "white shoe",
     "price": "87",
     "quantity": "21" , 
-    "productPic": "images/uploads/1/product3.jpg" , 
-    "productPic2": "images/uploads/1/product3.jpg" , 
+    "productPic": "images/uploads/2/product3.jpg" , 
+    "productPic2": "images/uploads/2/product5.jpg" , 
     "productLikes": "50",
-    "category": "shoe"
+    "category": "Footwear"
    },
 
    {
@@ -95,10 +95,10 @@
     "description": "pink shoe",
     "price": "70",
     "quantity": "26" , 
-    "productPic": "images/uploads/1/product7.jpg" , 
-    "productPic2": "images/uploads/1/product9.jpg" ,
+    "productPic": "images/uploads/3/product7.jpg" , 
+    "productPic2": "images/uploads/3/product9.jpg" ,
     "productLikes": "59",
-    "category": "shoe"
+    "category": "Footwear"
    },
 
    {
@@ -109,12 +109,12 @@
     "description": "grey shoe",
     "price": "121",
     "quantity": "20" , 
-    "productPic": "images/uploads/1/product10.jpg" ,
-    "productPic2": "images/uploads/1/product8.jpg" ,
-    "productPic3": "images/uploads/1/product14.jpg" ,
-    "productPic4": "images/uploads/1/product15.jpg" ,
+    "productPic": "images/uploads/4/product10.jpg" ,
+    "productPic2": "images/uploads/4/product8.jpg" ,
+    "productPic3": "images/uploads/4/product14.jpg" ,
+    "productPic4": "images/uploads/4/product15.jpg" ,
     "productLikes": "55",
-    "category": "shoe"
+    "category": "Footwear"
    },
 
    {
@@ -125,11 +125,11 @@
     "description": "blue shoe",
     "price": "99",
     "quantity": "23" , 
-    "productPic": "images/uploads/1/product11.jpg" , 
-    "productPic2": "images/uploads/1/product12.jpg" ,
-    "productPic3": "images/uploads/1/product13.jpg" , 
+    "productPic": "images/uploads/5/product11.jpg" , 
+    "productPic2": "images/uploads/5/product12.jpg" ,
+    "productPic3": "images/uploads/5/product13.jpg" , 
     "productLikes": "55",
-    "category": "shoe"
+    "category": "Footwear"
    },
 
 
