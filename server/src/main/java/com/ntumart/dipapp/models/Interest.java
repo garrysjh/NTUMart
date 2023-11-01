@@ -112,13 +112,6 @@ public class Interest {
         this.category5 = category5;
     }
 
-    // public int getInterestID() {
-    //     return interestID;
-    // }
-
-    // public int getUserID() {
-    //     return userID;
-    // }
 
     @Override
     public String toString() {
