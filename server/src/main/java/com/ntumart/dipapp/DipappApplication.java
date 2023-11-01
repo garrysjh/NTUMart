@@ -16,10 +16,10 @@ public class DipappApplication {
 	}
 
 
-	    @Bean
+    @Bean
     public Jackson2RepositoryPopulatorFactoryBean getRespositoryPopulator() {
         Jackson2RepositoryPopulatorFactoryBean factory = new Jackson2RepositoryPopulatorFactoryBean();
         factory.setResources(new Resource[]{new ClassPathResource("data.json")});
         return factory;
-	}
+    }
 }
