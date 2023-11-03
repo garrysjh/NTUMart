@@ -1,6 +1,6 @@
 -- Create the database if it doesn't exist
-CREATE DATABASE IF NOT EXISTS dip;
-
+DROP DATABASE IF EXISTS dip;
+CREATE DATABASE IF NOT EXISTS dip; 
 -- Use the 'dip' database
 USE dip;
 -- Create the USER table
@@ -104,18 +104,18 @@ CREATE TABLE IF NOT EXISTS BOOKING (
 );
 
 
-	--=== THIS CHUNK NOT IN USE ===--
+	-- THIS CHUNK NOT IN USE --
 	-- Create the INTERESTS table
-	CREATE TABLE IF NOT EXISTS INTERESTS (
-	    interest_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	    interest_name VARCHAR(255)
-	);
+	-- CREATE TABLE IF NOT EXISTS INTERESTS (
+	--     interest_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	--     interest_name VARCHAR(255)
+	-- );
 	
-	-- Create the USER_INTERESTS table
-	CREATE TABLE IF NOT EXISTS USER_INTERESTS (
-	    userID INT,
-	    interest_id INT,
-	    PRIMARY KEY (userID, interest_id),
-	    FOREIGN KEY (userID) REFERENCES USER(userID),
-	    FOREIGN KEY (interest_id) REFERENCES INTERESTS(interest_id)
-	);
+	-- -- Create the USER_INTERESTS table
+	-- CREATE TABLE IF NOT EXISTS USER_INTERESTS (
+	--     userID INT,
+	--     interest_id INT,
+	--     PRIMARY KEY (userID, interest_id),
+	--     FOREIGN KEY (userID) REFERENCES USER(userID),
+	--     FOREIGN KEY (interest_id) REFERENCES INTERESTS(interest_id)
+	-- );
