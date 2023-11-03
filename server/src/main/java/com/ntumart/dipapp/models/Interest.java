@@ -112,6 +112,7 @@ public class Interest {
         this.category5 = category5;
     }
 
+
     @Override
     public String toString() {
         return "Interest{" +
