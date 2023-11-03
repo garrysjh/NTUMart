@@ -248,7 +248,7 @@ class _CategorySelectionPageState extends State<CategorySelectionPage> {
 const userId = 1;
 
 Future<int> insertInterest(int userID, Interest interest) async {
-  final url = Uri.parse('$URL/user/interest'); // Replace with your server URL
+  final url = Uri.parse('$URL/user/addinterest'); // Replace with your server URL
   try {
     final response = await http.post(
       url,
