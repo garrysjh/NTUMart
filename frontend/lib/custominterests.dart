@@ -48,7 +48,6 @@ class CustomInterests extends StatelessWidget {
           surface: Color(0xFFEAEAEA),
           onSurface: Color(0xFF5C795B),
         ),
-        useMaterial3: true,
       ),
       home: const CategorySelectionPage(title: 'Category Selection Page'),
     );
@@ -101,7 +100,7 @@ class _CategorySelectionPageState extends State<CategorySelectionPage> {
           children: <Widget>[
             const FittedBox( //Customise your experience
             fit: BoxFit.fitWidth,
-            child: Text('Customise your \nexperience', maxLines: 2, style: TextStyle( height: 1 ,fontSize: 42,fontWeight: FontWeight.w600))
+            child: Text('Customise your \nexperience', maxLines: 2, style: TextStyle( height: 1 ,fontSize: 42,fontWeight: FontWeight.w600, color: Color(0xFF5C795B),))
             ),
         const SizedBox(
           height: 15
@@ -149,7 +148,6 @@ class _CategorySelectionPageState extends State<CategorySelectionPage> {
                                 behavior: SnackBarBehavior.floating,
                               ),
                             );
-
                           }
                         }
                       });
@@ -224,11 +222,14 @@ class _CategorySelectionPageState extends State<CategorySelectionPage> {
                     ),
                   ),
                     backgroundColor: const MaterialStatePropertyAll<Color>(Color(0xFF5C795B)),
-                    fixedSize: MaterialStateProperty.all( const Size(double.infinity, 30.0), // Change the button height
+                    fixedSize: MaterialStateProperty.all( const Size(double.infinity, 40.0), // Change the button height
               ),
                 ),
-                child: const Text('   Get Started   ',
-                  style: TextStyle(color: Color(0xFFFFFFFF), fontWeight: FontWeight.w300, fontSize: 20),
+                child: const Padding(
+                  padding: EdgeInsets.only(left:20.0, right:20.0),
+                  child: Text('Get Started',
+                    style: TextStyle(color: Color(0xFFFFFFFF), fontWeight: FontWeight.w400, fontSize: 20),
+                  ),
                 ),
               )
             ),
@@ -247,7 +248,7 @@ class _CategorySelectionPageState extends State<CategorySelectionPage> {
 const userId = 1;
 
 Future<int> insertInterest(int userID, Interest interest) async {
-  final url = Uri.parse('$URL/user/interest'); // Replace with your server URL
+  final url = Uri.parse('$URL/user/addinterest'); // Replace with your server URL
   try {
     final response = await http.post(
       url,

@@ -59,6 +59,7 @@ public class ProductService {
         byte[] fileBytes = file.getBytes();
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         product.setDate(LocalDateTime.now());
+        fileName = product.getSellerID() + "_pp.jpg";
         String dir = uploadDir + "//" + product.getSellerID();
         Files.createDirectories(Paths.get(dir));
         String productPicField = getNextAvailableProductPicField(product);
