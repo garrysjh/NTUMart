@@ -16,8 +16,8 @@ public interface ListingRepository extends JpaRepository<Product, Long> {
   @Query(value = "SELECT *  "
       +
       "FROM PRODUCT " +
-      "WHERE (:name is null OR name LIKE CONCAT('%', :name, '%')) " +
-      "  OR (:name is null OR description LIKE CONCAT('%', :name, '%')) " +
+      "WHERE ((:name is null OR name LIKE CONCAT('%', :name, '%')) " +
+      "  OR (:name is null OR description LIKE CONCAT('%', :name, '%'))) " +
       "  AND (:startDate is null OR date >= :startDate) " +
       "  AND (:endDate is null OR date <= :endDate)" +
       "  AND (:sellerID is null OR sellerID = :sellerID)"
