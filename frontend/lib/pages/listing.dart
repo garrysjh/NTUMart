@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/models/listingmodel.dart';
 import 'package:frontend/pages/camera.dart';
 import 'package:frontend/pages/item_screen.dart';
+import 'package:frontend/pages/item.dart';
 import 'package:frontend/pages/widgets/taskbar.dart';
 import 'package:frontend/main.dart';
 import 'package:http/http.dart' as http;
