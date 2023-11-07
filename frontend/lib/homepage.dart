@@ -10,6 +10,7 @@ import 'package:frontend/category_button.dart';
 import 'package:frontend/custominterests.dart';
 
 import 'package:frontend/selling.dart';
+import 'package:frontend/pages/chatbot.dart';
 
 
 void main() {
@@ -162,7 +163,6 @@ class _HomePageState extends State<HomePage> {
 //                                       Text('Sort function will be added l8r'),
 //                                   duration: Duration(milliseconds: 1500),
 //                                   behavior: SnackBarBehavior.floating,
-
                                 ),
                               ),
                             ]),

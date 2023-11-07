@@ -5,10 +5,7 @@ import 'package:flutter/services.dart';
 import 'dart:io';
 import 'package:frontend/pages/profile.dart';
 import 'package:frontend/pages/jwtTokenDecryptService.dart';
-
-var URL =
-    'http://10.0.2.2:8080/api/v1'; //replace this with ur local ip / lan ip for devices connecting on same lan / server ip if hosted
-
+var URL = 'http://10.0.2.2:8080/api/v1'; //replace this with ur local ip / lan ip for devices connecting on same lan / server ip if hosted
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(<DeviceOrientation>[

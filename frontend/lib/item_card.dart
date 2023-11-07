@@ -47,7 +47,7 @@ class ItemCard extends StatelessWidget {
               child: imageWidget != null
                   ? imageWidget
                   : Image.asset(
-                      './assets/img/product1.jpg',
+                      './assets/img/nike1.jpg',
                       fit: BoxFit.contain,
                     ),
             ),
