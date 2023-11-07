@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class ItemCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            height: 177,
+            height: 180,
             width: MediaQuery.of(context).size.width,
             decoration: const BoxDecoration(
               color: Colors.white,
@@ -44,16 +45,18 @@ class ItemCard extends StatelessWidget {
                 topLeft: Radius.circular(16),
                 topRight: Radius.circular(16),
               ),
-              child: imageWidget != null
-                  ? imageWidget
-                  : Image.asset(
-                      './assets/img/nike1.jpg',
-                      fit: BoxFit.contain,
-                    ),
+              child: FittedBox(
+                fit:BoxFit.fill,
+                  child:imageWidget != null
+                  ? imageWidget!
+                  : const Text(
+                'Image will appear here',
+                style: TextStyle(color: Colors.black),
+              ))
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 6.0),
+            padding: const EdgeInsets.fromLTRB(6.0, 8.0, 6.0, 5.0),
             child: Text(
               "${productResponse.getProductName}",
               textScaleFactor: 1.15,

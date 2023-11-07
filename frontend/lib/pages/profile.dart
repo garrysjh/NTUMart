@@ -74,7 +74,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     print("test");
     return Scaffold(
-        backgroundColor: Colors.grey,
+        backgroundColor: const Color(0xFFFFFFFF),
         body: Stack(
           children: <Widget>[
             Body(),
