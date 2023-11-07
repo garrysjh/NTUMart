@@ -4,7 +4,8 @@
     "_class": "com.ntumart.dipapp.models.User",
     "userID": 1,
     "username": "kiwi",
-    "telegramHandle": "@kiwigan",
+    "telegramHandle": "kiwigan",
+    "fullname": "kiwi tan" , 
     "email": "kiwi@gmail.com",
     "phone": "99999999",
     "password": "pass123" , 
@@ -16,43 +17,47 @@
     "_class": "com.ntumart.dipapp.models.User",
     "userID": 2,
     "username": "kiwi2",
-    "telegramHandle": "@kiwigan",
+    "telegramHandle": "kiwigan",
+    "fullname": "kiwi lee" , 
     "email": "apple@gmail.com",
     "phone": "99999998",
     "password": "pass123" , 
     "address": "123 KIWI STREET" , 
-    "profilePic": "images/uploads/2/2_pp.jpg"
+    "profilePic": "images/profpic/2/2_pp.jpg"
    }, 
 
    {
     "_class": "com.ntumart.dipapp.models.User",
     "userID": 3,
     "username": "kiwi3",
-    "telegramHandle": "@kiwigan",
+    "telegramHandle": "kiwigan",
+    "fullname": "kiwi kwok" , 
     "email": "orange@gmail.com",
     "phone": "99999997",
     "password": "pass123" , 
     "address": "123 KIWI STREET" , 
-    "profilePic": "images/uploads/3/3_pp.jpg"
+    "profilePic": "images/profpic/3/3_pp.jpg"
    }, 
 
    {
     "_class": "com.ntumart.dipapp.models.User",
     "userID": 4,
     "username": "kiwi4",
-    "telegramHandle": "@kiwigan",
+    "telegramHandle": "kiwigan",
+    "fullname": "kiwi how" , 
     "email": "banana@gmail.com",
     "phone": "99999996",
     "password": "pass123" , 
     "address": "123 KIWI STREET" , 
-    "profilePic": "images/uploads/4/4_pp.jpg"
+    "profilePic": "images/profpic/4/4_pp.jpg"
    }, 
 
    {
     "_class": "com.ntumart.dipapp.models.User",
     "userID": 5,
     "username": "kiwi5",
-    "telegramHandle": "@kiwigan",
+    "telegramHandle": "kiwigan",
+    "fullname": "kiwi huang" , 
     "email": "popo@gmail.com",
     "phone": "99999995",
     "password": "pass123" , 
