@@ -52,4 +52,6 @@ public interface InterestRepository extends JpaRepository<Interest, Integer>{
 
 
 
+
+
 }

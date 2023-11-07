@@ -1,0 +1,186 @@
+[
+
+   {
+    "_class": "com.ntumart.dipapp.models.User",
+    "userID": 1,
+    "username": "kiwi",
+    "telegramHandle": "kiwigan",
+    "fullname": "kiwi tan" , 
+    "email": "kiwi@gmail.com",
+    "phone": "99999999",
+    "password": "pass123" , 
+    "address": "123 KIWI STREET" , 
+    "profilePic": "images/profpic/1/1_pp.jpg"
+   }, 
+
+   {
+    "_class": "com.ntumart.dipapp.models.User",
+    "userID": 2,
+    "username": "kiwi2",
+    "telegramHandle": "kiwigan",
+    "fullname": "kiwi lee" , 
+    "email": "apple@gmail.com",
+    "phone": "99999998",
+    "password": "pass123" , 
+    "address": "123 KIWI STREET" , 
+    "profilePic": "images/profpic/2/2_pp.jpg"
+   }, 
+
+   {
+    "_class": "com.ntumart.dipapp.models.User",
+    "userID": 3,
+    "username": "kiwi3",
+    "telegramHandle": "kiwigan",
+    "fullname": "kiwi kwok" , 
+    "email": "orange@gmail.com",
+    "phone": "99999997",
+    "password": "pass123" , 
+    "address": "123 KIWI STREET" , 
+    "profilePic": "images/profpic/3/3_pp.jpg"
+   }, 
+
+   {
+    "_class": "com.ntumart.dipapp.models.User",
+    "userID": 4,
+    "username": "kiwi4",
+    "telegramHandle": "kiwigan",
+    "fullname": "kiwi how" , 
+    "email": "banana@gmail.com",
+    "phone": "99999996",
+    "password": "pass123" , 
+    "address": "123 KIWI STREET" , 
+    "profilePic": "images/profpic/4/4_pp.jpg"
+   }, 
+
+   {
+    "_class": "com.ntumart.dipapp.models.User",
+    "userID": 5,
+    "username": "kiwi5",
+    "telegramHandle": "kiwigan",
+    "fullname": "kiwi huang" , 
+    "email": "popo@gmail.com",
+    "phone": "99999995",
+    "password": "pass123" , 
+    "address": "123 KIWI STREET" , 
+    "profilePic": "images/default.jpg"
+   }, 
+
+   {
+    "_class": "com.ntumart.dipapp.models.Product",
+    "productID": 1,
+    "sellerID": "1",
+    "name": "kiwi",
+    "description": "black shoe",
+    "price": "99",
+    "quantity": "23" , 
+    "productPic": "images/uploads/1/product1.jpg" , 
+    "productLikes": "55",
+    "category": "Footwear"
+   },
+
+   {
+    "_class": "com.ntumart.dipapp.models.Product",
+    "productID": 2,
+    "sellerID": "2",
+    "name": "orange",
+    "description": "white shoe",
+    "price": "87",
+    "quantity": "21" , 
+    "productPic": "images/uploads/2/product3.jpg" , 
+    "productPic2": "images/uploads/2/product5.jpg" , 
+    "productLikes": "50",
+    "category": "Footwear"
+   },
+
+   {
+    "_class": "com.ntumart.dipapp.models.Product",
+    "productID": 3,
+    "sellerID": "3",
+    "name": "apple",
+    "description": "pink shoe",
+    "price": "70",
+    "quantity": "26" , 
+    "productPic": "images/uploads/3/product7.jpg" , 
+    "productPic2": "images/uploads/3/product9.jpg" ,
+    "productLikes": "59",
+    "category": "Footwear"
+   },
+
+   {
+    "_class": "com.ntumart.dipapp.models.Product",
+    "productID": 4,
+    "sellerID": "4",
+    "name": "watermelon",
+    "description": "grey shoe",
+    "price": "121",
+    "quantity": "20" , 
+    "productPic": "images/uploads/4/product10.jpg" ,
+    "productPic2": "images/uploads/4/product8.jpg" ,
+    "productPic3": "images/uploads/4/product14.jpg" ,
+    "productPic4": "images/uploads/4/product15.jpg" ,
+    "productLikes": "55",
+    "category": "Footwear"
+   },
+
+   {
+    "_class": "com.ntumart.dipapp.models.Product",
+    "productID": 5,
+    "sellerID": "5",
+    "name": "dragonfruit",
+    "description": "blue shoe",
+    "price": "99",
+    "quantity": "23" , 
+    "productPic": "images/uploads/5/product11.jpg" , 
+    "productPic2": "images/uploads/5/product12.jpg" ,
+    "productPic3": "images/uploads/5/product13.jpg" , 
+    "productLikes": "55",
+    "category": "Footwear"
+   },
+
+
+   {
+    "_class": "com.ntumart.dipapp.models.Interest",
+    "interestID": 1,
+    "userID": "1",
+    "category1": "Men's Fashion"
+   }, 
+
+   {
+    "_class": "com.ntumart.dipapp.models.Interest",
+    "interestID": 2,
+    "userID": "2",
+    "category1": "Men's Fashion",
+    "category2": "Women's Fashion"
+   },
+ 
+   {
+    "_class": "com.ntumart.dipapp.models.Interest",
+    "interestID": 3,
+    "userID": "3",
+    "category1": "Men's Fashion",
+    "category2": "Women's Fashion",
+    "category3": "Furniture"
+   }, 
+
+   {
+    "_class": "com.ntumart.dipapp.models.Interest",
+    "interestID": 4,
+    "userID": "4",
+    "category1": "Men's Fashion",
+    "category2": "Women's Fashion",
+    "category3": "Furniture",
+    "category4": "Electronics" 
+   }, 
+
+   {
+    "_class": "com.ntumart.dipapp.models.Interest",
+    "interestID": 5,
+    "userID": "5",
+    "category1": "Men's Fashion",
+    "category2": "Women's Fashion",
+    "category3": "Furniture",
+    "category4": "Electronics", 
+    "category5": "Services" 
+   }
+
+]
