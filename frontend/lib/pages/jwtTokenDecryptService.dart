@@ -16,14 +16,15 @@ class JwtTokenDecryptService{
     }
   }
 
-  static Future<int?> getUsername() async {
+  static Future<String?> getUsername() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
 
     if (token != null) {
       Map<String, dynamic> decodedToken = Jwt.parseJwt(token);
-      int id = decodedToken["sub"];
-      return id;
+      String username = decodedToken["sub"];
+      print(username); 
+      return username;
     } else {
       return null;
     }
@@ -34,8 +35,17 @@ class JwtTokenDecryptService{
     String? token = prefs.getString('token');
     if (token != null) {
       if (JwtDecoder.isExpired(token)) {
+
         return false; // Token is expired
       }
+       String? username= await getUsername(); 
+      if (username != null) {
+      print("username: " + username);
+    } else {
+    print("No username available");
+  }
+      int? id = await getID(); 
+      print ("id:" + id.toString());
       return true; // Token is valid
     } else {
       return false;
