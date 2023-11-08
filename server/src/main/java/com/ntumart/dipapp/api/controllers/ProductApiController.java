@@ -8,6 +8,8 @@ import com.ntumart.dipapp.exceptions.ProductNotFoundException;
 import com.ntumart.dipapp.models.Product;
 import com.ntumart.dipapp.models.ProductResponse;
 import java.io.IOException;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -86,5 +88,16 @@ public class ProductApiController {
             return ResponseEntity.ok("Product deleted successfully");
         
     
+    }
+
+//    @GetMapping("/findcategory")
+//    public ResponseEntity<List<Product>> findCategory(@RequestParam String category) {
+//        List<Product> matching = productService.findCategory(category);
+//        return ResponseEntity.ok(matching);
+//    }
+    @GetMapping("/findcategory")
+    public ResponseEntity<List<Product>> findCategory(@RequestParam List<String> category) {
+        List<Product> matching = productService.findCategory(category);
+        return ResponseEntity.ok(matching);
     }
 }
