@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/settings.dart';
+import 'package:frontend/browse.dart';
 import 'product.dart';
 import 'package:frontend/pages/widgets/vertical_view_listings.dart'; 
 //import 'searchBar.dart';
@@ -46,7 +48,11 @@ class Body extends StatelessWidget {
                       icon: const Icon(Icons.settings),
                       color: Colors.black54,
                       onPressed: () {
-                        // goto settings page
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const Settings()),
+                        );
                       },
                     ),
                   ],

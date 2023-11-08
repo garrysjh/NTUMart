@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const Settings());
 }
 
-class MyApp extends StatelessWidget {
+class Settings extends StatelessWidget {
+  const Settings({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
