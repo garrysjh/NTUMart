@@ -128,7 +128,7 @@ class _HomePageState extends State<HomePage> {
     // final url = Uri.parse("$URL/product/listing?category=Women's Fashion");
     final url = Uri.parse("$URL/product/listing");
     final Map<String, String> requestBody = {
-      'category': category1,
+      'categories': "$category1, $category2, $category3, $category4, $category5",
     };
 
 

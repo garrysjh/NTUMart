@@ -16,7 +16,7 @@ import com.ntumart.dipapp.api.repository.ListingRepository;
 import com.ntumart.dipapp.api.repository.UserRepository;
 import com.ntumart.dipapp.api.service.ListingService;
 import com.ntumart.dipapp.api.service.ProductResponseService;
-import com.ntumart.dipapp.api.DTO.ProductFilterRequestDTO; 
+import com.ntumart.dipapp.api.DTO.ProductFilterRequestDTO;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 @RestController
@@ -30,9 +30,9 @@ public class ListingController {
 
     @Autowired
     UserRepository userRepository;
-    
+
     @Autowired
-    ProductResponseService productResponseService; 
+    ProductResponseService productResponseService;
 
     @PostMapping("/product/listing")
     public ResponseEntity<List<ProductResponse>> listAllProducts(
@@ -52,14 +52,18 @@ public class ListingController {
                 startDateTime,
                 endDateTime,
                 userId,
-                (request != null) ? request.getCategory() : null
+                (request != null && request.getCategories().length>=1) ? request.getCategories()[0] : null,
+                (request != null && request.getCategories().length>=2) ? request.getCategories()[1] : null,
+                (request != null && request.getCategories().length>=3) ? request.getCategories()[2] : null,
+                (request != null&& request.getCategories().length==4) ? request.getCategories()[3] : null
         );
-
+        System.out.println(request.getCategories()[0]);
+        System.out.println(request.getCategories()[1]);
         if (sortBy != null) {
             products = listingService.sortProducts(products, sortBy);
         }
         List<ProductResponse> productResponses = new ArrayList<>();
-        
+
         if ("asc".equalsIgnoreCase(sortOrder)) {
 
             for (Product product : products) {
@@ -74,8 +78,8 @@ public class ListingController {
 
             Collections.reverse(productResponses);
         }
-        
-    
+
+
         return ResponseEntity.ok(productResponses);
     }
 }
