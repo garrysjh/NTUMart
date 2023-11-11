@@ -58,3 +58,4 @@ public interface ListingRepository extends JpaRepository<Product, Long> {
             @Param(value = "category3") String category3,
             @Param(value = "category4") String category4);
 }
+
