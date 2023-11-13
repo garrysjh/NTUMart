@@ -4,13 +4,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
 import com.ntumart.dipapp.models.Product;
-
-import jakarta.transaction.Transactional;
 
 public interface ListingRepository extends JpaRepository<Product, Long> {
     @Query(value = "SELECT * " +
@@ -57,7 +53,6 @@ public interface ListingRepository extends JpaRepository<Product, Long> {
     "  AND (:endDate is null OR date <= :endDate) " +
     "  AND (:sellerID is null OR sellerID = :sellerID) " + 
     "  AND (:category5 is null OR category = :category5) ", nativeQuery = true)
-    
     public List<Product> getProducts(
             @Param(value = "name") String name,
             @Param(value = "startDate") LocalDateTime startDate,
@@ -66,6 +61,7 @@ public interface ListingRepository extends JpaRepository<Product, Long> {
             @Param(value = "category1") String category1,
             @Param(value = "category2") String category2,
             @Param(value = "category3") String category3,
-            @Param(value = "category4") String category4);
+            @Param(value = "category4") String category4,
+            @Param(value = "category4") String category5);
 }
 
