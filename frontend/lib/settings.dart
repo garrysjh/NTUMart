@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:frontend/pages/login_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(SettingsPageWidget());
 }
 
-class MyApp extends StatelessWidget {
+class SettingsPageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -67,15 +69,18 @@ class _SettingsPageState extends State<SettingsPage> {
               accountName: Text("Keegan"),
               accountEmail: Text("@kiwigan"),
               currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage('assets/profile_image.jpg'), // Replace with your image
+                backgroundImage: AssetImage(
+                    'assets/profile_image.jpg'), // Replace with your image
               ),
             ),
             _buildTextField("Username", _usernameController),
             _buildTextField("First Name", _firstNameController),
             _buildTextField("Last Name", _lastNameController),
             _buildTextField("Interests", _interestsController),
-            _buildTextField("Phone Number", _phoneNumberController, keyboardType: TextInputType.phone),
-            _buildTextField("Email", _emailController, keyboardType: TextInputType.emailAddress),
+            _buildTextField("Phone Number", _phoneNumberController,
+                keyboardType: TextInputType.phone),
+            _buildTextField("Email", _emailController,
+                keyboardType: TextInputType.emailAddress),
             _buildGenderDropdown(),
             SizedBox(height: 20),
             _buildPaymentMethodsCheckboxes(),
@@ -85,7 +90,8 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  Widget _buildTextField(String label, TextEditingController controller, {TextInputType? keyboardType}) {
+  Widget _buildTextField(String label, TextEditingController controller,
+      {TextInputType? keyboardType}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -108,9 +114,9 @@ class _SettingsPageState extends State<SettingsPage> {
           value: _selectedGender,
           items: ['Male', 'Female', 'Other']
               .map((gender) => DropdownMenuItem<String>(
-            value: gender,
-            child: Text(gender),
-          ))
+                    value: gender,
+                    child: Text(gender),
+                  ))
               .toList(),
           onChanged: (value) {
             setState(() {
@@ -156,7 +162,28 @@ class _SettingsPageState extends State<SettingsPage> {
             _updatePaymentMethods('Bank Transfer', value ?? false);
           },
         ),
+        ElevatedButton(
+          onPressed: () {
+            logOut(context);
+          },
+          child: Text('Log Out'),
+        )
       ],
+    );
+  }
+
+  void logOut(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('token');
+    print("LOGGING OUT"); 
+    await navigateToLoginPage(context);
+  }
+
+  Future navigateToLoginPage(BuildContext context)  async {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => const LoginPage(),
+      ),
     );
   }
 
