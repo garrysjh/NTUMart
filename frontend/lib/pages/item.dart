@@ -9,6 +9,9 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+const LatLng currentLocation = LatLng(1.3476785606754784, 103.68688598949618);
 
 void main() => runApp(const ItemDetailsScreen(productID: 1));
 
@@ -28,6 +31,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
   Map<String, dynamic>? productData;
   Map<String, dynamic>? userData;
   String? userName;
+  GoogleMapController? _mapController;
 
   @override
   void initState() {
@@ -234,7 +238,35 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                   ),
                 ),
 
-                const SizedBox(height: 5.0), //space between "Seller details" and "Contact seller" button
+                const SizedBox(height: 5.0), //space between "Seller details" and Google Map
+
+                // Google Map
+                Container(
+                  height: 200, // Adjust the height as needed
+                  margin: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: GoogleMap(
+                    onMapCreated: (controller) {
+                      setState(() {
+                        _mapController = controller;
+                      });
+                    },
+                    initialCameraPosition: const CameraPosition(
+                      target: currentLocation,
+                      zoom: 15.0,
+                    ),
+                    markers: {
+                      const Marker(
+                        markerId: MarkerId('seller_location'),
+                        position: currentLocation,
+                        infoWindow: InfoWindow(title: 'Seller Location'),
+                      ),
+                    },
+                  ),
+                ),
+
+                const SizedBox(height: 5.0), //space between Google Map and "Contact seller" button
+
+
                 // Contact seller button
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 16.0),
