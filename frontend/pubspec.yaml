@@ -41,6 +41,7 @@ dependencies:
   connectivity_plus: ^5.0.0
   font_awesome_flutter: ^10.5.0
   flutter_dotenv: ^5.1.0
+  story_view: 
 
   shared_preferences: ^2.2.1
   camera: ^0.10.5+4
@@ -76,6 +77,7 @@ flutter:
   -   assets/img/ntumart_logo.png
   -   assets/img/chatbot_icon.png
   -   assets/img/categories/
+  -   hall.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
