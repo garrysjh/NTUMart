@@ -214,7 +214,7 @@ Navigator.of(context).push(
                 });
 
                     // Close the dialog
-                    Navigator.of(context).pop(hallRoom);
+                    Navigator.of(context).pop();
                   } else {
                     // Show an error message or handle it as needed
                     // For now, just print an error message
@@ -222,7 +222,6 @@ Navigator.of(context).push(
                   }
                 
                 // Close the dialog
-                Navigator.of(context).pop(postController.text);
               },
               child: const Text('Submit'),
             ),
