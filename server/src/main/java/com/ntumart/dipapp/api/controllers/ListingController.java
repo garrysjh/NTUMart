@@ -55,11 +55,10 @@ public class ListingController {
                 (request != null && request.getCategories().length>=1) ? request.getCategories()[0] : null, 
                 (request != null && request.getCategories().length>=2) ? request.getCategories()[1] : null, 
                 (request != null && request.getCategories().length>=3) ? request.getCategories()[2] : null, 
-                (request != null&& request.getCategories().length==4) ? request.getCategories()[3] : null
+                (request != null&& request.getCategories().length>=4) ? request.getCategories()[3] : null,
+                (request != null && request.getCategories().length==5) ? request.getCategories()[4] : null
         );
-        System.out.println(request.getCategories()[0]);     
-        System.out.println(request.getCategories()[1]);     
-
+       
         if (sortBy != null) {
             products = listingService.sortProducts(products, sortBy);
         }
