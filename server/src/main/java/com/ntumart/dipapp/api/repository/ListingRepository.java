@@ -10,49 +10,49 @@ import com.ntumart.dipapp.models.Product;
 
 public interface ListingRepository extends JpaRepository<Product, Long> {
     @Query(value = "SELECT * " +
-    "FROM PRODUCT " +
-    "WHERE ((:name is null OR name LIKE CONCAT('%', :name, '%')) " +
-    "  OR (:name is null OR description LIKE CONCAT('%', :name, '%'))) " +
-    "  AND (:startDate is null OR date >= :startDate) " +
-    "  AND (:endDate is null OR date <= :endDate) " +
-    "  AND (:sellerID is null OR sellerID = :sellerID) " + 
-    "  AND ( category = :category1) " + 
-    "UNION " + 
-    "SELECT * " +
-    "FROM PRODUCT " +
-    "WHERE ((:name is null OR name LIKE CONCAT('%', :name, '%')) " +
-    "  OR (:name is null OR description LIKE CONCAT('%', :name, '%'))) " +
-    "  AND (:startDate is null OR date >= :startDate) " +
-    "  AND (:endDate is null OR date <= :endDate) " +
-    "  AND (:sellerID is null OR sellerID = :sellerID) " + 
-    "  AND ( category = :category2) " + 
-    "UNION " + 
-    "SELECT * " +
-    "FROM PRODUCT " +
-    "WHERE ((:name is null OR name LIKE CONCAT('%', :name, '%')) " +
-    "  OR (:name is null OR description LIKE CONCAT('%', :name, '%'))) " +
-    "  AND (:startDate is null OR date >= :startDate) " +
-    "  AND (:endDate is null OR date <= :endDate) " +
-    "  AND (:sellerID is null OR sellerID = :sellerID) " + 
-    "  AND (category = :category3) " + 
-    "UNION " + 
-    "SELECT * " +
-    "FROM PRODUCT " +
-    "WHERE ((:name is null OR name LIKE CONCAT('%', :name, '%')) " +
-    "  OR (:name is null OR description LIKE CONCAT('%', :name, '%'))) " +
-    "  AND (:startDate is null OR date >= :startDate) " +
-    "  AND (:endDate is null OR date <= :endDate) " +
-    "  AND (:sellerID is null OR sellerID = :sellerID) " + 
-    "  AND (category = :category4) " + 
-    "UNION " + 
-    "SELECT * " +
-    "FROM PRODUCT " +
-    "WHERE ((:name is null OR name LIKE CONCAT('%', :name, '%')) " +
-    "  OR (:name is null OR description LIKE CONCAT('%', :name, '%'))) " +
-    "  AND (:startDate is null OR date >= :startDate) " +
-    "  AND (:endDate is null OR date <= :endDate) " +
-    "  AND (:sellerID is null OR sellerID = :sellerID) " + 
-    "  AND ( category = :category5) ", nativeQuery = true)
+            "FROM PRODUCT " +
+            "WHERE ((:name is null OR name LIKE CONCAT('%', :name, '%')) " +
+            "  OR (:name is null OR description LIKE CONCAT('%', :name, '%'))) " +
+            "  AND (:startDate is null OR date >= :startDate) " +
+            "  AND (:endDate is null OR date <= :endDate) " +
+            "  AND (:sellerID is null OR sellerID = :sellerID) " +
+            "  AND (:category1 is null OR category = :category1) " +
+            "UNION " +
+            "SELECT * " +
+            "FROM PRODUCT " +
+            "WHERE ((:name is null OR name LIKE CONCAT('%', :name, '%')) " +
+            "  OR (:name is null OR description LIKE CONCAT('%', :name, '%'))) " +
+            "  AND (:startDate is null OR date >= :startDate) " +
+            "  AND (:endDate is null OR date <= :endDate) " +
+            "  AND (:sellerID is null OR sellerID = :sellerID) " +
+            "  AND ( category = :category2) " +
+            "UNION " +
+            "SELECT * " +
+            "FROM PRODUCT " +
+            "WHERE ((:name is null OR name LIKE CONCAT('%', :name, '%')) " +
+            "  OR (:name is null OR description LIKE CONCAT('%', :name, '%'))) " +
+            "  AND (:startDate is null OR date >= :startDate) " +
+            "  AND (:endDate is null OR date <= :endDate) " +
+            "  AND (:sellerID is null OR sellerID = :sellerID) " +
+            "  AND (category = :category3) " +
+            "UNION " +
+            "SELECT * " +
+            "FROM PRODUCT " +
+            "WHERE ((:name is null OR name LIKE CONCAT('%', :name, '%')) " +
+            "  OR (:name is null OR description LIKE CONCAT('%', :name, '%'))) " +
+            "  AND (:startDate is null OR date >= :startDate) " +
+            "  AND (:endDate is null OR date <= :endDate) " +
+            "  AND (:sellerID is null OR sellerID = :sellerID) " +
+            "  AND (category = :category4) " +
+            "UNION " +
+            "SELECT * " +
+            "FROM PRODUCT " +
+            "WHERE ((:name is null OR name LIKE CONCAT('%', :name, '%')) " +
+            "  OR (:name is null OR description LIKE CONCAT('%', :name, '%'))) " +
+            "  AND (:startDate is null OR date >= :startDate) " +
+            "  AND (:endDate is null OR date <= :endDate) " +
+            "  AND (:sellerID is null OR sellerID = :sellerID) " +
+            "  AND ( category = :category5) ", nativeQuery = true)
     public List<Product> getProducts(
             @Param(value = "name") String name,
             @Param(value = "startDate") LocalDateTime startDate,
@@ -64,4 +64,3 @@ public interface ListingRepository extends JpaRepository<Product, Long> {
             @Param(value = "category4") String category4,
             @Param(value = "category5") String category5);
 }
-
