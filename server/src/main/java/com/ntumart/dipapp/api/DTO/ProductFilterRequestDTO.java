@@ -1,4 +1,4 @@
-package com.ntumart.dipapp.api.DTO; 
+package com.ntumart.dipapp.api.DTO;
 
 public class ProductFilterRequestDTO{
     private String name;
@@ -53,4 +53,5 @@ public class ProductFilterRequestDTO{
     public void setCategories(String[] categories) {
         this.categories = categories; 
 }
+
 }

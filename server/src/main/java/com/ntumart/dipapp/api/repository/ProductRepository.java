@@ -5,6 +5,7 @@ import com.ntumart.dipapp.models.Product;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -55,5 +56,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     @Query(value = "DELETE FROM product WHERE productID = :productID", nativeQuery = true)
     int deleteProduct(@Param("productID") Integer productID);
+
+    @Query(value = "SELECT * FROM PRODUCT WHERE category = :category", nativeQuery = true)
+    List<Product> findCategory(@Param("category") String category);
         
 }

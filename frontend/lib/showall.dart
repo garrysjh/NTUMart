@@ -103,10 +103,10 @@ class _BrowseState extends State<BrowsePage> {
                     color: Colors.grey[200],
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-                  child: Row(
+                  child: const Row(
                     children: [
                       Icon(Icons.person, color: Colors.black),
-                      const SizedBox(width: 16),
+                      SizedBox(width: 16),
                       Text(
                         'Search for user',
                         style: TextStyle(color: Colors.black, fontSize: 16.0),
