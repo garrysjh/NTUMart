@@ -3,6 +3,7 @@ import 'package:story_view/story_view.dart';
 import 'package:frontend/pages/widgets/taskbar.dart';
 import 'package:frontend/hallRoom/hallStories.dart';
 import 'package:frontend/hallRoom/floorStories.dart';
+import 'package:frontend/widgets/snackbar.dart';
 
 void main() {
   runApp(const RoomChat());
@@ -34,6 +35,10 @@ class _RoomChatPageState extends State<RoomChatPage> {
   @override
   void initState(){
     super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      _showDialog();
+      dialogShown = true;
+    });
   }
 
   Future<String?> addPost({
@@ -58,10 +63,6 @@ class _RoomChatPageState extends State<RoomChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    if(!dialogShown) {
-    _showDialog();
-    dialogShown = true;
-  }
     return Scaffold(
       key: _scaffoldKey,
       body: Padding(padding: EdgeInsets.only(top:60, left: 20, right: 20), child: Stack( children: <Widget>[Column(
@@ -206,10 +207,20 @@ Navigator.of(context).push(
             TextButton(
               onPressed: () {
                 // Perform actions when the user clicks on the "Submit" button
-                print('Text Field Value: ${postController.text}');
-                setState(() {
+                if (postController.text.isNotEmpty) {
+                    // Perform actions when the user clicks on the "Submit" button
+          setState(() {
                   posts['You'] = postController.text;
                 });
+
+                    // Close the dialog
+                    Navigator.of(context).pop(hallRoom);
+                  } else {
+                    // Show an error message or handle it as needed
+                    // For now, just print an error message
+                    CustomSnackBar(context, Text('Field cannot be empty!'));
+                  }
+                
                 // Close the dialog
                 Navigator.of(context).pop(postController.text);
               },
@@ -270,23 +281,29 @@ Navigator.of(context).push(
                 ],
               ),
               actions: [
+                // TextButton(
+                //   onPressed: () {
+                //     Navigator.of(context).pop();
+                //   },
+                //   child: const Text('Close', style: TextStyle(
+                //                           fontSize: 18,
+                //                           fontWeight: FontWeight.w800,
+                //                       color: Color(0xFF5C795B),),),
+                // ),
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Close', style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w800,
-                                      color: Color(0xFF5C795B),),),
-                ),
-                TextButton(
-                  onPressed: () {
+                    if (textEditingController.text.isNotEmpty) {
                     // Perform actions when the user clicks on the "Submit" button
                     print('Dropdown Value: $hallRoom');
                     print('Text Field Value: ${textEditingController.text}');
 
                     // Close the dialog
                     Navigator.of(context).pop(hallRoom);
+                  } else {
+                    // Show an error message or handle it as needed
+                    // For now, just print an error message
+                    CustomSnackBar(context, Text('Field cannot be empty!'));
+                  }
                   },
                   child: Text('Submit', style: TextStyle(
                                           fontSize: 18,

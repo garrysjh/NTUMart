@@ -93,7 +93,7 @@ class _TaskbarState extends State<Taskbar> {
             IconButton(
               icon: const Icon(Icons.group),
               onPressed: () {
-                // Handle community button click
+  // Do something
                 Navigator.push(
               context,
               PageRouteBuilder(
