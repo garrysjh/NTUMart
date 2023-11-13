@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/hallRoom/roomchat.dart';
 import 'package:frontend/homepage.dart';
 import 'package:frontend/browse.dart';
 import 'package:frontend/pages/profile.dart';
@@ -93,6 +94,18 @@ class _TaskbarState extends State<Taskbar> {
               icon: const Icon(Icons.group),
               onPressed: () {
                 // Handle community button click
+                Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) {
+                  return const RoomChat();
+                },
+                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                  // Disable animation by returning child directly
+                  return child;
+                },
+              ),
+            );
               },
             ),
             IconButton(

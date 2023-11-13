@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:story_view/story_view.dart';
 import 'package:frontend/pages/widgets/taskbar.dart';
-import 'package:frontend/hallRoom/hall.dart';
+import 'package:frontend/hallRoom/hallStories.dart';
+import 'package:frontend/hallRoom/floorStories.dart';
 
 void main() {
   runApp(const RoomChat());
@@ -12,6 +13,7 @@ class RoomChat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return const MaterialApp(
       title: 'RoomChat',
       home: RoomChatPage(),
@@ -20,7 +22,9 @@ class RoomChat extends StatelessWidget {
 }
 
 class RoomChatPage extends StatefulWidget {
+  
   const RoomChatPage({Key? key}) : super(key: key);
+  
 
   @override
   State<RoomChatPage> createState() => _RoomChatPageState();
@@ -30,7 +34,6 @@ class _RoomChatPageState extends State<RoomChatPage> {
   @override
   void initState(){
     super.initState();
-    _showDialog();
   }
 
   Future<String?> addPost({
@@ -42,8 +45,9 @@ class _RoomChatPageState extends State<RoomChatPage> {
     builder: builder,
   );
 }
+  bool dialogShown = false;
   String hallRoom = 'No Hall';
-  String roomNo = 'Room Not Chosen';
+  String roomNo = 'NA';
   var posts  = {
     'John': 'Hello Roomie!',
     'Jack': 'Selling my old table, anyone interested? @jack123',
@@ -54,6 +58,10 @@ class _RoomChatPageState extends State<RoomChatPage> {
 
   @override
   Widget build(BuildContext context) {
+    if(!dialogShown) {
+    _showDialog();
+    dialogShown = true;
+  }
     return Scaffold(
       key: _scaffoldKey,
       body: Padding(padding: EdgeInsets.only(top:60, left: 20, right: 20), child: Stack( children: <Widget>[Column(
@@ -90,7 +98,9 @@ padding: EdgeInsets.only(left: 20),
   decoration: BoxDecoration(color: Color(0xFF5C795B), shape: BoxShape.circle,),
   child: ClipOval(
     child: InkWell(onTap: (){
-
+Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => Level()),
+      );
     }, borderRadius: BorderRadius.circular(40), child: SizedBox.fromSize(
       size: Size.fromRadius(40), // Image radius
       child: Image.asset('assets/img/avatar.jpg', fit: BoxFit.cover),

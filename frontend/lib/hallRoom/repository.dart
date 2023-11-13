@@ -102,17 +102,17 @@ static Future<List<WhatsappStory>> getFloorStories() async {
   "data": [
       {
         "mediaType": "image",
-        "media": "https://ryonanna.com/wp-content/uploads/2020/07/tama-canteen-667x1024.jpg",
+        "media": "https://ryonanna.com/wp-content/uploads/2020/07/room-795x1024.jpg",
         "duration": "8.0",
-        "caption": "We're chilling at the canteen, come check us out!",
+        "caption": "I'm moving out at 20-05-01, check out my items!",
         "when": "14 hours ago",
         "color": ""
       },
       {
         "mediaType": "image",
-        "media": "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExaHJxZ2h4empubGpwcnNzaDd3N282cHQ0aDg4bmloYWdvb2drcXpyMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccLA75Is1P2by8Wx07/giphy.gif",
+        "media": "https://images.squarespace-cdn.com/content/v1/5ff2bfec15120a7c1d22098a/1626686613279-OIDII2TE7046K5ME1S05/saraca-laundry-room.jpeg",
         "duration": "8.0",
-        "caption": "Looking forward to a Monday at hall!",
+        "caption": "Bro who messed up the laundry machine again???? ",
         "when": "10 hours ago",
         "color": ""
       }
