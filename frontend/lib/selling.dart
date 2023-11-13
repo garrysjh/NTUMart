@@ -256,7 +256,9 @@ class _CreateListingPageState extends State<CreateListingPage> {
                     color: Colors.grey, // You can change the border color as needed
                   ),
                 ),
-                child: TextFormField(
+                child: Row(children: [
+                  SizedBox(width:16.0),
+                  Expanded(child: TextFormField(
                   decoration: InputDecoration(labelText: 'Category'),
                   validator: (value) {
                     if (value?.isEmpty ?? true) {
@@ -267,6 +269,8 @@ class _CreateListingPageState extends State<CreateListingPage> {
                   onSaved: (value) {
                     _category = value;
                   },
+                  ))
+                ],
                 ),
               ),
 
@@ -419,6 +423,7 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
   TextEditingController _brandController = TextEditingController();
   TextEditingController _descriptionController = TextEditingController();
   bool _hasMultipleItems = false;
+  bool _delivery = false;
 
   @override
   Widget build(BuildContext context) {
@@ -475,6 +480,25 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                 Text('I have more than one of this item'),
               ],
             ),
+            Row(children: [
+              Checkbox(
+                  value: _delivery,
+                  onChanged: (value) {
+                    setState(() {
+                      _hasMultipleItems = value ?? false;
+                    });
+                  },
+                ),
+                Text('I want to pay \$3 more for delivery   '),
+                Center(
+        child: ElevatedButton(
+          onPressed: () {
+            _showDialog(context);
+          },
+          child: Text('?', style: TextStyle(fontSize: 20.0)),
+        ),
+      ),
+            ],),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
@@ -510,6 +534,27 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
     super.dispose();
   }
 }
+
+ void _showDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Delivery Services',
+          style: TextStyle(fontWeight: FontWeight.bold),),
+          content: Text('We offer delivery services in NTU, which are pay on delivery. If you check this option, we will contact you when your item is sold to arrange a delivery date!'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
 class PriceInputPage extends StatefulWidget {
   @override
@@ -555,9 +600,14 @@ class _PriceInputPageState extends State<PriceInputPage> {
     );
   }
 
+ 
+
+
   @override
   void dispose() {
     _priceController.dispose();
     super.dispose();
   }
+
+  
 }

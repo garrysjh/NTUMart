@@ -264,6 +264,7 @@ Future<int> insertInterest(int userID, Interest interest) async {
         'category5': interest.getCategory4
       }),
     );
+    print(response.body);
 
     if (response.statusCode == 200) {
         return 1;
