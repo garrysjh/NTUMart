@@ -229,6 +229,34 @@
    },
 
    {
+    "_class": "com.ntumart.dipapp.models.Product",
+    "productID": 11,
+    "sellerID": "6",
+    "name": "Cute chair",
+    "description": "Cute chair. Good as new!!!",
+    "price": "88",
+    "quantity": "4" ,
+    "productPic": "images/uploads/11/product31.jpg" ,
+    "productPic2": "images/uploads/11/product32.jpg" ,
+    "productLikes": "55",
+    "category": "Furniture"
+   },
+
+    {
+     "_class": "com.ntumart.dipapp.models.Product",
+     "productID": 12,
+     "sellerID": "6",
+     "name": "Moving out service",
+     "description": "Moving out service. Charge per hour!!!",
+     "price": "12",
+     "quantity": "4" ,
+     "productPic": "images/uploads/12/product33.jpg" ,
+     "productPic2": "images/uploads/12/product34.jpg" ,
+     "productLikes": "55",
+     "category": "Services"
+    },
+
+   {
     "_class": "com.ntumart.dipapp.models.Interest",
     "interestID": 1,
     "userID": "1",

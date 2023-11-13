@@ -11,9 +11,8 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.io.*;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Optional;
+import java.util.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -198,6 +197,19 @@ public class ProductService {
         //Check if the product exists
         Product product = getProductById(productID);
         productRepository.delete(product);
+    }
+
+//    public List<Product> findCategory(String category)  {
+//        return productRepository.findCategory(category);
+//    }
+
+    public List<Product> findCategory(List<String> category)  {
+        List<Product> matching = new ArrayList<>();
+        for (String categories : category) {
+            List<Product> products = productRepository.findCategory(categories);
+            matching.addAll(products);
+        }
+        return matching;
     }
 
     

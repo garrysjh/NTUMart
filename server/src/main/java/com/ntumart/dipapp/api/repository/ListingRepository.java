@@ -20,7 +20,7 @@ public interface ListingRepository extends JpaRepository<Product, Long> {
     "  AND (:startDate is null OR date >= :startDate) " +
     "  AND (:endDate is null OR date <= :endDate) " +
     "  AND (:sellerID is null OR sellerID = :sellerID) " + 
-    "  AND (category = :category1) " + 
+    "  AND (:category1 is null OR category = :category1) " + 
     "UNION " + 
     "SELECT * " +
     "FROM PRODUCT " +
@@ -29,7 +29,7 @@ public interface ListingRepository extends JpaRepository<Product, Long> {
     "  AND (:startDate is null OR date >= :startDate) " +
     "  AND (:endDate is null OR date <= :endDate) " +
     "  AND (:sellerID is null OR sellerID = :sellerID) " + 
-    "  AND (category = :category2) " + 
+    "  AND (:category2 is null OR category = :category2) " + 
     "UNION " + 
     "SELECT * " +
     "FROM PRODUCT " +
@@ -38,7 +38,7 @@ public interface ListingRepository extends JpaRepository<Product, Long> {
     "  AND (:startDate is null OR date >= :startDate) " +
     "  AND (:endDate is null OR date <= :endDate) " +
     "  AND (:sellerID is null OR sellerID = :sellerID) " + 
-    "  AND (category = :category3) " + 
+    "  AND (:category3 is null OR category = :category3) " + 
     "UNION " + 
     "SELECT * " +
     "FROM PRODUCT " +
@@ -47,7 +47,17 @@ public interface ListingRepository extends JpaRepository<Product, Long> {
     "  AND (:startDate is null OR date >= :startDate) " +
     "  AND (:endDate is null OR date <= :endDate) " +
     "  AND (:sellerID is null OR sellerID = :sellerID) " + 
-    "  AND (category = :category4) ", nativeQuery = true)
+    "  AND (:category4 is null OR category = :category4) " + 
+    "UNION " + 
+    "SELECT * " +
+    "FROM PRODUCT " +
+    "WHERE ((:name is null OR name LIKE CONCAT('%', :name, '%')) " +
+    "  OR (:name is null OR description LIKE CONCAT('%', :name, '%'))) " +
+    "  AND (:startDate is null OR date >= :startDate) " +
+    "  AND (:endDate is null OR date <= :endDate) " +
+    "  AND (:sellerID is null OR sellerID = :sellerID) " + 
+    "  AND (:category5 is null OR category = :category5) ", nativeQuery = true)
+    
     public List<Product> getProducts(
             @Param(value = "name") String name,
             @Param(value = "startDate") LocalDateTime startDate,
@@ -58,3 +68,4 @@ public interface ListingRepository extends JpaRepository<Product, Long> {
             @Param(value = "category3") String category3,
             @Param(value = "category4") String category4);
 }
+
