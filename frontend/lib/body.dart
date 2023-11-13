@@ -20,20 +20,20 @@ class Body extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                SizedBox(height: 50),
-                CircleAvatar(
+                const SizedBox(height: 50),
+                const CircleAvatar(
                   backgroundColor: Color.fromRGBO(255,255, 255, 1),
                   backgroundImage: AssetImage('assets/profilepic.png'),
                   radius: 40.0,
                 ),
-                Divider(
+                const Divider(
                   height: 35.0,
                   color: Colors.black45,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(
+                    const Text(
                       'Keegan Lee', //Username
                       style: TextStyle(
                         letterSpacing: 2.0,
@@ -50,7 +50,7 @@ class Body extends StatelessWidget {
                     ),
                   ],
                 ),
-                Row(
+                const Row(
                   children: <Widget>[
                     Icon(
                       Icons.telegram,
@@ -64,11 +64,11 @@ class Body extends StatelessWidget {
                     ),
                   ],
                 ),
-                Divider(
+                const Divider(
                   height: 30.0,
                   color: Colors.black45,
                 ),
-                Row(
+                const Row(
                   children: <Widget>[
                     Text(
                       'Your Listings',

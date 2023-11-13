@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:frontend/pages/login_page.dart';
+import 'package:frontend/pages/profile.dart';
 
 void main() {
   runApp(SettingsPageWidget());
@@ -55,8 +56,12 @@ class _SettingsPageState extends State<SettingsPage> {
           IconButton(
             icon: Icon(Icons.done),
             onPressed: () {
-              // Handle the done button click
-              // Add your logic to save settings or navigate away
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ProfileScreen(),
+                ),
+              );
             },
           ),
         ],
@@ -166,6 +171,9 @@ class _SettingsPageState extends State<SettingsPage> {
           onPressed: () {
             logOut(context);
           },
+          style: ElevatedButton.styleFrom(
+            primary: Colors.white, // Change this color to the desired one
+          ),
           child: Text('Log Out'),
         )
       ],
@@ -175,11 +183,11 @@ class _SettingsPageState extends State<SettingsPage> {
   void logOut(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.remove('token');
-    print("LOGGING OUT"); 
+    print("LOGGING OUT");
     await navigateToLoginPage(context);
   }
 
-  Future navigateToLoginPage(BuildContext context)  async {
+  Future navigateToLoginPage(BuildContext context) async {
     Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (context) => const LoginPage(),
