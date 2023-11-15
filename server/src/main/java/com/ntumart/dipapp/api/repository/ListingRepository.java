@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import com.ntumart.dipapp.models.Interest;
 import com.ntumart.dipapp.models.Product;
 
-public interface ListingRepository extends JpaRepository<Product, Long> {
+public interface ListingRepository extends JpaRepository<Product, Integer> {
 
   @Query(value = "SELECT *  "
       +

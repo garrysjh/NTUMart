@@ -67,6 +67,7 @@ class BrowsePage extends StatefulWidget {
 class _BrowsePageState extends State<BrowsePage> {
 
     Future<List<ProductResponse>>? productsFuture;
+    Future<List<ProductResponse>>? productsCatFuture;
 
 
   List<String> categories = [
@@ -238,6 +239,10 @@ class _BrowsePageState extends State<BrowsePage> {
                                               behavior: SnackBarBehavior.floating,
                                             ),
                                         );
+                                        setState(() {
+                                          productsCatFuture = browseCategoryListing(category);
+                                          print(category);
+                                        });
                                       },
                                       style: ButtonStyle(
                                         elevation: MaterialStateProperty.all(8),
@@ -277,25 +282,70 @@ class _BrowsePageState extends State<BrowsePage> {
                               ),
                             ), //From People You Follow
 
+                            // Container(
+                            //   padding: const EdgeInsets.only(left:20, right:20),
+                            //   height: 235,
+                            //   //Use FutureBuilder to handle asynchronous operation
+                            //   child: FutureBuilder<List<ProductResponse>>(
+                            //     future: productsFuture,
+                            //     builder: (context, snapshot) {
+                            //       if (snapshot.connectionState == ConnectionState.waiting) {
+                            //         return CircularProgressIndicator();
+                            //       } else if (snapshot.hasError) {
+                            //         return Text('Snapshot Error: ${snapshot.error}');
+                            //       } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                            //         return Text('No data available');
+                            //       } else {
+                            //         return VerticalViewListings(products: snapshot.data!);
+                            //       }
+                            //     },
+                            //   ),
+                            // ),
+
                             Container(
-                              padding: const EdgeInsets.only(left:20, right:20),
+                              padding: const EdgeInsets.only(left: 20, right: 20),
                               height: 235,
-                              //Use FutureBuilder to handle asynchronous operation
-                              child: FutureBuilder<List<ProductResponse>>(
-                                future: productsFuture,
-                                builder: (context, snapshot) {
-                                  if (snapshot.connectionState == ConnectionState.waiting) {
-                                    return CircularProgressIndicator();
-                                  } else if (snapshot.hasError) {
-                                    return Text('Snapshot Error: ${snapshot.error}');
-                                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                                    return Text('No data available');
-                                  } else {
-                                    return VerticalViewListings(products: snapshot.data!);
-                                  }
-                                },
+                              child: Column(
+                                children: [
+                                  // Visibility(
+                                  //   visible: productsFuture != null,
+                                  //   child: FutureBuilder<List<ProductResponse>>(
+                                  //     future: productsFuture,
+                                  //     builder: (context, snapshot) {
+                                  //       if (snapshot.connectionState == ConnectionState.waiting) {
+                                  //         return CircularProgressIndicator();
+                                  //       } else if (snapshot.hasError) {
+                                  //         return Text('Snapshot Error: ${snapshot.error}');
+                                  //       } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                                  //         return Text('No data available');
+                                  //       } else {
+                                  //         return VerticalViewListings(products: snapshot.data!);
+                                  //       }
+                                  //     },
+                                  //   ),
+                                  // ),
+                                  Visibility(
+                                    visible: productsCatFuture != null,
+                                    child: FutureBuilder<List<ProductResponse>>(
+                                      future: productsCatFuture,
+                                      builder: (context, snapshot) {
+                                        if (snapshot.connectionState == ConnectionState.waiting) {
+                                          return CircularProgressIndicator();
+                                        } else if (snapshot.hasError) {
+                                          return Text('Snapshot Error: ${snapshot.error}');
+                                        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                                          return Text('');
+                                        } else {
+                                          return VerticalViewListings(products: snapshot.data!);
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
+                            )
+
+
 
                             // const Padding(
                             //   padding: EdgeInsets.only(left:15.0),
@@ -409,3 +459,39 @@ Future<List<ProductResponse>> searchListing(String searchTerm) async{
       throw Exception('Failed to load products: $e');
   }
 }
+
+Future<List<ProductResponse>> browseCategoryListing(String category) async {
+    final url = Uri.parse('$URL/product/listing?category=$category');
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: json.encode({}),
+      );
+
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body);
+        print("jsonResponse: ");
+        print(jsonResponse.runtimeType);
+        print("Type of item in jsonresponse: ");
+        print(jsonResponse[0].runtimeType);
+        List<ProductResponse> products = [];
+        for (var item in jsonResponse) {
+          final product = ProductResponse.fromMap(item);
+          print("Item: ");
+          print(item);
+          products.add(product);
+        }
+        return products;
+      } else {
+        print('Failed to load products. Status code: ${response.statusCode}');
+        throw Exception('Failed to load products: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error: $e');
+      throw Exception('Failed to load products: $e');
+    }
+  }
