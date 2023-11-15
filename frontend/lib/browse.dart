@@ -68,6 +68,7 @@ class _BrowsePageState extends State<BrowsePage> {
 
     Future<List<ProductResponse>>? productsFuture;
 
+  
   List<String> categories = [
     "Men's Fashion",
     "Women's Fashion",
@@ -295,7 +296,6 @@ class _BrowsePageState extends State<BrowsePage> {
                                 },
                               ),
                             ),
-
 
                             // const Padding(
                             //   padding: EdgeInsets.only(left:15.0),
