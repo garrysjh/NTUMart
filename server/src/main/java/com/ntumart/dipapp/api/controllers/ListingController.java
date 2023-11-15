@@ -38,7 +38,8 @@ public class ListingController {
     public ResponseEntity<List<ProductResponse>> listAllProducts(
             @ModelAttribute ProductFilterRequestDTO request,
             @RequestParam(required = false) String sortBy,
-            @RequestParam(name = "sortOrder", defaultValue = "asc") String sortOrder
+            @RequestParam(name = "sortOrder", defaultValue = "asc") String sortOrder,
+            @RequestParam(required = false) String searchTerm
     ) {
         LocalDateTime startDateTime = (request.getStartDate() != null) ? LocalDateTime.parse(request.getStartDate())
                 : null;
@@ -47,6 +48,7 @@ public class ListingController {
         String name = (request != null) ? request.getName() : null;
         Integer userId = (name != null) ? userRepository.getUserID(name) : null;
 
+
         List<Product> products = listingRepository.getProducts(
                 name,
                 startDateTime,
@@ -54,6 +56,11 @@ public class ListingController {
                 userId,
                 (request != null) ? request.getCategory() : null
         );
+
+        // For Searching for Product Name
+        if (searchTerm != null) {
+            products = listingService.searchProduct(searchTerm);
+        }
 
         if (sortBy != null) {
             products = listingService.sortProducts(products, sortBy);
@@ -78,4 +85,5 @@ public class ListingController {
     
         return ResponseEntity.ok(productResponses);
     }
+
 }

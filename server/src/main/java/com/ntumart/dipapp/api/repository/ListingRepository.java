@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.ntumart.dipapp.models.Interest;
 import com.ntumart.dipapp.models.Product;
 
 import jakarta.transaction.Transactional;
@@ -16,8 +17,8 @@ public interface ListingRepository extends JpaRepository<Product, Long> {
   @Query(value = "SELECT *  "
       +
       "FROM PRODUCT " +
-      "WHERE (:name is null OR name LIKE CONCAT('%', :name, '%')) " +
-      "  OR (:name is null OR description LIKE CONCAT('%', :name, '%')) " +
+      "WHERE ((:name is null OR name LIKE CONCAT('%', :name, '%')) " +
+      "  OR (:name is null OR description LIKE CONCAT('%', :name, '%'))) " +
       "  AND (:startDate is null OR date >= :startDate) " +
       "  AND (:endDate is null OR date <= :endDate)" +
       "  AND (:sellerID is null OR sellerID = :sellerID)"
@@ -28,4 +29,8 @@ public interface ListingRepository extends JpaRepository<Product, Long> {
       @Param(value = "endDate") LocalDateTime endDate,
       @Param(value = "sellerID") Integer sellerID,
       @Param(value = "category") String category);
+
+  @Query(value = "SELECT * FROM PRODUCT WHERE name LIKE CONCAT ('%', :name, '%')", nativeQuery = true)
+  public List<Product> getProductsBySearch(@Param("name") String name);
+  
 }
