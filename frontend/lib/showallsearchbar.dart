@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/homepage.dart';
 import 'package:frontend/main.dart';
 import 'package:frontend/models/productresponsemodel.dart';
+import 'package:frontend/pages/widgets/taskbar.dart';
 import 'package:frontend/pages/widgets/vertical_view_listings.dart';
 import 'package:frontend/ProductSearchBar.dart'; 
 import 'dart:async';
@@ -39,6 +40,7 @@ class _CategoryPageState extends State<NamePage> {
   Widget build(BuildContext context) {
     return MaterialApp (
       home: Scaffold(
+        bottomNavigationBar: Taskbar(), 
         body: Padding(
           padding: const EdgeInsets.only(
             top: 50.0,
@@ -95,6 +97,7 @@ class _CategoryPageState extends State<NamePage> {
               ],
             ),
           ),
+          
         ),
       )
     );

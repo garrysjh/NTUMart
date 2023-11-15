@@ -3,14 +3,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:frontend/ProductSearchBar.dart';
-import 'package:frontend/body.dart';
 import 'package:frontend/homepage.dart';
 import 'package:frontend/main.dart';
 import 'package:frontend/models/productresponsemodel.dart';
-import 'package:frontend/pages/widgets/searchbar.dart';
 import 'package:frontend/pages/widgets/vertical_view_listings.dart';
-import 'package:frontend/product.dart';
-
+import 'package:frontend/pages/widgets/taskbar.dart'; 
 import 'dart:async';
 
 import 'package:http/http.dart' as http;
@@ -56,6 +53,7 @@ class _CategoryPageState extends State<CategoryPage> {
   Widget build(BuildContext context) {
     return MaterialApp (
       home: Scaffold(
+        bottomNavigationBar: Taskbar(),
         body: Padding(
           padding: const EdgeInsets.only(
             top: 50.0,
