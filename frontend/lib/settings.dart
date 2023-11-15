@@ -24,7 +24,7 @@ class SettingsPageWidget extends StatelessWidget {
           background: Color(0xFFF9F9F9),
           onBackground: Color(0xFFFFFFFF),
           surface: Color(0xFFEAEAEA),
-          onSurface: Color(0xFF5C795B),
+          onSurface: Color(0xFF0C0C0C),
         ),
         useMaterial3: true,
       ),
