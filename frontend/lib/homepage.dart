@@ -60,10 +60,12 @@ class HomePage extends StatefulWidget {
 //
 class _HomePageState extends State<HomePage> {
   List<String> selectedCategories = [
+    "Men's Fashion",
     "Women's Fashion",
     'Footwear',
-    'Books & Notes',
+    'Electronics',
     'Services',
+    'Books & Notes',
     'Personal Care',]; //placeholder selected categories
 
   int? userId;
@@ -184,7 +186,7 @@ class _HomePageState extends State<HomePage> {
                     right: 10.0,
                   ),
                   child: SizedBox(
-                    height: 750,
+                    height: MediaQuery.of(context).size.height * .92,
                     child: Column(
                       children: [
                         SizedBox(height: MediaQuery.of(context).size.height * .05),
@@ -503,15 +505,9 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          const Spacer(),
-          const Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Taskbar(),
-          ),
         ],
       ),
+      bottomNavigationBar: const Taskbar(),
     );
   }
 }

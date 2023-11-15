@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'categorymapping.dart';
+import 'package:frontend/showcategory.dart';
 
 class CategoryButton extends StatelessWidget {
   final String selectedString;
@@ -17,12 +18,23 @@ class CategoryButton extends StatelessWidget {
         children: <Widget>[
           ElevatedButton(
             onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content:
-                  Text("Add in custom category navigation later"),
-                  duration: Duration(milliseconds: 1500),
-                  behavior: SnackBarBehavior.floating,
+              // ScaffoldMessenger.of(context).showSnackBar(
+              //   const SnackBar(
+              //     content:
+              //     Text("Add in custom category navigation later"),
+              //     duration: Duration(milliseconds: 1500),
+              //     behavior: SnackBarBehavior.floating,
+              //   ),
+              // );
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                    return CategoryPage(category: selectedString);
+                  },
+                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                    return child;
+                  },
                 ),
               );
             },

@@ -207,6 +207,7 @@ class _SignInState extends State<SignIn> {
           loginUsernameController.text, loginPasswordController.text);
           if (authenticated ==1){ 
             userId = await JwtTokenDecryptService.getID(); 
+            print(userId);
           }
           int hasInterest = await checkInterest(userId);
 
@@ -252,7 +253,7 @@ class _SignInState extends State<SignIn> {
 
 
 Future<int> checkInterest(int? id) async{
-  final url = Uri.parse('$URL/user/$id/interest');
+  final url = Uri.parse('$URL/user/interest/$id');
   try{
     final response = await http.get(
       url,

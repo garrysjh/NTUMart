@@ -46,7 +46,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 23.0),
+      padding: const EdgeInsets.only(top: 5.0),
       child: Column(
         children: <Widget>[
           Stack(
@@ -60,10 +60,15 @@ class _SignUpState extends State<SignUp> {
                 ),
                 child: Container(
                   width: 300.0,
-                  height: 460.0,
+                  height: 300.0,
                   child: Column(
                     children: <Widget>[
-                      Padding(
+                      SizedBox(
+                        height: 300,
+                        child:ListView(
+                          scrollDirection: Axis.vertical,
+                          children: <Widget>[
+                            Padding(
                         padding: const EdgeInsets.only(
                             top: 20.0, bottom: 20.0, left: 25.0, right: 25.0),
                         child: TextField(
@@ -230,12 +235,21 @@ class _SignUpState extends State<SignUp> {
                           textInputAction: TextInputAction.go,
                         ),
                       ),
+                          ]
+                        )
+                      )
+                      
                     ],
                   ),
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.only(top: 420.0),
+              
+            ],
+          ),
+        
+        
+        Container(
+                margin: const EdgeInsets.only(top: 10),
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   boxShadow: <BoxShadow>[
@@ -280,11 +294,9 @@ class _SignUpState extends State<SignUp> {
                     _resetFields()
                   } ,
                 ),
-              )
-            ],
-          ),
-        ],
+              )],
       ),
+      
     );
   }
 
