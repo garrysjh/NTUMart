@@ -2,54 +2,37 @@ import 'dart:convert';
 
 
 import 'package:flutter/material.dart';
-import 'package:frontend/ProductSearchBar.dart';
-import 'package:frontend/body.dart';
 import 'package:frontend/homepage.dart';
 import 'package:frontend/main.dart';
 import 'package:frontend/models/productresponsemodel.dart';
-import 'package:frontend/pages/widgets/searchbar.dart';
 import 'package:frontend/pages/widgets/vertical_view_listings.dart';
-import 'package:frontend/product.dart';
-
+import 'package:frontend/ProductSearchBar.dart'; 
 import 'dart:async';
 
 import 'package:http/http.dart' as http;
 
 void main() {
-  runApp(const CategoryPage(category: "Men's Fashion"));
+  runApp(const NamePage(name: "Dragon"));
 }
+class NamePage extends StatefulWidget {
+  final String? name; // Add a field to receive the productID
 
-// class SearchCategory extends StatelessWidget {
-//   const SearchCategory({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return const MaterialApp(
-//       title: 'Search',
-//       home: CategoryPage(),
-//     );
-//   }
-// }
-
-class CategoryPage extends StatefulWidget {
-  final String? category; // Add a field to receive the productID
-
-  const CategoryPage({super.key, required this.category});
+  const NamePage({super.key, required this.name});
   // const CategoryPage({super.key});
 
   @override
-  State<CategoryPage> createState() => _CategoryPageState();
+  State<NamePage> createState() => _CategoryPageState();
 }
 
-class _CategoryPageState extends State<CategoryPage> {
+class _CategoryPageState extends State<NamePage> {
   late Future<List<ProductResponse>> productsFuture;
+  final TextEditingController _searchController = TextEditingController(); 
 
-  final TextEditingController _searchController = TextEditingController();
-
+  
   @override
   void initState() {
     super.initState();
-    productsFuture = getCategoryProducts(widget.category);
+    productsFuture = getNameProducts(widget.name);
   }
 
   @override
@@ -117,26 +100,28 @@ class _CategoryPageState extends State<CategoryPage> {
     );
   }
 
-  Future<List<ProductResponse>> getCategoryProducts(String? category) async {
+  Future<List<ProductResponse>> getNameProducts(String? name) async {
     //final url = Uri.parse('$URL/product/listing');
-    final url = Uri.parse("$URL/product/listing");
-    final Map<String, String> requestBody = {
-      'categories': "$category",
-    };
-
+    final url = Uri.parse("$URL/product/listing?searchTerm=$name" );
     try {
       final response = await http.post(
         url,
-        body: requestBody,
+        
       );
 
       if (response.statusCode == 200) {
+        
         final jsonResponse = jsonDecode(response.body);
+        if (jsonResponse.length == 0) { 
+          print("No products found"); 
+          return new List.empty(); 
+        }
         print("jsonResponse: ");
         print(jsonResponse.runtimeType);
         print("Type of item in jsonresponse: ");
         print(jsonResponse[0].runtimeType);
         List<ProductResponse> products = [];
+        
         for (var item in jsonResponse) {
           final product = ProductResponse.fromMap(item);
           print("Item: ");
