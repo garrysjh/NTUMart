@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-
 import 'package:flutter/material.dart';
 import 'package:frontend/body.dart';
 import 'package:frontend/homepage.dart';
@@ -9,7 +8,7 @@ import 'package:frontend/models/productresponsemodel.dart';
 import 'package:frontend/pages/widgets/searchbar.dart';
 import 'package:frontend/pages/widgets/vertical_view_listings.dart';
 import 'package:frontend/product.dart';
-
+import 'package:frontend/widgets/taskbar.dart';
 import 'dart:async';
 
 import 'package:http/http.dart' as http;
@@ -40,6 +39,7 @@ class BrowsePage extends StatefulWidget {
 class _BrowseState extends State<BrowsePage> {
   late Future<List<ProductResponse>> productsFuture;
 
+  
   @override
   void initState() {
     super.initState();
@@ -49,12 +49,14 @@ class _BrowseState extends State<BrowsePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
+      body: Stack ( 
+        children: [Padding(
         padding: const EdgeInsets.only(
           top: 50.0,
           left: 10.0,
           right: 10.0,
         ),
+        
         child: SizedBox(
           height: 750,
           child: Column(
@@ -70,10 +72,12 @@ class _BrowseState extends State<BrowsePage> {
                         Navigator.push(
                           context,
                           PageRouteBuilder(
-                            pageBuilder: (context, animation, secondaryAnimation) {
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) {
                               return const Home();
                             },
-                            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                            transitionsBuilder: (context, animation,
+                                secondaryAnimation, child) {
                               return child;
                             },
                           ),
@@ -121,11 +125,11 @@ class _BrowseState extends State<BrowsePage> {
                 future: productsFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   } else if (snapshot.hasError) {
                     return Text('Snapshot Error: ${snapshot.error}');
                   } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Text('No data available');
+                    return const Text('No data available');
                   } else {
                     return VerticalViewListings(products: snapshot.data!);
                   }
@@ -134,7 +138,18 @@ class _BrowseState extends State<BrowsePage> {
             ],
           ),
         ),
-      ),
+      ), Overlay(
+                initialEntries: [
+                  OverlayEntry(
+                    builder: (context) => const Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: Taskbar(),
+                    ),
+                  )
+                ],
+              )]),
     );
   }
 
