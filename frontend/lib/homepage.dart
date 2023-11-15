@@ -15,7 +15,7 @@ import 'package:frontend/selling.dart';
 import 'package:frontend/pages/chatbot.dart';
 import 'package:frontend/pages/jwtTokenDecryptService.dart';
 import 'package:frontend/models/productresponsemodel.dart';
-
+import 'package:frontend/ProductSearchBar.dart'; 
 void main() {
   runApp(const Home());
 }
@@ -60,18 +60,19 @@ class HomePage extends StatefulWidget {
 //
 class _HomePageState extends State<HomePage> {
   List<String> selectedCategories = [
-    "Men's Fashion",
     "Women's Fashion",
     'Footwear',
-    'Electronics',
-    'Services',
     'Books & Notes',
+    'Services',
     'Personal Care',]; //placeholder selected categories
 
   int? userId;
   Map<String, dynamic>? userInterestData;
   Future<List<ProductResponse>>? productsFuture;
+  final TextEditingController _searchController = TextEditingController();
 
+
+   
   @override
   void initState() {
     super.initState();
@@ -186,7 +187,7 @@ class _HomePageState extends State<HomePage> {
                     right: 10.0,
                   ),
                   child: SizedBox(
-                    height: MediaQuery.of(context).size.height * .92,
+                    height: 750,
                     child: Column(
                       children: [
                         SizedBox(height: MediaQuery.of(context).size.height * .05),
@@ -279,39 +280,11 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ]),
-                        SizedBox(height: MediaQuery.of(context).size.height * .02),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: SearchBar(
-                            leading: const Icon(Icons.search,
-                              color: Colors.black45,
-                            size: 32,),
-                            hintText: 'Search for a product',
-                            hintStyle: const MaterialStatePropertyAll<TextStyle>(
-                                TextStyle(
-                                  color: Colors.black54,
-                                  fontSize: 17,
-                                )),
-                            backgroundColor: const MaterialStatePropertyAll<Color>(
-                                Color(0xFFFFFFFF)),
-                            surfaceTintColor: const MaterialStatePropertyAll<Color>(
-                                Color(0xFFF9F9F9)),
-                            shape: MaterialStateProperty.all(
-                                const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(10)),
-                            )),
-                            padding: const MaterialStatePropertyAll<EdgeInsets>(
-                                EdgeInsets.symmetric(horizontal: 16.0)),
-                            elevation: null,
-                            onTap: () {
-
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const Browse()),
-                              );
-                            },
-                          ),
-                        ),
+                        SizedBox(height: MediaQuery.of(context).size.height * .01),
+                        // Padding(
+                        //   padding: const EdgeInsets.all(10.0),
+                        //   child: ProductSearchBar(controller: _searchController),  
+                        // ),
                         Padding(
                           padding: const EdgeInsets.all(5.0),
                           child: Row(
@@ -482,9 +455,7 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                         ),
-                        Container(
-                          // child: VerticalViewListings(products: products),
-                        ),
+                        
                         FutureBuilder<List<ProductResponse>>(
                           future: productsFuture,
                           builder: (context, snapshot) {
@@ -505,9 +476,15 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
+          const Spacer(),
+          const Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Taskbar(),
+          ),
         ],
       ),
-      bottomNavigationBar: const Taskbar(),
     );
   }
 }

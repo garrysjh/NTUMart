@@ -16,7 +16,7 @@ public class ListingService {
     public List<Product> searchProduct(String searchTerm) {
         return listingRepository.getProductsBySearch(searchTerm);
     }
-
+    
     public List<Product> getAllProducts() {
         return listingRepository.findAll();
     }
