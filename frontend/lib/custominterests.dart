@@ -183,8 +183,8 @@ class _CategorySelectionPageState extends State<CategorySelectionPage> {
               child: ElevatedButton(
                 onPressed: (){
                   if (selectedCategories.isNotEmpty){
-                  Interest interest = Interest.fromArray(userId, selectedCategories);
-                  insertInterest(userId, interest);
+                  Interest interest = Interest.fromArray(selectedCategories);
+                  insertInterest(interest);
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const Home()),
@@ -248,7 +248,7 @@ class _CategorySelectionPageState extends State<CategorySelectionPage> {
 
 //userId = 1 for testing purposes
 
-Future<int> insertInterest(int userID, Interest interest) async {
+Future<int> insertInterest(Interest interest) async {
   int? userID = 1 ; 
   if (await JwtTokenDecryptService.hasValidToken()){ 
     userID = await JwtTokenDecryptService.getID(); 
