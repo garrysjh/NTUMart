@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:frontend/models/interestmodel.dart';
 import 'homepage.dart';
+import 'package:frontend/pages/jwtTokenDecryptService.dart'; 
+
 
 import 'package:http/http.dart' as http;
 import 'package:frontend/main.dart';
@@ -245,9 +247,12 @@ class _CategorySelectionPageState extends State<CategorySelectionPage> {
 }
 
 //userId = 1 for testing purposes
-const userId = 1;
 
 Future<int> insertInterest(int userID, Interest interest) async {
+  int? userID = 1 ; 
+  if (await JwtTokenDecryptService.hasValidToken()){ 
+    userID = await JwtTokenDecryptService.getID(); 
+  }
   final url = Uri.parse('$URL/user/addinterest'); // Replace with your server URL
   try {
     final response = await http.post(

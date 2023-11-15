@@ -110,7 +110,7 @@ Navigator.of(context).push(
 ), Padding(padding: const EdgeInsets.only(top: 10), child: Text('Level ${roomNo.substring(0,2)}', style: TextStyle(fontWeight: FontWeight.w400, color: Color(0xFF5C795B))))]),)
 
           ],),
-          Padding(padding: const EdgeInsets.only(top: 40), child: Align(alignment: Alignment.centerLeft, child: Text('Level ${roomNo.substring(0,2)} Message Board',
+          Padding(padding: const EdgeInsets.only(top: 40), child: Align(alignment: Alignment.centerLeft, child: Text('Level ${roomNo} Message Board',
           style: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.w600, color: Color(0xFF5C795B)
