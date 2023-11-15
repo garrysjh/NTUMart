@@ -281,10 +281,10 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ]),
                         SizedBox(height: MediaQuery.of(context).size.height * .01),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: ProductSearchBar(controller: _searchController),  
-                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.all(10.0),
+                        //   child: ProductSearchBar(controller: _searchController),  
+                        // ),
                         Padding(
                           padding: const EdgeInsets.all(5.0),
                           child: Row(
