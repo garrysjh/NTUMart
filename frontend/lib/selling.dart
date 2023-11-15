@@ -28,7 +28,7 @@ class Sell extends StatelessWidget {
           error: Color(0xFFF32424),
           onError: Color(0xFFF32424),
           background: Color(0xFFF9F9F9),
-          onBackground: Color(0xFFFFFFFF),
+          onBackground: Color(0xFF5C795B),
           surface: Color(0xFFEAEAEA),
           onSurface: Color(0xFF5C795B),
         ),
@@ -385,7 +385,7 @@ class _CreateListingPageState extends State<CreateListingPage> {
                 ),
               ),
 
-              SizedBox(height: 20),
+              SizedBox(height: 30),
 
               Container(
                 width: double.infinity, // Make the button the same width as the price input
@@ -573,7 +573,7 @@ class _PriceInputPageState extends State<PriceInputPage> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          //mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TextFormField(
               decoration: InputDecoration(labelText: 'Price'),
@@ -591,7 +591,7 @@ class _PriceInputPageState extends State<PriceInputPage> {
               ),
               child: Text(
                 'Save',
-                style: TextStyle(fontWeight: FontWeight.bold), // Bold text
+                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white), // Bold text
               ),
             ),
           ],
