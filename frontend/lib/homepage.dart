@@ -60,10 +60,12 @@ class HomePage extends StatefulWidget {
 //
 class _HomePageState extends State<HomePage> {
   List<String> selectedCategories = [
+    "Men's Fashion",
     "Women's Fashion",
     'Footwear',
-    'Books & Notes',
+    'Electronics',
     'Services',
+    'Books & Notes',
     'Personal Care',]; //placeholder selected categories
 
   int? userId;
