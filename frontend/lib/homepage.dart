@@ -471,7 +471,7 @@ class _HomePageState extends State<HomePage> {
                           scrollDirection: Axis.horizontal, // Set the scroll direction to horizontal
                           children: <Widget>[
                             Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 3.0),
+                              padding: const EdgeInsets.symmetric(vertical: 0.0),
                               child: Row(
                                 children: [
                                   for (int index = 0; index < selectedCategories.length; index++)
