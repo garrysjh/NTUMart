@@ -69,7 +69,6 @@ class _BrowsePageState extends State<BrowsePage> {
     Future<List<ProductResponse>>? productsFuture;
     Future<List<ProductResponse>>? productsCatFuture;
 
-
   List<String> categories = [
     "Men's Fashion",
     "Women's Fashion",
@@ -307,23 +306,23 @@ class _BrowsePageState extends State<BrowsePage> {
                               height: 235,
                               child: Column(
                                 children: [
-                                  // Visibility(
-                                  //   visible: productsFuture != null,
-                                  //   child: FutureBuilder<List<ProductResponse>>(
-                                  //     future: productsFuture,
-                                  //     builder: (context, snapshot) {
-                                  //       if (snapshot.connectionState == ConnectionState.waiting) {
-                                  //         return CircularProgressIndicator();
-                                  //       } else if (snapshot.hasError) {
-                                  //         return Text('Snapshot Error: ${snapshot.error}');
-                                  //       } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                                  //         return Text('No data available');
-                                  //       } else {
-                                  //         return VerticalViewListings(products: snapshot.data!);
-                                  //       }
-                                  //     },
-                                  //   ),
-                                  // ),
+                                  Visibility(
+                                    visible: productsFuture != null,
+                                    child: FutureBuilder<List<ProductResponse>>(
+                                      future: productsFuture,
+                                      builder: (context, snapshot) {
+                                        if (snapshot.connectionState == ConnectionState.waiting) {
+                                          return CircularProgressIndicator();
+                                        } else if (snapshot.hasError) {
+                                          return Text('Snapshot Error: ${snapshot.error}');
+                                        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                                          return Text('No data available');
+                                        } else {
+                                          return VerticalViewListings(products: snapshot.data!);
+                                        }
+                                      },
+                                    ),
+                                  ),
                                   Visibility(
                                     visible: productsCatFuture != null,
                                     child: FutureBuilder<List<ProductResponse>>(
