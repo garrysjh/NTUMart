@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'product.dart';
 import 'package:frontend/pages/widgets/vertical_view_listings.dart'; 
 import 'package:frontend/settings.dart'; 
-void main() {
-  runApp( Body());
-}
+
 
 class Body extends StatelessWidget {
+  final FutureBuilder verticalView;
+  Body({Key? key, required this.verticalView}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -97,7 +97,7 @@ class Body extends StatelessWidget {
                     hintText: 'Search for a listing',
                   ),
                 ),
-                // VerticalViewListings(products: products)
+                verticalView // VerticalViewListings(products: products)
               ],
             )),
       ],
