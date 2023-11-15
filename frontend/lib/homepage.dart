@@ -210,13 +210,15 @@ class _HomePageState extends State<HomePage> {
                               const Spacer(),
                               ElevatedButton(
                                 onPressed: () {
-                                  //Edit this later to link to chatbot
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content:
-                                          Text("Add in chatbot navigation later"),
-                                      duration: Duration(milliseconds: 1500),
-                                      behavior: SnackBarBehavior.floating,
+                                  Navigator.push(
+                                    context,
+                                    PageRouteBuilder(
+                                      pageBuilder: (context, animation, secondaryAnimation) {
+                                        return const ChatBot();
+                                      },
+                                      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                                        return child;
+                                      },
                                     ),
                                   );
                                 },
