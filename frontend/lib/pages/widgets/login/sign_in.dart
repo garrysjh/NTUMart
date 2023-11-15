@@ -9,6 +9,8 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
+import 'package:frontend/pages/jwtTokenDecryptService.dart';
+
 import 'package:frontend/main.dart';
 import 'package:frontend/homepage.dart';
 
@@ -194,14 +196,18 @@ class _SignInState extends State<SignIn> {
 
   //userId == 1 for has interest
   //userId == 2 for doesnt have interest
-  final userId = 2;
+  
   // move to customInterest if interest dont exist, 
   // move to home if interest exist
 
   void _toggleSignInButton() async {
     try {
+          int? userId; 
           int authenticated = await loginUser(
           loginUsernameController.text, loginPasswordController.text);
+          if (authenticated ==1){ 
+            userId = await JwtTokenDecryptService.getID(); 
+          }
           int hasInterest = await checkInterest(userId);
 
       if (authenticated == 1 && hasInterest == 1) {
@@ -245,7 +251,7 @@ class _SignInState extends State<SignIn> {
 }
 
 
-Future<int> checkInterest(int id) async{
+Future<int> checkInterest(int? id) async{
   final url = Uri.parse('$URL/user/$id/interest');
   try{
     final response = await http.get(
