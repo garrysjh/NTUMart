@@ -266,7 +266,7 @@ Future<int> insertInterest(Interest interest) async {
         'category2': interest.getCategory2,
         'category3': interest.getCategory3,
         'category4': interest.getCategory4,
-        'category5': interest.getCategory4
+        'category5': interest.getCategory5
       }),
     );
     print(response.body);
