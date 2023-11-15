@@ -1,11 +1,11 @@
-package com.ntumart.dipapp.api.DTO; 
+package com.ntumart.dipapp.api.DTO;
 
 public class ProductFilterRequestDTO{
     private String name;
     private String startDate;
     private String endDate;
     private int userId;
-    private String category;
+    private String[] categories;
 
     // Getters and setters
 
@@ -46,11 +46,12 @@ public class ProductFilterRequestDTO{
     }
 
     // Getter and setter for 'category'
-    public String getCategory() {
-        return category;
+    public String[] getCategories(){
+        return categories;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
+    public void setCategories(String[] categories) {
+        this.categories = categories; 
+}
+
 }

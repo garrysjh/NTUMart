@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/models/productresponsemodel.dart';
 import 'package:frontend/product.dart';
-import 'package:frontend/item_card.dart'; 
-
-
+import 'package:frontend/item_card.dart';
+import 'package:frontend/pages/item.dart';  // Import the ItemDetailsScreen
 
 class VerticalViewListings extends StatelessWidget {
-  final List<ProductResponse> products; // Assuming Product is a defined class
+  final List<ProductResponse> products;
 
   VerticalViewListings({required this.products});
 
@@ -23,10 +22,23 @@ class VerticalViewListings extends StatelessWidget {
             crossAxisSpacing: 10.0,
             childAspectRatio: 0.73,
           ),
-          itemBuilder: (context, index) =>
-              ItemCard(productResponse: products[index]),
+          itemBuilder: (context, index) {
+            return GestureDetector(  // Wrap the ItemCard with GestureDetector
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ItemDetailsScreen(
+                      productID: products[index].getProductId, // Pass the productID
+                    ),
+                  ),
+                );
+              },
+              child: ItemCard(productResponse: products[index]),
+            );
+          },
         ),
       ),
     );
   }
 }
+

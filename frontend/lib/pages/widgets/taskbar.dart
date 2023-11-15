@@ -4,6 +4,7 @@ import 'package:frontend/browse.dart';
 import 'package:frontend/pages/profile.dart';
 import 'package:frontend/homepage.dart';
 import 'package:frontend/selling.dart';
+import 'package:frontend/showall.dart';
 
 class Taskbar extends StatefulWidget {
   const Taskbar({Key? key}) : super(key: key);
@@ -60,7 +61,8 @@ class _TaskbarState extends State<Taskbar> {
               context,
               PageRouteBuilder(
                 pageBuilder: (context, animation, secondaryAnimation) {
-                  return const Browse();
+                  // return const Browse();
+                  return const Search(); // temporary change the browse page to showall for testing
                 },
                 transitionsBuilder: (context, animation, secondaryAnimation, child) {
                   // Disable animation by returning child directly

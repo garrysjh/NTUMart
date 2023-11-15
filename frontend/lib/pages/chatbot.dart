@@ -1,7 +1,7 @@
 import 'package:dialog_flowtter/dialog_flowtter.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/widgets/Messages.dart';
-
+import 'package:frontend/homepage.dart';
 
 class ChatBot extends StatelessWidget {
   const ChatBot({Key? key}) : super(key: key);
@@ -43,7 +43,9 @@ class _ChatBotHomeState extends State<ChatBotHome> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            // Add navigation logic as needed
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const Home()),
+            );
           },
         ),
         centerTitle: true,

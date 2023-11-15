@@ -10,19 +10,22 @@ import 'dart:typed_data';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
-void main() => runApp(ItemDetailsScreen());
+void main() => runApp(const ItemDetailsScreen(productID: 1));
 
 
 class ItemDetailsScreen extends StatefulWidget {
-  const ItemDetailsScreen({super.key});
+  // const ItemDetailsScreen({super.key});
+  final int? productID; // Add a field to receive the productID
+
+  const ItemDetailsScreen({super.key, required this.productID});
 
   @override
   State<ItemDetailsScreen> createState() => _ItemDetailsScreenState();
 }
 
 class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
+  ProductResponse? product;
   Map<String, dynamic>? productData;
-  late ProductResponse product;
   Map<String, dynamic>? userData;
   String? userName;
 
@@ -30,7 +33,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
   void initState() {
     super.initState();
     // Call fetchProduct when the screen is first loaded
-    fetchProduct();
+    fetchProduct(widget.productID);
   }
 
 
@@ -51,8 +54,8 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
     // Create a list to store Image widgets
     List<Image> imageWidgets = [];
 
-    if (product.getBinaryImageDataList?.isNotEmpty ?? false){// Iterate through the binaryImageDataList and convert each string to an Image widget
-    for (String? binaryImageData in product.getBinaryImageDataList!) {
+    if (product?.getBinaryImageDataList?.isNotEmpty ?? false){// Iterate through the binaryImageDataList and convert each string to an Image widget
+    for (String? binaryImageData in product!.getBinaryImageDataList!) {
       if (binaryImageData != null && binaryImageData.isNotEmpty) {
         List<int> imageBytes = base64.decode(binaryImageData);
         Image imageWidget = Image.memory(Uint8List.fromList(imageBytes));
@@ -68,9 +71,9 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
     String fullName = userData?["fullname"] ?? '';
     String telegramHandle = userData?["telegramHandle"] ?? '';
     String phone = userData?["phone"] ?? '';
-    String profilePic = userData?["profilePic"]["content"] ?? '';
 
     // profile pic
+    String profilePic = userData?["profilePic"]["content"] ?? '';
     List<int> profilePicBytes = base64.decode(profilePic);
     Image profilePicWidget = Image.memory(Uint8List.fromList(profilePicBytes));
 
@@ -111,7 +114,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                         children: <Widget>[
                           Flexible(
                             child: Text(
-                              product.getProductName ?? '',
+                              product?.getProductName ?? '',
                               style: const TextStyle(
                                 fontSize: 24.0,
                                 fontWeight: FontWeight.bold,
@@ -121,7 +124,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                           ),
                           Flexible(
                             child: Text(
-                              '\$${product.getPrice?.toStringAsFixed(2) ?? ''}',
+                              '\$${product?.getPrice?.toStringAsFixed(2) ?? ''}',
                               style: const TextStyle(
                                 fontSize: 24.0,
                                 fontWeight: FontWeight.bold,
@@ -136,7 +139,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                       Row(
                         children: <Widget>[
                           Text(
-                            'Quantity: ${product.getQuantity}',
+                            'Quantity: ${product?.getQuantity}',
                             style: const TextStyle(
                               fontSize: 14.0,
                             ),
@@ -158,7 +161,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                       ),
                       const SizedBox(height: 12.0), // Adjust the spacing as needed
                       Text(
-                        product.getDescription ?? '',
+                        product?.getDescription ?? '',
                         textAlign: TextAlign.justify,
                       ),
                     ],
@@ -189,7 +192,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                             // Bold the username
                             Text(
                                 fullName,
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: const TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
@@ -281,9 +284,9 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
     );
   }
 
-  void fetchProduct() async {
+  void fetchProduct(int? productID) async {
     print('fetchProduct called');
-    final url = Uri.parse('$URL/product/1');
+    final url = Uri.parse('$URL/product/$productID');
 
     try {
       final response = await http.get(url);
@@ -295,7 +298,8 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
           product = ProductResponse.fromMap(json);
           productData = json;
           userName = productData?["sellerName"] ?? '';
-          fetchUser("example_username");
+          // fetchUser("example_username");
+          fetchUser(userName);
         });
 
         print('fetchProduct completed');

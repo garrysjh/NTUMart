@@ -21,7 +21,7 @@ class Browse extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'BrowsePage',
       /*theme: ThemeData(
         colorScheme: const ColorScheme(

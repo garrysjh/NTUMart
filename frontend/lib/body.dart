@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'product.dart';
 import 'package:frontend/pages/widgets/vertical_view_listings.dart'; 
-//import 'searchBar.dart';
-
+import 'package:frontend/settings.dart'; 
 void main() {
   runApp( Body());
 }
@@ -14,25 +13,27 @@ class Body extends StatelessWidget {
       children: <Widget>[
         Container(
           height: MediaQuery.of(context).size.height * .15,
-          color: Colors.green,
+          color: const Color(0xFF5C795B),
         ),
         Padding(
             padding: const EdgeInsets.fromLTRB(30.0, 40.0, 30.0, 0.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                CircleAvatar(
+                const SizedBox(height: 50),
+                const CircleAvatar(
+                  backgroundColor: Color.fromRGBO(255,255, 255, 1),
                   backgroundImage: AssetImage('assets/profilepic.png'),
                   radius: 40.0,
                 ),
-                Divider(
+                const Divider(
                   height: 35.0,
-                  color: Colors.white,
+                  color: Colors.black45,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(
+                    const Text(
                       'Keegan Lee', //Username
                       style: TextStyle(
                         letterSpacing: 2.0,
@@ -40,13 +41,16 @@ class Body extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Icon(
-                      Icons.settings,
+                    IconButton(
+                      icon: const Icon(Icons.settings),
                       color: Colors.black54,
+                      onPressed: () {
+                        navigateToSettings(context); 
+                      },
                     ),
                   ],
                 ),
-                Row(
+                const Row(
                   children: <Widget>[
                     Icon(
                       Icons.telegram,
@@ -60,11 +64,11 @@ class Body extends StatelessWidget {
                     ),
                   ],
                 ),
-                Divider(
-                  height: 20.0,
-                  color: Colors.white,
+                const Divider(
+                  height: 30.0,
+                  color: Colors.black45,
                 ),
-                Row(
+                const Row(
                   children: <Widget>[
                     Text(
                       'Your Listings',
@@ -77,7 +81,7 @@ class Body extends StatelessWidget {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.fromLTRB(8.0,15.0,8.0, 15.0),
                   child: SearchBar(
                     padding: const MaterialStatePropertyAll<EdgeInsets>(
                         EdgeInsets.symmetric(horizontal: 16.0)),
@@ -101,6 +105,14 @@ class Body extends StatelessWidget {
   }
 }
 
+void navigateToSettings(BuildContext context) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => SettingsPageWidget(), // Replace SettingsPage with your actual settings page widget
+    ),
+  );
+}
 class ProductList extends StatefulWidget {
   @override
   State<ProductList> createState() => _ProductListState();

@@ -41,7 +41,7 @@ class CameraApp extends StatelessWidget {
     ));
   }
 }
-
+ 
 class CameraPreviewScreen extends StatefulWidget {
   final List<CameraDescription> cameras;
 
