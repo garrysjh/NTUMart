@@ -46,7 +46,7 @@ class ItemCard extends StatelessWidget {
                 topRight: Radius.circular(16),
               ),
               child: FittedBox(
-                fit:BoxFit.fill,
+                fit:BoxFit.cover,
                   child:imageWidget != null
                   ? imageWidget!
                   : const Text(
