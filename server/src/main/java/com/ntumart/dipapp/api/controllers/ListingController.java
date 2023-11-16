@@ -39,7 +39,8 @@ public class ListingController {
             @ModelAttribute ProductFilterRequestDTO request,
             @RequestParam(required = false) String sortBy,
             @RequestParam(name = "sortOrder", defaultValue = "asc") String sortOrder,
-            @RequestParam(required = false) String searchTerm
+            @RequestParam(required = false) String searchTerm,
+            @RequestParam(required = false) Integer sellerID
     ) {
         LocalDateTime startDateTime = (request.getStartDate() != null) ? LocalDateTime.parse(request.getStartDate())
                 : null;
@@ -66,6 +67,11 @@ public class ListingController {
         if (searchTerm != null) {
             products = listingService.searchProduct(searchTerm);
         }
+        
+        if (sellerID!=null){ 
+            products = listingService.searchProduct(sellerID);
+        }
+
 
 
         if (sortBy != null) {

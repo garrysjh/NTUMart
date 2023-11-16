@@ -17,6 +17,11 @@ public class ListingService {
         return listingRepository.getProductsBySearch(searchTerm);
     }
     
+    public List<Product> searchProduct(int SellerID) {
+        return listingRepository.getProductsByID(SellerID);
+    }
+
+    
     public List<Product> getAllProducts() {
         return listingRepository.findAll();
     }
