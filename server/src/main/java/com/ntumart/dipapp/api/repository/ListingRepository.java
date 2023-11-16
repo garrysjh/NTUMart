@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import com.ntumart.dipapp.models.Product;
 
-public interface ListingRepository extends JpaRepository<Product, Long> {
+public interface ListingRepository extends JpaRepository<Product, Integer> {
 
   @Query(value = "SELECT * FROM PRODUCT WHERE sellerID = :sellerID", nativeQuery = true)
   public List<Product> getProductsByID(@Param("sellerID") int sellerID);
@@ -69,5 +69,4 @@ public interface ListingRepository extends JpaRepository<Product, Long> {
       @Param(value = "category3") String category3,
       @Param(value = "category4") String category4,
       @Param(value = "category5") String category5);
-
-}
+} 

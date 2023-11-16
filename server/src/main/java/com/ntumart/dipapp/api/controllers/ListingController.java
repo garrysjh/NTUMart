@@ -47,8 +47,8 @@ public class ListingController {
         LocalDateTime endDateTime = (request.getEndDate() != null) ? LocalDateTime.parse(request.getEndDate()) : null;
 
         String name = (request != null) ? request.getName() : null;
-        Integer userId = (name != null) ? userRepository.getUserID(name) : null;
-
+        Integer userId = (name != null) ? request.getUserId() : null;
+        System.out.println(name); 
 
         List<Product> products = listingRepository.getProducts(
                 name,

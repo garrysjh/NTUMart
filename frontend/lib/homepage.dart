@@ -280,38 +280,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ]),
                         SizedBox(height: MediaQuery.of(context).size.height * .02),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: SearchBar(
-                            leading: const Icon(Icons.search,
-                              color: Colors.black45,
-                            size: 32,),
-                            hintText: 'Search for a product',
-                            hintStyle: const MaterialStatePropertyAll<TextStyle>(
-                                TextStyle(
-                                  color: Colors.black54,
-                                  fontSize: 17,
-                                )),
-                            backgroundColor: const MaterialStatePropertyAll<Color>(
-                                Color(0xFFFFFFFF)),
-                            surfaceTintColor: const MaterialStatePropertyAll<Color>(
-                                Color(0xFFF9F9F9)),
-                            shape: MaterialStateProperty.all(
-                                const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(10)),
-                            )),
-                            padding: const MaterialStatePropertyAll<EdgeInsets>(
-                                EdgeInsets.symmetric(horizontal: 16.0)),
-                            elevation: null,
-                            onTap: () {
-
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const Browse()),
-                              );
-                            },
-                          ),
-                        ),
+                        
                         Padding(
                           padding: const EdgeInsets.all(5.0),
                           child: Row(
