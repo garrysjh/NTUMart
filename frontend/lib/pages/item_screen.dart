@@ -154,7 +154,7 @@ class ItemDetailsScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
                         // Slide show of item's images
-                        Container(
+                        SizedBox(
                           height: 200, // Adjust the height as needed
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
@@ -331,14 +331,14 @@ class ItemDetailsScreen extends StatelessWidget {
                               ),
                               Expanded(
                                 flex: 2, // Adjust the flex value as needed
-                                child: Container(
+                                child: SizedBox(
                                   height: 60, // Adjust the height as needed
                                   child: ElevatedButton(
                                     onPressed: () {
                                       // Handle contact seller button click
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      primary: const Color(
+                                      backgroundColor: const Color(
                                           0xFF5D7395), // Background color
                                     ),
                                     child: const Text(
@@ -348,7 +348,7 @@ class ItemDetailsScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              Expanded(
+                              const Expanded(
                                 child:
                                     SizedBox(), // Empty container to create spacing
                               ),

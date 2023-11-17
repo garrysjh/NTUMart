@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'product.dart';
-import 'package:frontend/pages/widgets/vertical_view_listings.dart'; 
 import 'package:frontend/settings.dart'; 
 
 
 class Body extends StatelessWidget {
   final FutureBuilder verticalView;
-  Body({Key? key, required this.verticalView}) : super(key: key);
+  const Body({Key? key, required this.verticalView}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -27,7 +25,7 @@ class Body extends StatelessWidget {
                   radius: 40.0,
                 ),
                 const Divider(
-                  height: 35.0,
+                  height: 20,
                   color: Colors.black45,
                 ),
                 Row(
@@ -109,11 +107,13 @@ void navigateToSettings(BuildContext context) {
   Navigator.push(
     context,
     MaterialPageRoute(
-      builder: (context) => SettingsPageWidget(), // Replace SettingsPage with your actual settings page widget
+      builder: (context) => const SettingsPageWidget(), // Replace SettingsPage with your actual settings page widget
     ),
   );
 }
 class ProductList extends StatefulWidget {
+  const ProductList({super.key});
+
   @override
   State<ProductList> createState() => _ProductListState();
 }

@@ -3,12 +3,9 @@ import 'package:frontend/models/productresponsemodel.dart';
 import 'package:frontend/widgets/taskbar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 const LatLng currentLocation = LatLng(1.3476785606754784, 103.68688598949618);
@@ -93,7 +90,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 // Slide show of item's images
-                Container(
+                SizedBox(
                   height: 280,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
@@ -278,7 +275,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                       ),
                       Expanded(
                         flex: 2, // Adjust the flex value as needed
-                        child: Container(
+                        child: SizedBox(
                           height: 60, // Adjust the height as needed
                           child: ElevatedButton(
                             onPressed: () {
@@ -286,7 +283,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                               _launchTelegram(telegramHandle);
                             },
                             style: ElevatedButton.styleFrom(
-                              primary: const Color(0xFF5D7395), // Background color
+                              backgroundColor: const Color(0xFF5D7395), // Background color
                             ),
                             child: const Text(
                               'Contact Seller',

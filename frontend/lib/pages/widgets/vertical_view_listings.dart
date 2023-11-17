@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/models/productresponsemodel.dart';
-import 'package:frontend/product.dart';
 import 'package:frontend/item_card.dart';
 import 'package:frontend/pages/item.dart';  // Import the ItemDetailsScreen
 
 class VerticalViewListings extends StatelessWidget {
   final List<ProductResponse> products;
 
-  VerticalViewListings({required this.products});
+  const VerticalViewListings({super.key, required this.products});
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 3.0),
+        padding: const EdgeInsets.symmetric(horizontal: 3.0, vertical: 0),
         child: GridView.builder(
           itemCount: products.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

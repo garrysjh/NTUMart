@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/services.dart';
 
 import 'package:http/http.dart';
 
@@ -143,7 +142,7 @@ static Future<List<WhatsappStory>> getFloorStories() async {
 
 
 
-    final uri =
+    const uri =
         "https://raw.githubusercontent.com/blackmann/storyexample/master/lib/data/gnews.json";
     final response = await get(Uri.parse(uri));
 

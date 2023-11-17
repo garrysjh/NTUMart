@@ -58,7 +58,7 @@ class _SignUpState extends State<SignUp> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
-                child: Container(
+                child: SizedBox(
                   width: 300.0,
                   height: 300.0,
                   child: Column(
@@ -310,9 +310,9 @@ class _SignUpState extends State<SignUp> {
           signupPasswordController.text);
 
       if (authenticated == 1) {
-        CustomSnackBar(context, Text("Registered user succesfully"));
+        CustomSnackBar(context, const Text("Registered user succesfully"));
       } else if (authenticated == 0) {
-        CustomSnackBar(context, Text('Username already exists. '));
+        CustomSnackBar(context, const Text('Username already exists. '));
       }
     } catch (e) {
       // Handle sign-up errors, e.g., email already in use.

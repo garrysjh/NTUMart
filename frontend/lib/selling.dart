@@ -9,7 +9,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 
 void main() {
-  runApp(Sell());
+  runApp(const Sell());
 }
 
 class Sell extends StatelessWidget {
@@ -17,7 +17,7 @@ class Sell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: CreateListingPage(),
+      home: const CreateListingPage(),
       theme: ThemeData(
         colorScheme: const ColorScheme(
           brightness: Brightness.light,
@@ -39,6 +39,8 @@ class Sell extends StatelessWidget {
 }
 
 class CreateListingPage extends StatefulWidget {
+  const CreateListingPage({super.key});
+
   @override
   _CreateListingPageState createState() => _CreateListingPageState();
 }
@@ -54,9 +56,9 @@ class _CreateListingPageState extends State<CreateListingPage> {
   final ImagePicker _picker = ImagePicker();
 
   Future<void> _pickImages() async {
-    final List<XFile>? selectedImages = await _picker.pickMultiImage();
+    final List<XFile> selectedImages = await _picker.pickMultiImage();
 
-    if (selectedImages != null && selectedImages.isNotEmpty) {
+    if (selectedImages.isNotEmpty) {
       setState(() {
         _imageFiles = selectedImages;
       });
@@ -89,7 +91,7 @@ class _CreateListingPageState extends State<CreateListingPage> {
                   height: 70.0,
                   fit: BoxFit.cover,
                 )
-              : Icon(
+              : const Icon(
                   Icons.add,
                   size: 40.0,
                   color: Colors.grey,
@@ -150,7 +152,7 @@ class _CreateListingPageState extends State<CreateListingPage> {
 
   void _addDescription() {
     Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => ItemDetailsPage(),
+      builder: (context) => const ItemDetailsPage(),
     )).then((value) {
       if (value != null) {
         _formKey.currentState?.save();
@@ -167,7 +169,7 @@ class _CreateListingPageState extends State<CreateListingPage> {
 
   void _addPrice() {
     Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => PriceInputPage(),
+      builder: (context) => const PriceInputPage(),
     )).then((value) {
       if (value != null) {
         setState(() {
@@ -183,7 +185,7 @@ class _CreateListingPageState extends State<CreateListingPage> {
       appBar: AppBar(
           backgroundColor: Colors.green[400],
           leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.push(
               context,
@@ -213,7 +215,7 @@ class _CreateListingPageState extends State<CreateListingPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
+              const Text(
                 'Add Details',
                 style: TextStyle(
                   fontSize: 24.0,
@@ -221,16 +223,16 @@ class _CreateListingPageState extends State<CreateListingPage> {
                 ),
               ),
 
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
 
-              Text(
+              const Text(
                 'Photo',
                 style: TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 10.0,),
+              const SizedBox(height: 10.0,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -247,7 +249,7 @@ class _CreateListingPageState extends State<CreateListingPage> {
               //         .toList(),
               //   ),
 
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
 
               Container(
                 decoration: BoxDecoration(
@@ -257,9 +259,9 @@ class _CreateListingPageState extends State<CreateListingPage> {
                   ),
                 ),
                 child: Row(children: [
-                  SizedBox(width:16.0),
+                  const SizedBox(width:16.0),
                   Expanded(child: TextFormField(
-                  decoration: InputDecoration(labelText: 'Category'),
+                  decoration: const InputDecoration(labelText: 'Category'),
                   validator: (value) {
                     if (value?.isEmpty ?? true) {
                       return 'Please enter a category';
@@ -274,7 +276,7 @@ class _CreateListingPageState extends State<CreateListingPage> {
                 ),
               ),
 
-              SizedBox(height: 20), // Increased distance between "Category" and the left side
+              const SizedBox(height: 20), // Increased distance between "Category" and the left side
 
               Container(
                 decoration: BoxDecoration(
@@ -285,10 +287,10 @@ class _CreateListingPageState extends State<CreateListingPage> {
                 ),
                 child: Row(
                   children: [
-                    SizedBox(width: 16.0), // Increased distance between "Condition" and the left side
+                    const SizedBox(width: 16.0), // Increased distance between "Condition" and the left side
                     Expanded(
                       child: TextFormField(
-                        decoration: InputDecoration(labelText: 'Condition'),
+                        decoration: const InputDecoration(labelText: 'Condition'),
                         validator: (value) {
                           if (value?.isEmpty ?? true) {
                             return 'Please enter the condition';
@@ -305,16 +307,15 @@ class _CreateListingPageState extends State<CreateListingPage> {
                         // Add logic here to change the condition
                       },
                       style: TextButton.styleFrom(
-                        primary: Color(0xFF5C795B), // Change the button text color
-                        textStyle: TextStyle(fontWeight: FontWeight.bold), // Bold text
+                        foregroundColor: const Color(0xFF5C795B), textStyle: const TextStyle(fontWeight: FontWeight.bold), // Bold text
                       ),
-                      child: Text('Add'),
+                      child: const Text('Add'),
                     ),
                   ],
                 ),
               ),
 
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
 
               Container(
                 decoration: BoxDecoration(
@@ -325,10 +326,10 @@ class _CreateListingPageState extends State<CreateListingPage> {
                 ),
                 child: Row(
                   children: [
-                    SizedBox(width: 16.0), // Increased distance between "Condition" and the left side
+                    const SizedBox(width: 16.0), // Increased distance between "Condition" and the left side
                     Expanded(
                       child: TextFormField(
-                        decoration: InputDecoration(labelText: 'Item Details'),
+                        decoration: const InputDecoration(labelText: 'Item Details'),
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
                         readOnly: true,
@@ -341,16 +342,15 @@ class _CreateListingPageState extends State<CreateListingPage> {
                     TextButton(
                       onPressed: _addDescription,
                       style: TextButton.styleFrom(
-                        primary: Color(0xFF5C795B), // Change the button text color
-                        textStyle: TextStyle(fontWeight: FontWeight.bold), // Bold text
+                        foregroundColor: const Color(0xFF5C795B), textStyle: const TextStyle(fontWeight: FontWeight.bold), // Bold text
                       ),
-                      child: Text('Add'),
+                      child: const Text('Add'),
                     ),
                   ],
                 ),
               ),
 
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               Container(
                 decoration: BoxDecoration(
@@ -361,10 +361,10 @@ class _CreateListingPageState extends State<CreateListingPage> {
                 ),
                 child: Row(
                   children: [
-                    SizedBox(width: 16.0), // Increased distance between "Price" and the left side
+                    const SizedBox(width: 16.0), // Increased distance between "Price" and the left side
                     Expanded(
                       child: TextFormField(
-                        decoration: InputDecoration(labelText: 'Price'),
+                        decoration: const InputDecoration(labelText: 'Price'),
                         keyboardType: TextInputType.number,
                         readOnly: true,
                         controller: TextEditingController(
@@ -376,16 +376,15 @@ class _CreateListingPageState extends State<CreateListingPage> {
                     TextButton(
                       onPressed: _addPrice,
                       style: TextButton.styleFrom(
-                        primary: Color(0xFF5C795B), // Change the button text color
-                        textStyle: TextStyle(fontWeight: FontWeight.bold), // Bold text
+                        foregroundColor: const Color(0xFF5C795B), textStyle: const TextStyle(fontWeight: FontWeight.bold), // Bold text
                       ),
-                      child: Text('Add'),
+                      child: const Text('Add'),
                     ),
                   ],
                 ),
               ),
 
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
 
               Container(
                 width: double.infinity, // Make the button the same width as the price input
@@ -395,7 +394,7 @@ class _CreateListingPageState extends State<CreateListingPage> {
                 ),
                 child: TextButton(
                   onPressed: _submitForm,
-                  child: Text(
+                  child: const Text(
                     'List It!',
                     style: TextStyle(
                       color: Colors.white, // Text color
@@ -414,38 +413,40 @@ class _CreateListingPageState extends State<CreateListingPage> {
 
 
 class ItemDetailsPage extends StatefulWidget {
+  const ItemDetailsPage({super.key});
+
   @override
   _ItemDetailsPageState createState() => _ItemDetailsPageState();
 }
 
 class _ItemDetailsPageState extends State<ItemDetailsPage> {
-  TextEditingController _titleController = TextEditingController();
-  TextEditingController _brandController = TextEditingController();
-  TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _brandController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
   bool _hasMultipleItems = false;
-  bool _delivery = false;
+  final bool _delivery = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Item Details'),
+        title: const Text('Item Details'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
+            const Text(
               'Item Details',
               style: TextStyle(
                 fontSize: 24.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             TextFormField(
-              decoration: InputDecoration(labelText: 'Listing Title*'),
+              decoration: const InputDecoration(labelText: 'Listing Title*'),
               validator: (value) {
                 if (value?.isEmpty ?? true) {
                   return 'Please enter a listing title';
@@ -454,19 +455,19 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
               },
               controller: _titleController,
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             TextFormField(
-              decoration: InputDecoration(labelText: 'Brand'),
+              decoration: const InputDecoration(labelText: 'Brand'),
               controller: _brandController,
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             TextFormField(
-              decoration: InputDecoration(labelText: 'Description'),
+              decoration: const InputDecoration(labelText: 'Description'),
               keyboardType: TextInputType.multiline,
               maxLines: null,
               controller: _descriptionController,
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             Row(
               children: [
                 Checkbox(
@@ -477,7 +478,7 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                     });
                   },
                 ),
-                Text('I have more than one of this item'),
+                const Text('I have more than one of this item'),
               ],
             ),
             Row(children: [
@@ -489,17 +490,17 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                     });
                   },
                 ),
-                Text('I want to pay \$3 more for delivery   '),
+                const Text('I want to pay \$3 more for delivery   '),
                 Center(
         child: ElevatedButton(
           onPressed: () {
             _showDialog(context);
           },
-          child: Text('?', style: TextStyle(fontSize: 20.0)),
+          child: const Text('?', style: TextStyle(fontSize: 20.0)),
         ),
       ),
             ],),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 String title = _titleController.text;
@@ -513,9 +514,9 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                 });
               },
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFF5C795B), // Change the button color
+                backgroundColor: const Color(0xFF5C795B), // Change the button color
               ),
-              child: Text(
+              child: const Text(
                 'Save',
                 style: TextStyle(fontWeight: FontWeight.bold), // Bold text
               ),
@@ -540,15 +541,15 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Delivery Services',
+          title: const Text('Delivery Services',
           style: TextStyle(fontWeight: FontWeight.bold),),
-          content: Text('We offer delivery services in NTU, which are pay on delivery. If you check this option, we will contact you when your item is sold to arrange a delivery date!'),
+          content: const Text('We offer delivery services in NTU, which are pay on delivery. If you check this option, we will contact you when your item is sold to arrange a delivery date!'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Close'),
+              child: const Text('Close'),
             ),
           ],
         );
@@ -557,18 +558,20 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
   }
 
 class PriceInputPage extends StatefulWidget {
+  const PriceInputPage({super.key});
+
   @override
   _PriceInputPageState createState() => _PriceInputPageState();
 }
 
 class _PriceInputPageState extends State<PriceInputPage> {
-  TextEditingController _priceController = TextEditingController();
+  final TextEditingController _priceController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Enter Price'),
+        title: const Text('Enter Price'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -576,20 +579,20 @@ class _PriceInputPageState extends State<PriceInputPage> {
           //mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TextFormField(
-              decoration: InputDecoration(labelText: 'Price'),
+              decoration: const InputDecoration(labelText: 'Price'),
               keyboardType: TextInputType.number,
               controller: _priceController,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 double? price = double.tryParse(_priceController.text);
                 Navigator.of(context).pop(price); // Return the entered price to the previous page
               },
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFF5C795B), // Change the button color
+                backgroundColor: const Color(0xFF5C795B), // Change the button color
               ),
-              child: Text(
+              child: const Text(
                 'Save',
                 style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white), // Bold text
               ),

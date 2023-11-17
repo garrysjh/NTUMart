@@ -40,12 +40,12 @@ class JwtTokenDecryptService{
       }
        String? username= await getUsername(); 
       if (username != null) {
-      print("username: " + username);
+      print("username: $username");
     } else {
     print("No username available");
   }
       int? id = await getID(); 
-      print ("id:" + id.toString());
+      print ("id:$id");
       return true; // Token is valid
     } else {
       return false;

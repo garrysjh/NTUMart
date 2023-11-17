@@ -53,7 +53,7 @@ class _CategoryPageState extends State<CategoryPage> {
   Widget build(BuildContext context) {
     return MaterialApp (
       home: Scaffold(
-        bottomNavigationBar: Taskbar(),
+        bottomNavigationBar: const Taskbar(),
         body: Padding(
           padding: const EdgeInsets.only(
             top: 50.0,
@@ -97,11 +97,11 @@ class _CategoryPageState extends State<CategoryPage> {
                   future: productsFuture,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return CircularProgressIndicator();
+                      return const CircularProgressIndicator();
                     } else if (snapshot.hasError) {
                       return Text('Snapshot Error: ${snapshot.error}');
                     } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                      return Text('No data available');
+                      return const Text('No data available');
                     } else {
                       return VerticalViewListings(products: snapshot.data!);
                     }

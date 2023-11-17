@@ -5,7 +5,7 @@ import 'package:frontend/showallsearchbar.dart';
 class ProductSearchBar extends StatelessWidget {
   final TextEditingController controller;
 
-  ProductSearchBar({required this.controller});
+  const ProductSearchBar({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {

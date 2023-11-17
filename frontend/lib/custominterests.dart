@@ -200,8 +200,8 @@ class _CategorySelectionPageState extends State<CategorySelectionPage> {
 
                     
                   );
-                  Future.delayed(Duration(seconds: 3));
-                  ;}
+                  Future.delayed(const Duration(seconds: 3));
+}
                   else{
                     ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(

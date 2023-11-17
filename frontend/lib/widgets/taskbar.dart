@@ -14,8 +14,8 @@ class Taskbar extends StatefulWidget {
   Widget build(BuildContext context) {
     return MaterialApp(initialRoute: '/', routes: {
       '/profile': (context) => const ProfileScreen(),
-      '/home': (context) => Home(),
-      '/sell': (context) => Sell()
+      '/home': (context) => const Home(),
+      '/sell': (context) => const Sell()
     });
   }
 }
@@ -24,7 +24,7 @@ class _TaskbarState extends State<Taskbar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(maxWidth: 1000),
+      constraints: const BoxConstraints(maxWidth: 1000),
       child: BottomAppBar(
         elevation: 0,
         clipBehavior: Clip.none,
@@ -38,7 +38,7 @@ class _TaskbarState extends State<Taskbar> {
                   context,
                   PageRouteBuilder(
                     pageBuilder: (context, animation, secondaryAnimation) {
-                      return Home();
+                      return const Home();
                     },
                     transitionsBuilder:
                         (context, animation, secondaryAnimation, child) {
@@ -74,7 +74,7 @@ class _TaskbarState extends State<Taskbar> {
                   context,
                   PageRouteBuilder(
                     pageBuilder: (context, animation, secondaryAnimation) {
-                      return Sell();
+                      return const Sell();
                     },
                     transitionsBuilder:
                         (context, animation, secondaryAnimation, child) {
@@ -84,8 +84,8 @@ class _TaskbarState extends State<Taskbar> {
                   ),
                 );
               },
+              backgroundColor: const Color(0xFF5C795B),
               child: const Icon(Icons.add),
-              backgroundColor: Color(0xFF5C795B),
             ),
             IconButton(
               icon: const Icon(Icons.group),

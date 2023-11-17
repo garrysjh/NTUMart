@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -52,7 +51,7 @@ class _SignInState extends State<SignIn> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
-                child: Container(
+                child: SizedBox(
                   width: 300.0,
                   height: 190.0,
                   child: Column(
@@ -212,20 +211,20 @@ class _SignInState extends State<SignIn> {
           int hasInterest = await checkInterest(userId);
 
       if (authenticated == 1 && hasInterest == 1) {
-        CustomSnackBar(context, Text('Sign-in successful'));
-        await Future.delayed(Duration(seconds: 1));
+        CustomSnackBar(context, const Text('Sign-in successful'));
+        await Future.delayed(const Duration(seconds: 1));
         moveToHome();
       } else if (authenticated == 1 && hasInterest == 0) {
-        CustomSnackBar(context, Text('Sign-in successful'));
-        await Future.delayed(Duration(seconds: 1));
+        CustomSnackBar(context, const Text('Sign-in successful'));
+        await Future.delayed(const Duration(seconds: 1));
         moveToInterest();
       }
       else if (authenticated == 0) {
-        CustomSnackBar(context, Text('Wrong email/password'));
+        CustomSnackBar(context, const Text('Wrong email/password'));
       } else {
         CustomSnackBar(
             context,
-            Text(
+            const Text(
                 'Our servers are down at the moment. Please try again later. '));
       }
     } catch (e) {
@@ -300,7 +299,7 @@ Future<int> loginUser(String username, String password) async {
       // Store the token in local storage (shared_preferences)
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('token', token);
-      print('Login successful. Token: ${token}');
+      print('Login successful. Token: $token');
       return 1;
     } else {
       // Request failed

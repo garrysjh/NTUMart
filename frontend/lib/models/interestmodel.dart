@@ -22,7 +22,7 @@ class Interest {
 
    factory Interest.fromArray(List<String> categories) {
     return Interest(
-      category1: categories.length > 0 ? categories[0] : '',
+      category1: categories.isNotEmpty ? categories[0] : '',
       category2: categories.length > 1 ? categories[1] : null,
       category3: categories.length > 2 ? categories[2] : null,
       category4: categories.length > 3 ? categories[3] : null,

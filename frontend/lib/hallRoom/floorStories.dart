@@ -5,6 +5,8 @@ import 'package:frontend/hallRoom/util.dart';
 import 'package:frontend/hallRoom/widgets.dart';
 
 class Level extends StatelessWidget {
+  const Level({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,10 +19,10 @@ class Level extends StatelessWidget {
           }
 
           if (snapshot.hasError) {
-            return ErrorView();
+            return const ErrorView();
           }
 
-          return Center(
+          return const Center(
             child: SizedBox(
               width: 40,
               height: 40,
@@ -37,7 +39,7 @@ class Level extends StatelessWidget {
 class StoryViewDelegate extends StatefulWidget {
   final List<WhatsappStory>? stories;
 
-  StoryViewDelegate({this.stories});
+  const StoryViewDelegate({super.key, this.stories});
 
   @override
   _StoryViewDelegateState createState() => _StoryViewDelegateState();
@@ -52,7 +54,7 @@ class _StoryViewDelegateState extends State<StoryViewDelegate> {
   @override
   void initState() {
     super.initState();
-    widget.stories!.forEach((story) {
+    for (var story in widget.stories!) {
       if (story.mediaType == MediaType.text) {
         storyItems.add(
           StoryItem.text(
@@ -86,7 +88,7 @@ class _StoryViewDelegateState extends State<StoryViewDelegate> {
           ),
         );
       }
-    });
+    }
 
     when = widget.stories![0].when;
   }
@@ -95,19 +97,19 @@ class _StoryViewDelegateState extends State<StoryViewDelegate> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        CircleAvatar(
+        const CircleAvatar(
           radius: 24,
           backgroundImage: NetworkImage(
               "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1jvncwtw_a1nV1ZVgMCCxoxM9sRMeNCOH7vrX0ZxpDA&s"),
         ),
-        SizedBox(
+        const SizedBox(
           width: 16,
         ),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
+              const Text(
                 "Your Floormates",
                 style: TextStyle(
                     fontSize: 16,
@@ -116,7 +118,7 @@ class _StoryViewDelegateState extends State<StoryViewDelegate> {
               ),
               Text(
                 when!,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white38,
                 ),
               )
@@ -163,7 +165,7 @@ class _StoryViewDelegateState extends State<StoryViewDelegate> {
           },
         ),
         Container(
-          padding: EdgeInsets.only(
+          padding: const EdgeInsets.only(
             top: 48,
             left: 16,
             right: 16,
