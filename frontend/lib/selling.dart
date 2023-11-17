@@ -45,6 +45,8 @@ class CreateListingPage extends StatefulWidget {
 
 class _CreateListingPageState extends State<CreateListingPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  List ConditionType = ["Brand New", "Like New", "Lightly Used", "Well Used", "Heavily Used"];
+  String? valueChoose;
   String? _category;
   String? _condition;
   String? _itemDetails;
@@ -181,7 +183,7 @@ class _CreateListingPageState extends State<CreateListingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: Colors.green[400],
+          backgroundColor: Color(0xFF5C795B),
           leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -248,8 +250,8 @@ class _CreateListingPageState extends State<CreateListingPage> {
               //   ),
 
               SizedBox(height: 16.0),
-
-              Container(
+              //Original Category input
+              /*Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
                   border: Border.all(
@@ -272,10 +274,85 @@ class _CreateListingPageState extends State<CreateListingPage> {
                   ))
                 ],
                 ),
+              ),*/
+
+              TextFormField(
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                  labelText: "Category",
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+                ),
+                validator: (value) {
+                  if (value?.isEmpty ?? true) {
+                    return 'Please enter a category';
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  _category = value;
+                },
               ),
+
 
               SizedBox(height: 20), // Increased distance between "Category" and the left side
 
+              /*Original Price
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  border: Border.all(
+                    color: Colors.grey, // You can change the border color as needed
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(width: 16.0), // Increased distance between "Price" and the left side
+                    Expanded(
+                      child: TextFormField(
+                        decoration: InputDecoration(labelText: 'Price'),
+                        keyboardType: TextInputType.number,
+                        readOnly: true,
+                        controller: TextEditingController(
+                          text: _price != null ? _price.toString() : '',
+                        ),
+                        onTap: _addPrice,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: _addPrice,
+                      style: TextButton.styleFrom(
+                        primary: Color(0xFF5C795B), // Change the button text color
+                        textStyle: TextStyle(fontWeight: FontWeight.bold), // Bold text
+                      ),
+                      child: Text('Add'),
+                    ),
+                  ],
+                ),
+              ),
+
+
+            */
+
+              TextFormField(
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: "Price",
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+                ),
+                validator: (value) {
+                  if (value?.isEmpty ?? true) {
+                    return 'Please enter a category';
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  _price = double.tryParse(value ?? '');
+                },
+              ),
+
+
+              SizedBox(height: 16.0),
+              /*
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
@@ -313,14 +390,54 @@ class _CreateListingPageState extends State<CreateListingPage> {
                   ],
                 ),
               ),
+              */
 
-              SizedBox(height: 16.0),
+              Container(
+                padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color(0xFF5C795B), width: 1.0),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: DropdownButton(
+                  hint: Text(
+                      "Select Items:",
+                      style: TextStyle(
+                        color: Color(0xFF5C795B),
+                      ),
+                  ),
+                    //dropdownColor: Colors.white10,
+                  borderRadius: BorderRadius.circular(10.0),
+                    icon: Icon(Icons.arrow_drop_down, color: Color(0xFF5C795B)),
+                    iconSize: 36,
+                    isExpanded: true,
+                    underline: SizedBox(
+                    ),
+                    value: _condition,
+                    onChanged: (newValue) {
+                      setState(() {
+                        _condition = newValue.toString();
+                      });
+
+
+                    },
+                    items: ConditionType.map((valueItem){
+                      return DropdownMenuItem(
+                      value: valueItem,
+                      child: Text(valueItem) ,
+                      );
+                    }).toList(),
+                ),
+              ),
+
+
+              SizedBox(height: 20),
+
 
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
                   border: Border.all(
-                    color: Colors.grey, // You can change the border color as needed
+                    color: Color(0xFF5C795B), // You can change the border color as needed
                   ),
                 ),
                 child: Row(
@@ -328,7 +445,7 @@ class _CreateListingPageState extends State<CreateListingPage> {
                     SizedBox(width: 16.0), // Increased distance between "Condition" and the left side
                     Expanded(
                       child: TextFormField(
-                        decoration: InputDecoration(labelText: 'Item Details'),
+                        decoration: InputDecoration(labelText: 'Item Details', border: InputBorder.none),
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
                         readOnly: true,
@@ -349,42 +466,6 @@ class _CreateListingPageState extends State<CreateListingPage> {
                   ],
                 ),
               ),
-
-              SizedBox(height: 20),
-
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
-                  border: Border.all(
-                    color: Colors.grey, // You can change the border color as needed
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    SizedBox(width: 16.0), // Increased distance between "Price" and the left side
-                    Expanded(
-                      child: TextFormField(
-                        decoration: InputDecoration(labelText: 'Price'),
-                        keyboardType: TextInputType.number,
-                        readOnly: true,
-                        controller: TextEditingController(
-                          text: _price != null ? _price.toString() : '',
-                        ),
-                        onTap: _addPrice,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: _addPrice,
-                      style: TextButton.styleFrom(
-                        primary: Color(0xFF5C795B), // Change the button text color
-                        textStyle: TextStyle(fontWeight: FontWeight.bold), // Bold text
-                      ),
-                      child: Text('Add'),
-                    ),
-                  ],
-                ),
-              ),
-
               SizedBox(height: 30),
 
               Container(
@@ -517,7 +598,7 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
               ),
               child: Text(
                 'Save',
-                style: TextStyle(fontWeight: FontWeight.bold), // Bold text
+                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white), // Bold text
               ),
             ),
           ],
