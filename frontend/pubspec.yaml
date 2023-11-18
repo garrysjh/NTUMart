@@ -49,6 +49,7 @@ dependencies:
   jwt_decode: ^0.3.1
   jwt_decoder: 
   google_maps_flutter: ^2.5.0
+  onboarding: ^3.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
