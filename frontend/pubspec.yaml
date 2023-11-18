@@ -47,6 +47,7 @@ dependencies:
   image_picker: ^1.0.4
   jwt_decode: ^0.3.1
   jwt_decoder: 
+  ar_flutter_plugin: ^0.7.3
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -76,6 +77,7 @@ flutter:
   -   assets/img/ntumart_logo.png
   -   assets/img/chatbot_icon.png
   -   assets/img/categories/
+  -   assets/Chicken_01/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
