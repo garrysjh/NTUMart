@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:frontend/pages/login_page.dart';
-import 'package:frontend/pages/profile.dart';
+import 'package:frontend/main.dart';
+import 'package:frontend/homepage.dart';
+import 'package:frontend/pages/jwtTokenDecryptService.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import 'package:http/http.dart' as http;
 
 void main() {
-  runApp(const SettingsPageWidget());
+  runApp(Sell());
 }
 
-class SettingsPageWidget extends StatelessWidget {
-  const SettingsPageWidget({super.key});
-
+class Sell extends StatelessWidget {
+  const Sell({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const SettingsPage(),
+      home: CreateListingPage(),
       theme: ThemeData(
         colorScheme: const ColorScheme(
           brightness: Brightness.light,
@@ -24,9 +26,9 @@ class SettingsPageWidget extends StatelessWidget {
           error: Color(0xFFF32424),
           onError: Color(0xFFF32424),
           background: Color(0xFFF9F9F9),
-          onBackground: Color(0xFFFFFFFF),
+          onBackground: Color(0xFF5C795B),
           surface: Color(0xFFEAEAEA),
-          onSurface: Color(0xFF0C0C0C),
+          onSurface: Color(0xFF5C795B),
         ),
         useMaterial3: true,
       ),
@@ -34,189 +36,618 @@ class SettingsPageWidget extends StatelessWidget {
   }
 }
 
-class SettingsPage extends StatefulWidget {
-  const SettingsPage({super.key});
-
+class CreateListingPage extends StatefulWidget {
   @override
-  _SettingsPageState createState() => _SettingsPageState();
+  _CreateListingPageState createState() => _CreateListingPageState();
 }
 
-class _SettingsPageState extends State<SettingsPage> {
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
-  final TextEditingController _interestsController = TextEditingController();
-  final TextEditingController _phoneNumberController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  String _selectedGender = 'Male'; // Default gender
-  final List<String> _preferredPaymentMethods = [];
+class _CreateListingPageState extends State<CreateListingPage> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  List ConditionType = [
+    "Brand New",
+    "Like New",
+    "Lightly Used",
+    "Well Used",
+    "Heavily Used"
+  ];
+  List categories = [
+    "Men's Fashion",
+    "Women's Fashion",
+    "Footwear",
+    "Books & Notes",
+    "Furniture",
+    "Home Decor",
+    "Food Items",
+    "Electronics",
+    "Mobile Gadgets",
+    "Services",
+    "Personal care",
+    "Health & Nutrition"
+  ];
+  String? valueChoose;
+  String? _category;
+  String? _condition;
+  String? _itemDetails;
+  double? _price;
+  String? _title;
+  List<XFile>? _imageFiles = [];
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> _pickImages() async {
+    final List<XFile>? selectedImages = await _picker.pickMultiImage();
+
+    if (selectedImages != null && selectedImages.isNotEmpty) {
+      setState(() {
+        _imageFiles = selectedImages;
+      });
+    }
+  }
+
+  Widget _buildImageSelectionButton(int index) {
+    return InkWell(
+      onTap: () {
+        // Add logic to select an image when the square button is tapped.
+        // You can use _pickImages or any other image selection method.
+        _pickImages();
+      },
+      child: Container(
+        width: 80.0,
+        height: 80.0,
+        decoration: BoxDecoration(
+          color: Colors.grey[300],
+          border: Border.all(
+            color: Colors.grey,
+          ),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Center(
+          child: _imageFiles != null &&
+                  _imageFiles!.isNotEmpty &&
+                  index < _imageFiles!.length
+              ? Image.file(
+                  File(_imageFiles![index].path),
+                  width: 70.0,
+                  height: 70.0,
+                  fit: BoxFit.cover,
+                )
+              : const Icon(
+                  Icons.add,
+                  size: 40.0,
+                  color: Colors.grey,
+                ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _submitForm() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      // Add logic here to save the listing to your marketplace.
+      // For this example, we'll print the input values.
+      _formKey.currentState?.save();
+      print('Category: $_category');
+      print('Condition: $_condition');
+      print('Item Details: $_itemDetails');
+      print('Price: $_price');
+      print('Name: $_title');
+      // Create a MultipartRequest
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse('$URL/product/add'), // Replace with your actual backend URL
+      );
+
+      // Add form fields
+      int? sellerID = await JwtTokenDecryptService.getID();
+      request.fields["sellerID"] = sellerID.toString() ?? "0";
+      request.fields['category'] = _category!;
+      request.fields['condition'] = _condition!;
+      request.fields['description'] = _itemDetails!;
+      request.fields['price'] = _price.toString();
+      request.fields['quantity'] = '1';
+      request.fields['name'] = _title!;
+
+      // Add image files
+      for (int i = 0; i < _imageFiles!.length; i++) {
+        var fieldName = i == 0 ? 'productPicture' : 'productPicture${i + 1}';
+        var file = await http.MultipartFile.fromPath(
+          fieldName,
+          _imageFiles![i].path,
+        );
+        request.files.add(file);
+        print(request);
+      }
+      try {
+        var response = await request.send();
+        if (response.statusCode == 200) {
+          print('Product successfully added');
+
+          final capturedContext = context;
+
+          await Navigator.push(
+            capturedContext,
+            PageRouteBuilder(
+              pageBuilder: (context, animation, secondaryAnimation) {
+                return Home();
+              },
+            ),
+          );
+        } else {
+          print('Error adding product. Status code: ${response.statusCode}');
+        }
+      } catch (error) {
+        print('Error sending request: $error');
+      }
+    }
+  }
+
+  void _addDescription() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(
+      builder: (context) => ItemDetailsPage(),
+    ))
+        .then((value) {
+      if (value != null) {
+        _formKey.currentState?.save();
+        print("HERE!");
+        print(value);
+        print(value['description']);
+        setState(() {
+          _title = value['title'];
+          _itemDetails = value['description'];
+        });
+      }
+    });
+  }
+
+  void _addPrice() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(
+      builder: (context) => PriceInputPage(),
+    ))
+        .then((value) {
+      if (value != null) {
+        setState(() {
+          _price = value;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.done),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const ProfileScreen(),
-                ),
-              );
-            },
-          ),
-        ],
+        backgroundColor: Color(0xFF5C795B),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) {
+                  return const Home();
+                },
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  const begin = Offset(0.0, 1.0);
+                  const end = Offset.zero;
+                  const curve = Curves.easeInOut;
+                  var tween = Tween(begin: begin, end: end)
+                      .chain(CurveTween(curve: curve));
+                  var offsetAnimation = animation.drive(tween);
+                  return SlideTransition(
+                    position: offsetAnimation,
+                    child: child,
+                  );
+                },
+              ),
+            );
+          },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: ListView(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const Text(
+                'Add Details',
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(height: 16.0),
+
+              const Text(
+                'Photo',
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(
+                height: 10.0,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  _buildImageSelectionButton(0),
+                  _buildImageSelectionButton(1),
+                  _buildImageSelectionButton(2),
+                  _buildImageSelectionButton(3),
+                ],
+              ),
+              const SizedBox(
+                height: 10.0,
+              ),
+              Container(
+                padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color(0xFF5C795B), width: 1.0),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: DropdownButton(
+                  hint: const Text(
+                    "Condition:",
+                    style: TextStyle(
+                      color: Color(0xFF5C795B),
+                    ),
+                  ),
+                  //dropdownColor: Colors.white10,
+                  borderRadius: BorderRadius.circular(10.0),
+                  icon: Icon(Icons.arrow_drop_down, color: Color(0xFF5C795B)),
+                  iconSize: 36,
+                  isExpanded: true,
+                  underline: SizedBox(),
+                  value: _category,
+                  onChanged: (newValue) {
+                    setState(() {
+                      _category = newValue.toString();
+                    });
+                  },
+                  items: categories.map((category) {
+                    return DropdownMenuItem(
+                      value: category,
+                      child: Text(category),
+                    );
+                  }).toList(),
+                ),
+              ),
+
+              const SizedBox(
+                  height:
+                      20), // Increased distance between "Category" and the left side
+
+              TextFormField(
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: "Price",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                ),
+                validator: (value) {
+                  if (value?.isEmpty ?? true) {
+                    return 'Please enter a price';
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  _price = double.tryParse(value ?? '');
+                },
+              ),
+
+              const SizedBox(height: 16.0),
+
+              Container(
+                padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
+                decoration: BoxDecoration(
+                  border:
+                      Border.all(color: const Color(0xFF5C795B), width: 1.0),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: DropdownButton(
+                  hint: const Text(
+                    "Condition:",
+                    style: TextStyle(
+                      color: Color(0xFF5C795B),
+                    ),
+                  ),
+                  //dropdownColor: Colors.white10,
+                  borderRadius: BorderRadius.circular(10.0),
+                  icon: const Icon(Icons.arrow_drop_down,
+                      color: Color(0xFF5C795B)),
+                  iconSize: 36,
+                  isExpanded: true,
+                  underline: SizedBox(),
+                  value: _condition,
+                  onChanged: (newValue) {
+                    setState(() {
+                      _condition = newValue.toString();
+                    });
+                  },
+                  items: ConditionType.map((valueItem) {
+                    return DropdownMenuItem(
+                      value: valueItem,
+                      child: Text(valueItem),
+                    );
+                  }).toList(),
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  border: Border.all(
+                    color: const Color(
+                        0xFF5C795B), // You can change the border color as needed
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    const SizedBox(
+                        width:
+                            16.0), // Increased distance between "Condition" and the left side
+                    Expanded(
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                            labelText: 'Item Details',
+                            border: InputBorder.none),
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        readOnly: true,
+                        controller: TextEditingController(
+                          text: _itemDetails ?? '',
+                        ),
+                        onTap: _addDescription,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: _addDescription,
+                      style: TextButton.styleFrom(
+                        primary:
+                            Color(0xFF5C795B), // Change the button text color
+                        textStyle:
+                            TextStyle(fontWeight: FontWeight.bold), // Bold text
+                      ),
+                      child: Text('Add'),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 30),
+
+              Container(
+                width: double
+                    .infinity, // Make the button the same width as the price input
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  color: Colors.blue, // Customize the button color as needed
+                ),
+                child: TextButton(
+                  onPressed: _submitForm,
+                  child: const Text(
+                    'List It!',
+                    style: TextStyle(
+                      color: Colors.white, // Text color
+                      fontSize: 18.0,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ItemDetailsPage extends StatefulWidget {
+  @override
+  _ItemDetailsPageState createState() => _ItemDetailsPageState();
+}
+
+class _ItemDetailsPageState extends State<ItemDetailsPage> {
+  TextEditingController _titleController = TextEditingController();
+  TextEditingController _brandController = TextEditingController();
+  TextEditingController _descriptionController = TextEditingController();
+  bool _hasMultipleItems = false;
+  bool _delivery = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Item Details'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const UserAccountsDrawerHeader(
-              accountName: Text("Keegan"),
-              accountEmail: Text("@kiwigan"),
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage(
-                    'assets/profile_image.jpg'), // Replace with your image
+            Text(
+              'Item Details',
+              style: TextStyle(
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
               ),
             ),
-            _buildTextField("Username", _usernameController),
-            _buildTextField("First Name", _firstNameController),
-            _buildTextField("Last Name", _lastNameController),
-            _buildTextField("Interests", _interestsController),
-            _buildTextField("Phone Number", _phoneNumberController,
-                keyboardType: TextInputType.phone),
-            _buildTextField("Email", _emailController,
-                keyboardType: TextInputType.emailAddress),
-            _buildGenderDropdown(),
-            const SizedBox(height: 20),
-            _buildPaymentMethodsCheckboxes(),
+            SizedBox(height: 16.0),
+            TextFormField(
+              decoration: InputDecoration(labelText: 'Listing Title*'),
+              validator: (value) {
+                if (value?.isEmpty ?? true) {
+                  return 'Please enter a listing title';
+                }
+                return null;
+              },
+              controller: _titleController,
+            ),
+            SizedBox(height: 16.0),
+            TextFormField(
+              decoration: InputDecoration(labelText: 'Brand'),
+              controller: _brandController,
+            ),
+            SizedBox(height: 16.0),
+            TextFormField(
+              decoration: InputDecoration(labelText: 'Description'),
+              keyboardType: TextInputType.multiline,
+              maxLines: null,
+              controller: _descriptionController,
+            ),
+            const SizedBox(height: 16.0),
+            Row(
+              children: [
+                Checkbox(
+                  value: _hasMultipleItems,
+                  onChanged: (value) {
+                    setState(() {
+                      _hasMultipleItems = value ?? false;
+                    });
+                  },
+                ),
+                Text('I have more than one of this item'),
+              ],
+            ),
+            Row(
+              children: [
+                Checkbox(
+                  value: _delivery,
+                  onChanged: (value) {
+                    setState(() {
+                      _delivery = value ?? false;
+                    });
+                  },
+                ),
+                const Text('I want to pay \$3 more for delivery   '),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      _showDialog(context);
+                    },
+                    child: Text('?', style: TextStyle(fontSize: 20.0)),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                String title = _titleController.text;
+                String brand = _brandController.text;
+                String description = _descriptionController.text;
+                Navigator.of(context).pop({
+                  'title': title,
+                  'brand': brand,
+                  'description': description,
+                  'hasMultipleItems': _hasMultipleItems,
+                });
+              },
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xFF5C795B), // Change the button color
+              ),
+              child: const Text(
+                'Save',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white), // Bold text
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildTextField(String label, TextEditingController controller,
-      {TextInputType? keyboardType}) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(label),
-        TextFormField(
-          controller: controller,
-          keyboardType: keyboardType,
-        ),
-        const Divider(),
-      ],
-    );
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _brandController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
   }
+}
 
-  Widget _buildGenderDropdown() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text('Gender'),
-        DropdownButtonFormField<String>(
-          value: _selectedGender,
-          items: ['Male', 'Female', 'Other']
-              .map((gender) => DropdownMenuItem<String>(
-                    value: gender,
-                    child: Text(gender),
-                  ))
-              .toList(),
-          onChanged: (value) {
-            setState(() {
-              _selectedGender = value!;
-            });
-          },
+void _showDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(
+          'Delivery Services',
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        const Divider(),
-      ],
-    );
-  }
-
-  Widget _buildPaymentMethodsCheckboxes() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text('Preferred Payment Methods'),
-        CheckboxListTile(
-          title: const Text('Paynow'),
-          value: _preferredPaymentMethods.contains('Paynow'),
-          onChanged: (bool? value) {
-            _updatePaymentMethods('Paynow', value ?? false);
-          },
-        ),
-        CheckboxListTile(
-          title: const Text('PayLah!'),
-          value: _preferredPaymentMethods.contains('PayLah!'),
-          onChanged: (bool? value) {
-            _updatePaymentMethods('PayLah!', value ?? false);
-          },
-        ),
-        CheckboxListTile(
-          title: const Text('Cash'),
-          value: _preferredPaymentMethods.contains('Cash'),
-          onChanged: (bool? value) {
-            _updatePaymentMethods('Cash', value ?? false);
-          },
-        ),
-        CheckboxListTile(
-          title: const Text('Bank Transfer'),
-          value: _preferredPaymentMethods.contains('Bank Transfer'),
-          onChanged: (bool? value) {
-            _updatePaymentMethods('Bank Transfer', value ?? false);
-          },
-        ),
-        ElevatedButton(
-          onPressed: () {
-            logOut(context);
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.white, // Change this color to the desired one
+        content: Text(
+            'We offer delivery services in NTU, which are pay on delivery. If you check this option, we will contact you when your item is sold to arrange a delivery date!'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('Close'),
           ),
-          child: const Text('Log Out'),
-        )
-      ],
-    );
-  }
+        ],
+      );
+    },
+  );
+}
 
-  void logOut(BuildContext context) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove('token');
-    print("LOGGING OUT");
-    await navigateToLoginPage(context);
-  }
+class PriceInputPage extends StatefulWidget {
+  @override
+  _PriceInputPageState createState() => _PriceInputPageState();
+}
 
-  Future navigateToLoginPage(BuildContext context) async {
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => const LoginPage(),
+class _PriceInputPageState extends State<PriceInputPage> {
+  TextEditingController _priceController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Enter Price'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          //mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            TextFormField(
+              decoration: InputDecoration(labelText: 'Price'),
+              keyboardType: TextInputType.number,
+              controller: _priceController,
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                double? price = double.tryParse(_priceController.text);
+                Navigator.of(context).pop(
+                    price); // Return the entered price to the previous page
+              },
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xFF5C795B), // Change the button color
+              ),
+              child: Text(
+                'Save',
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white), // Bold text
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  void _updatePaymentMethods(String method, bool selected) {
-    setState(() {
-      if (selected) {
-        _preferredPaymentMethods.add(method);
-      } else {
-        _preferredPaymentMethods.remove(method);
-      }
-    });
-  }
-
   @override
   void dispose() {
-    _usernameController.dispose();
-    _firstNameController.dispose();
-    _lastNameController.dispose();
-    _interestsController.dispose();
-    _phoneNumberController.dispose();
-    _emailController.dispose();
+    _priceController.dispose();
     super.dispose();
   }
 }
