@@ -7,9 +7,7 @@ import 'package:frontend/widgets/snackbar.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-
 import 'package:frontend/pages/jwtTokenDecryptService.dart';
-
 import 'package:frontend/main.dart';
 import 'package:frontend/homepage.dart';
 
@@ -131,7 +129,7 @@ class _SignInState extends State<SignIn> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(top: 170.0),
+                margin: const EdgeInsets.only(top: 205.0),
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   boxShadow: <BoxShadow>[

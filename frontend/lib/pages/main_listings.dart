@@ -89,7 +89,7 @@ class _HomePageState extends State<HomePage> {
                                   60 //Width = size of button + sized box in between button and text
                               ),
                           Image.asset(
-                            'assets/img/ntumart_logo.jpg',
+                            'assets/img/ntumart_logo.png',
                             height: 50,
                           ),
                           const FittedBox(
