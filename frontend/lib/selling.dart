@@ -547,7 +547,7 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
               maxLines: null,
               controller: _descriptionController,
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             Row(
               children: [
                 Checkbox(
@@ -566,11 +566,11 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                   value: _delivery,
                   onChanged: (value) {
                     setState(() {
-                      _hasMultipleItems = value ?? false;
+                      _delivery = value ?? false;
                     });
                   },
                 ),
-                Text('I want to pay \$3 more for delivery   '),
+                const Text('I want to pay \$3 more for delivery   '),
                 Center(
         child: ElevatedButton(
           onPressed: () {
@@ -596,9 +596,9 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
               style: ElevatedButton.styleFrom(
                 primary: Color(0xFF5C795B), // Change the button color
               ),
-              child: Text(
+              child: const Text(
                 'Save',
-                style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white), // Bold text
+                style:  TextStyle(fontWeight: FontWeight.bold, color: Colors.white), // Bold text
               ),
             ),
           ],
