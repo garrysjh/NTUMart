@@ -8,9 +8,7 @@ import 'package:ar_flutter_plugin/models/ar_node.dart';
 import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math_64.dart';
 
-void main(){
-  runApp(const LocalAndWebObjectsView());
-}
+
 
 class LocalAndWebObjectsView extends StatefulWidget {
   const LocalAndWebObjectsView({Key? key}) : super(key: key);
