@@ -103,7 +103,7 @@ class _BrowsePageState extends State<BrowsePage> {
                               60 //Width = size of button + sized box in between button and text
                           ),
                           Image.asset(
-                            'assets/img/ntumart_logo.png',
+                            'assets/img/ntumart_logo.jpg',
                             height: 50,
                           ),
                           const FittedBox(
