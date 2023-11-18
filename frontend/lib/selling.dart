@@ -46,6 +46,7 @@ class CreateListingPage extends StatefulWidget {
 class _CreateListingPageState extends State<CreateListingPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   List ConditionType = ["Brand New", "Like New", "Lightly Used", "Well Used", "Heavily Used"];
+  List categories = ["Men's Fashion", "Women's Fashion", "Footwear", "Books & Notes", "Furniture", "Home Decor", "Food Items", "Electronics", "Mobile Gadgets", "Services", "Personal care", "Health & Nutrition"]; 
   String? valueChoose;
   String? _category;
   String? _condition;
@@ -242,57 +243,43 @@ class _CreateListingPageState extends State<CreateListingPage> {
                   _buildImageSelectionButton(3),
                 ],
               ),
-              // if (_imageFiles != null && _imageFiles!.isNotEmpty)
-              //   Column(
-              //     children: _imageFiles!
-              //         .map((image) => Image.file(File(image.path)))
-              //         .toList(),
-              //   ),
-
-              SizedBox(height: 16.0),
-              //Original Category input
-              /*Container(
+               SizedBox(height: 10.0,),
+               Container(
+                padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
-                  border: Border.all(
-                    color: Colors.grey, // You can change the border color as needed
+                  border: Border.all(color: Color(0xFF5C795B), width: 1.0),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: DropdownButton(
+                  hint: Text(
+                      "Condition:",
+                      style: TextStyle(
+                        color: Color(0xFF5C795B),
+                      ),
                   ),
-                ),
-                child: Row(children: [
-                  SizedBox(width:16.0),
-                  Expanded(child: TextFormField(
-                  decoration: InputDecoration(labelText: 'Category'),
-                  validator: (value) {
-                    if (value?.isEmpty ?? true) {
-                      return 'Please enter a category';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) {
-                    _category = value;
-                  },
-                  ))
-                ],
-                ),
-              ),*/
+                    //dropdownColor: Colors.white10,
+                  borderRadius: BorderRadius.circular(10.0),
+                    icon: Icon(Icons.arrow_drop_down, color: Color(0xFF5C795B)),
+                    iconSize: 36,
+                    isExpanded: true,
+                    underline: SizedBox(
+                    ),
+                    value: _category,
+                    onChanged: (newValue) {
+                      setState(() {
+                        _category = newValue.toString();
+                      });
 
-              TextFormField(
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  labelText: "Category",
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
+
+                    },
+                    items: categories.map((category){
+                      return DropdownMenuItem(
+                      value: category,
+                      child: Text(category) ,
+                      );
+                    }).toList(),
                 ),
-                validator: (value) {
-                  if (value?.isEmpty ?? true) {
-                    return 'Please enter a category';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  _category = value;
-                },
               ),
-
 
               SizedBox(height: 20), // Increased distance between "Category" and the left side
 
