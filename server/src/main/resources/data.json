@@ -63,7 +63,20 @@
     "password": "pass123" , 
     "address": "123 KIWI STREET" , 
     "profilePic": "images/default.jpg"
-   }, 
+   },
+
+   {
+    "_class": "com.ntumart.dipapp.models.User",
+    "userID": 6,
+    "username": "superseller",
+    "telegramHandle": "linhpham183",
+    "fullname": "Super Seller" ,
+    "email": "lili1@gmail.com",
+    "phone": "99999995",
+    "password": "pass123" ,
+    "address": "123 KIWI STREET" ,
+    "profilePic": "images/profpic/6/6_pp.jpg"
+   },
 
    {
     "_class": "com.ntumart.dipapp.models.Product",
@@ -73,7 +86,10 @@
     "description": "black shoe",
     "price": "99",
     "quantity": "23" , 
-    "productPic": "images/uploads/1/product1.jpg" , 
+    "productPic": "images/uploads/1/product1.jpg" ,
+    "productPic2": "images/uploads/1/product2.jpg" ,
+    "productPic3": "images/uploads/1/product3.jpg" ,
+    "productPic4": "images/uploads/1/product4.jpg" ,
     "productLikes": "55",
     "category": "Footwear"
    },
@@ -86,8 +102,8 @@
     "description": "white shoe",
     "price": "87",
     "quantity": "21" , 
-    "productPic": "images/uploads/2/product3.jpg" , 
-    "productPic2": "images/uploads/2/product5.jpg" , 
+    "productPic": "images/uploads/2/product5.jpg" ,
+    "productPic2": "images/uploads/2/product6.jpg" ,
     "productLikes": "50",
     "category": "Footwear"
    },
@@ -101,7 +117,8 @@
     "price": "70",
     "quantity": "26" , 
     "productPic": "images/uploads/3/product7.jpg" , 
-    "productPic2": "images/uploads/3/product9.jpg" ,
+    "productPic2": "images/uploads/3/product8.jpg" ,
+    "productPic3": "images/uploads/3/product9.jpg" ,
     "productLikes": "59",
     "category": "Footwear"
    },
@@ -115,9 +132,9 @@
     "price": "121",
     "quantity": "20" , 
     "productPic": "images/uploads/4/product10.jpg" ,
-    "productPic2": "images/uploads/4/product8.jpg" ,
-    "productPic3": "images/uploads/4/product14.jpg" ,
-    "productPic4": "images/uploads/4/product15.jpg" ,
+    "productPic2": "images/uploads/4/product11.jpg" ,
+    "productPic3": "images/uploads/4/product12.jpg" ,
+    "productPic4": "images/uploads/4/product13.jpg" ,
     "productLikes": "55",
     "category": "Footwear"
    },
@@ -130,13 +147,114 @@
     "description": "blue shoe",
     "price": "99",
     "quantity": "23" , 
-    "productPic": "images/uploads/5/product11.jpg" , 
-    "productPic2": "images/uploads/5/product12.jpg" ,
-    "productPic3": "images/uploads/5/product13.jpg" , 
+    "productPic": "images/uploads/5/product14.jpg" ,
+    "productPic2": "images/uploads/5/product15.jpg" ,
+    "productPic3": "images/uploads/5/product16.jpg" ,
     "productLikes": "55",
     "category": "Footwear"
    },
 
+   {
+    "_class": "com.ntumart.dipapp.models.Product",
+    "productID": 6,
+    "sellerID": "6",
+    "name": "Man Coat",
+    "description": "Best quality!!!",
+    "price": "70",
+    "quantity": "5" ,
+    "productPic": "images/uploads/6/product17.jpg" ,
+    "productPic2": "images/uploads/6/product18.jpg" ,
+    "productPic3": "images/uploads/6/product19.jpg" ,
+    "productLikes": "55",
+    "category": "Men's Fashion"
+   },
+
+   {
+    "_class": "com.ntumart.dipapp.models.Product",
+    "productID": 7,
+    "sellerID": "6",
+    "name": "Suit",
+    "description": "Best quality for the most handsome men!!!",
+    "price": "200",
+    "quantity": "5" ,
+    "productPic": "images/uploads/7/product20.jpg" ,
+    "productPic2": "images/uploads/7/product21.jpg" ,
+    "productPic3": "images/uploads/7/product22.jpg" ,
+    "productLikes": "55",
+    "category": "Men's Fashion"
+   },
+
+  {
+   "_class": "com.ntumart.dipapp.models.Product",
+   "productID": 8,
+   "sellerID": "6",
+   "name": "Prom dresses",
+   "description": "Prom dresses for the ladies!!!",
+   "price": "200",
+   "quantity": "5" ,
+   "productPic": "images/uploads/8/product23.jpg" ,
+   "productPic2": "images/uploads/8/product24.jpg" ,
+   "productPic3": "images/uploads/8/product25.jpg" ,
+   "productLikes": "55",
+   "category": "Women's Fashion"
+  },
+
+  {
+   "_class": "com.ntumart.dipapp.models.Product",
+   "productID": 9,
+   "sellerID": "6",
+   "name": "JK dresses",
+   "description": "JK dresses for the cutest students!!!",
+   "price": "60",
+   "quantity": "5" ,
+   "productPic": "images/uploads/9/product26.jpg" ,
+   "productPic2": "images/uploads/9/product27.jpg" ,
+   "productPic3": "images/uploads/9/product28.jpg" ,
+   "productLikes": "55",
+   "category": "Women's Fashion"
+  },
+
+   {
+    "_class": "com.ntumart.dipapp.models.Product",
+    "productID": 10,
+    "sellerID": "6",
+    "name": "Dyson Hair Dryer",
+    "description": "Dyson Hair Dryer. Good as new!!!",
+    "price": "60",
+    "quantity": "5" ,
+    "productPic": "images/uploads/10/product29.jpg" ,
+    "productPic2": "images/uploads/10/product30.jpg" ,
+    "productLikes": "55",
+    "category": "Electronics"
+   },
+
+   {
+    "_class": "com.ntumart.dipapp.models.Product",
+    "productID": 11,
+    "sellerID": "6",
+    "name": "Cute chair",
+    "description": "Cute chair. Good as new!!!",
+    "price": "88",
+    "quantity": "4" ,
+    "productPic": "images/uploads/11/product31.jpg" ,
+    "productPic2": "images/uploads/11/product32.jpg" ,
+    "productLikes": "55",
+    "category": "Furniture"
+   },
+
+    {
+     "_class": "com.ntumart.dipapp.models.Product",
+     "productID": 12,
+     "sellerID": "6",
+     "name": "Moving out service",
+     "description": "Moving out service. Charge per hour!!!",
+     "price": "12",
+     "quantity": "4" ,
+     "productPic": "images/uploads/12/product33.jpg" ,
+     "productPic2": "images/uploads/12/product34.jpg" ,
+     "productLikes": "55",
+     "category": "Services"
+    },
 
    {
     "_class": "com.ntumart.dipapp.models.Interest",
@@ -159,7 +277,7 @@
     "userID": "3",
     "category1": "Men's Fashion",
     "category2": "Women's Fashion",
-    "category3": "Furniture"
+    "category3": "Footwear"
    }, 
 
    {
@@ -181,6 +299,15 @@
     "category3": "Furniture",
     "category4": "Electronics", 
     "category5": "Services" 
+   },
+
+   {
+    "_class": "com.ntumart.dipapp.models.Interest",
+    "interestID": 6,
+    "userID": "6",
+    "category1": "Men's Fashion",
+    "category2": "Women's Fashion",
+    "category3": "Electronics"
    }
 
 ]

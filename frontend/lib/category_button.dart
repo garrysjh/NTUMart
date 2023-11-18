@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'categorymapping.dart';
+import 'package:frontend/showcategory.dart';
 
 class CategoryButton extends StatelessWidget {
   final String selectedString;
   late String path;
 
-  CategoryButton({Key? key, required this.selectedString}) {
+  CategoryButton({super.key, required this.selectedString}) {
     path = categorymapping().categoryMap[selectedString] ?? "";
   }
   @override
@@ -17,12 +18,23 @@ class CategoryButton extends StatelessWidget {
         children: <Widget>[
           ElevatedButton(
             onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content:
-                  Text("Add in custom category navigation later"),
-                  duration: Duration(milliseconds: 1500),
-                  behavior: SnackBarBehavior.floating,
+              // ScaffoldMessenger.of(context).showSnackBar(
+              //   const SnackBar(
+              //     content:
+              //     Text("Add in custom category navigation later"),
+              //     duration: Duration(milliseconds: 1500),
+              //     behavior: SnackBarBehavior.floating,
+              //   ),
+              // );
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                    return CategoryPage(category: selectedString);
+                  },
+                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                    return child;
+                  },
                 ),
               );
             },
@@ -32,7 +44,7 @@ class CategoryButton extends StatelessWidget {
               shape: const CircleBorder(),
               backgroundColor: const Color(0xFFFFFFFF),
             ),
-            child: Image.asset(this.path,
+            child: Image.asset(path,
               fit: BoxFit.fill,
             ),
           ),
@@ -54,7 +66,7 @@ class CategoryButton extends StatelessWidget {
     );
   }
   String mapped(String str){
-    categorymapping Cat = new categorymapping();
+    categorymapping Cat = categorymapping();
     return Cat.categoryNameToImage(str);
   }
 }

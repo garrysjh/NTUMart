@@ -1,1 +1,3 @@
 *.DS_Store
+*dialog_flow_auth.json
+frontend/assets/dialog_flow_auth.json

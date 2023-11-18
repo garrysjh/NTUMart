@@ -3,12 +3,12 @@ import 'package:frontend/models/productresponsemodel.dart';
 import 'package:frontend/widgets/taskbar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+const LatLng currentLocation = LatLng(1.3476785606754784, 103.68688598949618);
 
 void main() => runApp(const ItemDetailsScreen(productID: 1));
 
@@ -28,6 +28,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
   Map<String, dynamic>? productData;
   Map<String, dynamic>? userData;
   String? userName;
+  GoogleMapController? _mapController;
 
   @override
   void initState() {
@@ -89,7 +90,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 // Slide show of item's images
-                Container(
+                SizedBox(
                   height: 280,
                   child: ListView(
                     scrollDirection: Axis.horizontal,
@@ -234,7 +235,35 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                   ),
                 ),
 
-                const SizedBox(height: 5.0), //space between "Seller details" and "Contact seller" button
+                const SizedBox(height: 5.0), //space between "Seller details" and Google Map
+
+                // Google Map
+                Container(
+                  height: 200, // Adjust the height as needed
+                  margin: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: GoogleMap(
+                    onMapCreated: (controller) {
+                      setState(() {
+                        _mapController = controller;
+                      });
+                    },
+                    initialCameraPosition: const CameraPosition(
+                      target: currentLocation,
+                      zoom: 15.0,
+                    ),
+                    markers: {
+                      const Marker(
+                        markerId: MarkerId('seller_location'),
+                        position: currentLocation,
+                        infoWindow: InfoWindow(title: 'Seller Location'),
+                      ),
+                    },
+                  ),
+                ),
+
+                const SizedBox(height: 5.0), //space between Google Map and "Contact seller" button
+
+
                 // Contact seller button
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 16.0),
@@ -246,7 +275,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                       ),
                       Expanded(
                         flex: 2, // Adjust the flex value as needed
-                        child: Container(
+                        child: SizedBox(
                           height: 60, // Adjust the height as needed
                           child: ElevatedButton(
                             onPressed: () {
@@ -254,7 +283,7 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                               _launchTelegram(telegramHandle);
                             },
                             style: ElevatedButton.styleFrom(
-                              primary: const Color(0xFF5D7395), // Background color
+                              backgroundColor: const Color(0xFF5D7395), // Background color
                             ),
                             child: const Text(
                               'Contact Seller',

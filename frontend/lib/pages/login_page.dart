@@ -14,6 +14,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage>
     with SingleTickerProviderStateMixin {
   late PageController _pageController;
+late AssetImage currentImage;
+  late AssetImage nextImage;
 
   Color left = Colors.black;
   Color right = Colors.white;
@@ -28,6 +30,13 @@ class _LoginPageState extends State<LoginPage>
   void initState() {
     super.initState();
     _pageController = PageController();
+    currentImage =  AssetImage('assets/img/login_signup.gif'); 
+    nextImage = AssetImage('assets/img/last_frame.png');
+    Future.delayed(Duration(seconds: 3, milliseconds: 500), () {
+      setState(() {
+        currentImage = nextImage;
+      });
+    });
   }
 
   @override
@@ -52,7 +61,7 @@ class _LoginPageState extends State<LoginPage>
                     height:
                         MediaQuery.of(context).size.height > 800 ? 191.0 : 150,
                     fit: BoxFit.fill,
-                    image: const AssetImage('assets/img/flat_login.png')),
+                    image: currentImage),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),

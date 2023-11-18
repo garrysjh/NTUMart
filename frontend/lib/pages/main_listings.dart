@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/product.dart';
-import 'package:frontend/pages/widgets/vertical_view_listings.dart';
 import 'package:frontend/pages/widgets/taskbar.dart';
 
 void main() {
@@ -13,7 +11,7 @@ class mainListings extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'HomePage',
       /*theme: ThemeData(
         colorScheme: const ColorScheme(
@@ -31,7 +29,7 @@ class mainListings extends StatelessWidget {
         ),
         useMaterial3: true,
       ),*/
-      home: const HomePage(title: 'Home Page'),
+      home: HomePage(title: 'Home Page'),
     );
   }
 }

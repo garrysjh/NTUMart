@@ -13,6 +13,15 @@ public class ListingService {
     @Autowired
     ListingRepository listingRepository;
 
+    public List<Product> searchProduct(String searchTerm) {
+        return listingRepository.getProductsBySearch(searchTerm);
+    }
+    
+    public List<Product> searchProduct(int SellerID) {
+        return listingRepository.getProductsByID(SellerID);
+    }
+
+    
     public List<Product> getAllProducts() {
         return listingRepository.findAll();
     }

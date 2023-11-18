@@ -79,7 +79,7 @@ class _CameraPreviewScreenState extends State<CameraPreviewScreen> {
       print('Picture saved at ${file.path}');
 
       // Save the image to a permanent location
-      final String savedImagePath =
+      const String savedImagePath =
           'image.jpg'; // Replace with your desired path
       await file.saveTo(savedImagePath);
       print('Picture saved to: $savedImagePath');

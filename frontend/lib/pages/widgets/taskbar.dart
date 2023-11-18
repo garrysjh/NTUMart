@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/hallRoom/roomchat.dart';
 import 'package:frontend/homepage.dart';
-import 'package:frontend/browse.dart';
 import 'package:frontend/pages/profile.dart';
-import 'package:frontend/homepage.dart';
 import 'package:frontend/selling.dart';
+import 'package:frontend/showallsearchbar.dart';
 
 class Taskbar extends StatefulWidget {
   const Taskbar({Key? key}) : super(key: key);
@@ -17,8 +17,8 @@ class Taskbar extends StatefulWidget {
       initialRoute: '/',
       routes:{
         '/profile': (context) => const ProfileScreen(),
-        '/home': (context) => Home(),
-        '/sell': (context) => Sell()
+        '/home': (context) => const Home(),
+        '/sell': (context) => const Sell()
       }
     );
   }
@@ -29,7 +29,7 @@ class _TaskbarState extends State<Taskbar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints( maxWidth: 1000),
+      constraints: const BoxConstraints( maxWidth: 1000),
       child: BottomAppBar(
         elevation: 0,
          clipBehavior: Clip.none,
@@ -43,7 +43,7 @@ class _TaskbarState extends State<Taskbar> {
               context,
               PageRouteBuilder(
                 pageBuilder: (context, animation, secondaryAnimation) {
-                  return Home();
+                  return const Home();
                 },
                 transitionsBuilder: (context, animation, secondaryAnimation, child) {
                   // Disable animation by returning child directly
@@ -58,26 +58,29 @@ class _TaskbarState extends State<Taskbar> {
               onPressed: () {
                 Navigator.push(
               context,
-              PageRouteBuilder(
-                pageBuilder: (context, animation, secondaryAnimation) {
-                  return const Browse();
-                },
-                transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                  // Disable animation by returning child directly
-                  return child;
-                },
-              ),
+              // PageRouteBuilder(
+              //   pageBuilder: (context, animation, secondaryAnimation) {
+              //     // return const Browse();
+              //     return const Search(); // temporary change the browse page to showall for testing
+              //   },
+              //   transitionsBuilder: (context, animation, secondaryAnimation, child) {
+              //     // Disable animation by returning child directly
+              //     return child;
+              //   },
+              // ),
+              MaterialPageRoute(builder: (context) => const NamePage(name: "")),
             );
               },
             ),
             FloatingActionButton(
+              
               onPressed: () {
                 // Handle sell button click
                 Navigator.push(
               context,
               PageRouteBuilder(
                 pageBuilder: (context, animation, secondaryAnimation) {
-                  return Sell();
+                  return const Sell();
                 },
                 transitionsBuilder: (context, animation, secondaryAnimation, child) {
                   // Disable animation by returning child directly
@@ -86,13 +89,25 @@ class _TaskbarState extends State<Taskbar> {
               ),
             );
               },
+              backgroundColor: const Color(0xFF5C795B),
               child: const Icon(Icons.add),
-              backgroundColor: Color(0xFF5C795B),
             ),
             IconButton(
               icon: const Icon(Icons.group),
               onPressed: () {
-                // Handle community button click
+  // Do something
+                Navigator.push(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) {
+                  return const RoomChat();
+                },
+                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                  // Disable animation by returning child directly
+                  return child;
+                },
+              ),
+            );
               },
             ),
             IconButton(

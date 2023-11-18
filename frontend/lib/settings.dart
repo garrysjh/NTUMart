@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:frontend/pages/login_page.dart';
+import 'package:frontend/pages/profile.dart';
 
-void main() {
-  runApp(MyApp());
-}
 
-class MyApp extends StatelessWidget {
+class SettingsPageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
           background: Color(0xFFF9F9F9),
           onBackground: Color(0xFFFFFFFF),
           surface: Color(0xFFEAEAEA),
-          onSurface: Color(0xFF5C795B),
+          onSurface: Color(0xFF0C0C0C),
         ),
         useMaterial3: true,
       ),
@@ -35,12 +35,12 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _firstNameController = TextEditingController();
-  TextEditingController _lastNameController = TextEditingController();
-  TextEditingController _interestsController = TextEditingController();
-  TextEditingController _phoneNumberController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _interestsController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   String _selectedGender = 'Male'; // Default gender
   List<String> _preferredPaymentMethods = [];
 
@@ -48,13 +48,17 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
+        title: const Text('Settings'),
         actions: [
           IconButton(
-            icon: Icon(Icons.done),
+            icon:  const Icon(Icons.done),
             onPressed: () {
-              // Handle the done button click
-              // Add your logic to save settings or navigate away
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ProfileScreen(),
+                ),
+              );
             },
           ),
         ],
@@ -63,21 +67,24 @@ class _SettingsPageState extends State<SettingsPage> {
         padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: <Widget>[
-            UserAccountsDrawerHeader(
+            const UserAccountsDrawerHeader(
               accountName: Text("Keegan"),
               accountEmail: Text("@kiwigan"),
               currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage('assets/profile_image.jpg'), // Replace with your image
+                backgroundImage: AssetImage(
+                    'assets/profile_image.jpg'), // Replace with your image
               ),
             ),
             _buildTextField("Username", _usernameController),
             _buildTextField("First Name", _firstNameController),
             _buildTextField("Last Name", _lastNameController),
             _buildTextField("Interests", _interestsController),
-            _buildTextField("Phone Number", _phoneNumberController, keyboardType: TextInputType.phone),
-            _buildTextField("Email", _emailController, keyboardType: TextInputType.emailAddress),
+            _buildTextField("Phone Number", _phoneNumberController,
+                keyboardType: TextInputType.phone),
+            _buildTextField("Email", _emailController,
+                keyboardType: TextInputType.emailAddress),
             _buildGenderDropdown(),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             _buildPaymentMethodsCheckboxes(),
           ],
         ),
@@ -85,7 +92,8 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  Widget _buildTextField(String label, TextEditingController controller, {TextInputType? keyboardType}) {
+  Widget _buildTextField(String label, TextEditingController controller,
+      {TextInputType? keyboardType}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -94,7 +102,7 @@ class _SettingsPageState extends State<SettingsPage> {
           controller: controller,
           keyboardType: keyboardType,
         ),
-        Divider(),
+        const Divider(),
       ],
     );
   }
@@ -103,14 +111,14 @@ class _SettingsPageState extends State<SettingsPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Gender'),
+        const Text('Gender'),
         DropdownButtonFormField<String>(
           value: _selectedGender,
           items: ['Male', 'Female', 'Other']
               .map((gender) => DropdownMenuItem<String>(
-            value: gender,
-            child: Text(gender),
-          ))
+                    value: gender,
+                    child: Text(gender),
+                  ))
               .toList(),
           onChanged: (value) {
             setState(() {
@@ -118,7 +126,7 @@ class _SettingsPageState extends State<SettingsPage> {
             });
           },
         ),
-        Divider(),
+        const Divider(),
       ],
     );
   }
@@ -127,36 +135,60 @@ class _SettingsPageState extends State<SettingsPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Preferred Payment Methods'),
+        const Text('Preferred Payment Methods'),
         CheckboxListTile(
-          title: Text('Paynow'),
+          title: const Text('Paynow'),
           value: _preferredPaymentMethods.contains('Paynow'),
           onChanged: (bool? value) {
             _updatePaymentMethods('Paynow', value ?? false);
           },
         ),
         CheckboxListTile(
-          title: Text('PayLah!'),
+          title: const Text('PayLah!'),
           value: _preferredPaymentMethods.contains('PayLah!'),
           onChanged: (bool? value) {
             _updatePaymentMethods('PayLah!', value ?? false);
           },
         ),
         CheckboxListTile(
-          title: Text('Cash'),
+          title: const Text('Cash'),
           value: _preferredPaymentMethods.contains('Cash'),
           onChanged: (bool? value) {
             _updatePaymentMethods('Cash', value ?? false);
           },
         ),
         CheckboxListTile(
-          title: Text('Bank Transfer'),
+          title: const Text('Bank Transfer'),
           value: _preferredPaymentMethods.contains('Bank Transfer'),
           onChanged: (bool? value) {
             _updatePaymentMethods('Bank Transfer', value ?? false);
           },
         ),
+        ElevatedButton(
+          onPressed: () {
+            logOut(context);
+          },
+          style: ElevatedButton.styleFrom(
+            primary: Colors.white, // Change this color to the desired one
+          ),
+          child: const Text('Log Out'),
+        )
       ],
+    );
+  }
+
+  void logOut(BuildContext context) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove('token');
+    print("LOGGING OUT");
+    await navigateToLoginPage(context);
+  }
+
+  Future navigateToLoginPage(BuildContext context) async {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => const LoginPage(),
+      ),
     );
   }
 

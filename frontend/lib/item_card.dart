@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -31,7 +30,7 @@ class ItemCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            height: 180,
+            height: 175,
             width: MediaQuery.of(context).size.width,
             decoration: const BoxDecoration(
               color: Colors.white,
@@ -46,10 +45,8 @@ class ItemCard extends StatelessWidget {
                 topRight: Radius.circular(16),
               ),
               child: FittedBox(
-                fit:BoxFit.fill,
-                  child:imageWidget != null
-                  ? imageWidget!
-                  : const Text(
+                fit:BoxFit.cover,
+                  child:imageWidget ?? const Text(
                 'Image will appear here',
                 style: TextStyle(color: Colors.black),
               ))
@@ -68,7 +65,7 @@ class ItemCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 1.0),
             child: Text(
               "\$${productResponse.getPrice}",
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.bold),
               textScaleFactor: 1.13,
             ),
           )

@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:frontend/models/interestmodel.dart';
 import 'homepage.dart';
+import 'package:frontend/pages/jwtTokenDecryptService.dart'; 
+
 
 import 'package:http/http.dart' as http;
 import 'package:frontend/main.dart';
@@ -181,8 +183,8 @@ class _CategorySelectionPageState extends State<CategorySelectionPage> {
               child: ElevatedButton(
                 onPressed: (){
                   if (selectedCategories.isNotEmpty){
-                  Interest interest = Interest.fromArray(userId, selectedCategories);
-                  insertInterest(userId, interest);
+                  Interest interest = Interest.fromArray(selectedCategories);
+                  insertInterest(interest);
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const Home()),
@@ -198,8 +200,8 @@ class _CategorySelectionPageState extends State<CategorySelectionPage> {
 
                     
                   );
-                  Future.delayed(Duration(seconds: 3));
-                  ;}
+                  Future.delayed(const Duration(seconds: 3));
+}
                   else{
                     ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
@@ -245,9 +247,12 @@ class _CategorySelectionPageState extends State<CategorySelectionPage> {
 }
 
 //userId = 1 for testing purposes
-const userId = 1;
 
-Future<int> insertInterest(int userID, Interest interest) async {
+Future<int> insertInterest(Interest interest) async {
+  int? userID = 1 ; 
+  if (await JwtTokenDecryptService.hasValidToken()){ 
+    userID = await JwtTokenDecryptService.getID(); 
+  }
   final url = Uri.parse('$URL/user/addinterest'); // Replace with your server URL
   try {
     final response = await http.post(
@@ -261,9 +266,10 @@ Future<int> insertInterest(int userID, Interest interest) async {
         'category2': interest.getCategory2,
         'category3': interest.getCategory3,
         'category4': interest.getCategory4,
-        'category5': interest.getCategory4
+        'category5': interest.getCategory5
       }),
     );
+    print(response.body);
 
     if (response.statusCode == 200) {
         return 1;

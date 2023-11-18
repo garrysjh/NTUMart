@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,7 +7,7 @@ import 'package:frontend/widgets/snackbar.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-
+import 'package:frontend/pages/jwtTokenDecryptService.dart';
 import 'package:frontend/main.dart';
 import 'package:frontend/homepage.dart';
 
@@ -50,7 +49,7 @@ class _SignInState extends State<SignIn> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
-                child: Container(
+                child: SizedBox(
                   width: 300.0,
                   height: 190.0,
                   child: Column(
@@ -130,7 +129,7 @@ class _SignInState extends State<SignIn> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(top: 170.0),
+                margin: const EdgeInsets.only(top: 205.0),
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   boxShadow: <BoxShadow>[
@@ -194,31 +193,36 @@ class _SignInState extends State<SignIn> {
 
   //userId == 1 for has interest
   //userId == 2 for doesnt have interest
-  final userId = 2;
+  
   // move to customInterest if interest dont exist, 
   // move to home if interest exist
 
   void _toggleSignInButton() async {
     try {
+          int? userId; 
           int authenticated = await loginUser(
           loginUsernameController.text, loginPasswordController.text);
+          if (authenticated ==1){ 
+            userId = await JwtTokenDecryptService.getID(); 
+            print(userId);
+          }
           int hasInterest = await checkInterest(userId);
 
       if (authenticated == 1 && hasInterest == 1) {
-        CustomSnackBar(context, Text('Sign-in successful'));
-        await Future.delayed(Duration(seconds: 1));
+        CustomSnackBar(context, const Text('Sign-in successful'));
+        await Future.delayed(const Duration(seconds: 1));
         moveToHome();
       } else if (authenticated == 1 && hasInterest == 0) {
-        CustomSnackBar(context, Text('Sign-in successful'));
-        await Future.delayed(Duration(seconds: 1));
+        CustomSnackBar(context, const Text('Sign-in successful'));
+        await Future.delayed(const Duration(seconds: 1));
         moveToInterest();
       }
       else if (authenticated == 0) {
-        CustomSnackBar(context, Text('Wrong email/password'));
+        CustomSnackBar(context, const Text('Wrong email/password'));
       } else {
         CustomSnackBar(
             context,
-            Text(
+            const Text(
                 'Our servers are down at the moment. Please try again later. '));
       }
     } catch (e) {
@@ -245,8 +249,8 @@ class _SignInState extends State<SignIn> {
 }
 
 
-Future<int> checkInterest(int id) async{
-  final url = Uri.parse('$URL/user/$id/interest');
+Future<int> checkInterest(int? id) async{
+  final url = Uri.parse('$URL/user/interest/$id');
   try{
     final response = await http.get(
       url,
@@ -293,7 +297,7 @@ Future<int> loginUser(String username, String password) async {
       // Store the token in local storage (shared_preferences)
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setString('token', token);
-      print('Login successful. Token: ${token}');
+      print('Login successful. Token: $token');
       return 1;
     } else {
       // Request failed

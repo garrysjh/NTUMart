@@ -1,7 +1,11 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:frontend/product.dart';
-import 'package:frontend/pages/widgets/horizontal_view_listings.dart';
+import 'package:frontend/main.dart';
+import 'package:frontend/models/productresponsemodel.dart';
+import 'package:frontend/pages/widgets/vertical_view_listings.dart';
+import 'package:http/http.dart' as http;
 import 'package:frontend/pages/widgets/taskbar.dart';
+import 'dart:async';
 
 void main() {
   runApp(const Browse());
@@ -13,7 +17,7 @@ class Browse extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'BrowsePage',
       /*theme: ThemeData(
         colorScheme: const ColorScheme(
@@ -31,7 +35,7 @@ class Browse extends StatelessWidget {
         ),
         useMaterial3: true,
       ),*/
-      home: const BrowsePage(title: 'Home Page'),
+      home: BrowsePage(title: 'Home Page'),
     );
   }
 }
@@ -49,6 +53,7 @@ class BrowsePage extends StatefulWidget {
   // always marked "final".
 
   final String title;
+  
 
   @override
   State<BrowsePage> createState() => _BrowsePageState();
@@ -56,6 +61,8 @@ class BrowsePage extends StatefulWidget {
 
 //
 class _BrowsePageState extends State<BrowsePage> {
+
+    Future<List<ProductResponse>>? productsFuture;
 
   List<String> categories = [
     "Men's Fashion",
@@ -72,6 +79,8 @@ class _BrowsePageState extends State<BrowsePage> {
     'Health & Nutrition',
     // Add more categories as needed
   ];
+  final List<String> _results = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -153,20 +162,25 @@ class _BrowsePageState extends State<BrowsePage> {
                         padding: const MaterialStatePropertyAll<EdgeInsets>(
                             EdgeInsets.symmetric(horizontal: 16.0)),
                         elevation: null,
-                        onTap: () {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content:
-                              Text("browse page navigation coming soon!"),
-                              duration: Duration(milliseconds: 1500),
-                              behavior: SnackBarBehavior.floating,
-                            ),
-                          );
+                        // onTap: () {
+                        //   ScaffoldMessenger.of(context).showSnackBar(
+                        //     const SnackBar(
+                        //       content:
+                        //       Text("browse page navigation coming soon!"),
+                        //       duration: Duration(milliseconds: 1500),
+                        //       behavior: SnackBarBehavior.floating,
+                        //     ),
+                        //   );
+                        // },
+                        onSubmitted: (String searchTerm) {  // Search Bar taking Search Parameter
+                          print('Search Term: $searchTerm');
+                          productsFuture = searchListing(searchTerm);
                         },
+                        
                       ),
                     ), //Searchbar
 
-                    Container(
+                    SizedBox(
                       height: MediaQuery.of(context).size.height * .68,
                       child: SingleChildScrollView( //makes everything below searchbar scrollable
                         child: Column(
@@ -188,6 +202,7 @@ class _BrowsePageState extends State<BrowsePage> {
                                 ],
                               ),
                             ), //AllCat text
+
 
                              Container(
                                padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -238,13 +253,14 @@ class _BrowsePageState extends State<BrowsePage> {
 
                             ), //Categories
 
+
                             const Padding(
                               padding: EdgeInsets.only(left:15.0),
                               child: Row(
                                 children: [
                                   SizedBox(
                                       height:40,
-                                      child: Text('From People You Follow',
+                                      child: Text('Search Results',
                                         style: TextStyle(
                                           fontSize: 22,
                                           fontWeight: FontWeight.w600,
@@ -259,38 +275,71 @@ class _BrowsePageState extends State<BrowsePage> {
                             Container(
                               padding: const EdgeInsets.only(left:20, right:20),
                               height: 235,
-                              child: HorizontalViewListings(products: products),
-                            ),
-
-                            const Padding(
-                              padding: EdgeInsets.only(left:15.0),
-                              child: Row(
-                                children: [
-                                  SizedBox(
-                                      height:40,
-                                      child: Text('Recent History',
-                                        style: TextStyle(
-                                          fontSize: 22,
-                                          fontWeight: FontWeight.w600,
-                                          color: Color(0xFF5C795B),),
-                                        maxLines: 1,
-                                      )
-                                  ),
-                                ],
+                              //Use FutureBuilder to handle asynchronous operation
+                              child: FutureBuilder<List<ProductResponse>>(
+                                future: productsFuture,
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState == ConnectionState.waiting) {
+                                    return const CircularProgressIndicator();
+                                  } else if (snapshot.hasError) {
+                                    return Text('Snapshot Error: ${snapshot.error}');
+                                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                                    return const Text('No data available');
+                                  } else {
+                                    return VerticalViewListings(products: snapshot.data!);
+                                  }
+                                },
                               ),
-                            ), //Recent Hist
-
-                            Container(
-                              padding: const EdgeInsets.only(left:20, right:20),
-                              height: 235,
-                              child: HorizontalViewListings(products: products),
                             ),
+
+
+                            // const Padding(
+                            //   padding: EdgeInsets.only(left:15.0),
+                            //   child: Row(
+                            //     children: [
+                            //       SizedBox(
+                            //           height:40,
+                            //           child: Text('Recent History',
+                            //             style: TextStyle(
+                            //               fontSize: 22,
+                            //               fontWeight: FontWeight.w600,
+                            //               color: Color(0xFF5C795B),),
+                            //             maxLines: 1,
+                            //           )
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ), //Recent Hist
+
+                            // Container(
+                            //   padding: const EdgeInsets.only(left:20, right:20),
+                            //   height: 235,
+                            //   child: HorizontalViewListings(products: products),
+                            // ),
+                            
                           ],
                         ),
                       ),
                     ),
 
+
+                    // // Use FutureBuilder to handle asynchronous operation
+                    //         FutureBuilder<List<ProductResponse>>(
+                    //           future: productsFuture,
+                    //           builder: (context, snapshot) {
+                    //             if (snapshot.connectionState == ConnectionState.waiting) {
+                    //               return CircularProgressIndicator();
+                    //             } else if (snapshot.hasError) {
+                    //               return Text('Snapshot Error: ${snapshot.error}');
+                    //             } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    //               return Text('No data available');
+                    //             } else {
+                    //               return VerticalViewListings(products: snapshot.data!);
+                    //             }
+                    //           },
+                    //         ),
                   ],
+
                 ),
           ),
           const Spacer(),
@@ -303,5 +352,56 @@ class _BrowsePageState extends State<BrowsePage> {
         ],
       ),
     );
+  }
+
+  // // Handle Search
+  // void _handleSearch(String searchTerm){
+      
+  // }
+
+//  @override
+//     void initState() {
+//     // super.initState();
+//     productsFuture = searchListing();
+//   }
+
+// void moveToHome() {
+//     Navigator.push(
+//         context, MaterialPageRoute(builder: (context) => const Home()));
+//   }
+}
+
+Future<List<ProductResponse>> searchListing(String searchTerm) async{
+  final url = Uri.parse('$URL/product/listing?searchTerm=$searchTerm');
+  try{
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: json.encode({}),
+    );
+    if (response.statusCode == 200) {
+      final jsonResponse = jsonDecode(response.body);
+        print("jsonResponse: ");
+        print(jsonResponse.runtimeType);
+        print("Type of item in jsonresponse: ");
+        print(jsonResponse[0].runtimeType);
+        List<ProductResponse> products = [];
+        for (var item in jsonResponse) {
+          final product = ProductResponse.fromMap(item);
+          print("Item: ");
+          print(item);
+          products.add(product);
+        }
+        return products;
+    } else {
+      // Request failed
+      print('Failed to load products. Status code: ${response.statusCode}');
+      throw Exception('Failed to load products: ${response.statusCode}');
+    }
+  } catch (e) {
+    print('Error: $e');
+      throw Exception('Failed to load products: $e');
   }
 }

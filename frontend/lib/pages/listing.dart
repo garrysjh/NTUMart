@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/models/listingmodel.dart';
-import 'package:frontend/pages/camera.dart';
-import 'package:frontend/pages/item_screen.dart';
-import 'package:frontend/pages/item.dart';
 import 'package:frontend/pages/widgets/taskbar.dart';
 import 'package:frontend/main.dart';
 import 'package:http/http.dart' as http;
 
-import 'dart:io';
 
 //this code is to test and run pages from the page itself
 void main() {
-  runApp(ListingsTest());
+  runApp(const ListingsTest());
 }
 
 class ListingsTest extends StatelessWidget {
+  const ListingsTest({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: Listings());
+    return const MaterialApp(home: Listings());
   }
 }
 
@@ -29,6 +27,8 @@ Future<List<Listing>> fetchListings() async {
 }
 
 class Listings extends StatefulWidget {
+  const Listings({super.key});
+
   @override
   _ListingsState createState() => _ListingsState();
 }
@@ -58,11 +58,11 @@ class _ListingsState extends State<Listings> {
                 future: fetchListings(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else if (!snapshot.hasData || snapshot.data.isEmpty) {
-                    return Text('No data available.');
+                    return const Text('No data available.');
                   } else {
                     List<Listing> allListings = snapshot.data;
                     List<Widget> listingWidgets = [];
