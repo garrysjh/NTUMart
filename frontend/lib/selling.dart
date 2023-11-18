@@ -400,7 +400,7 @@ class _CreateListingPageState extends State<CreateListingPage> {
                 ),
                 child: DropdownButton(
                   hint: Text(
-                      "Select Items:",
+                      "Condition:",
                       style: TextStyle(
                         color: Color(0xFF5C795B),
                       ),
