@@ -664,7 +664,7 @@ void _showDialog(BuildContext context) {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Text('Close'),
+            child: const Text('Close'),
           ),
         ],
       );
@@ -678,13 +678,13 @@ class PriceInputPage extends StatefulWidget {
 }
 
 class _PriceInputPageState extends State<PriceInputPage> {
-  TextEditingController _priceController = TextEditingController();
+  final TextEditingController _priceController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Enter Price'),
+        title: const Text('Enter Price'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -692,11 +692,11 @@ class _PriceInputPageState extends State<PriceInputPage> {
           //mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TextFormField(
-              decoration: InputDecoration(labelText: 'Price'),
+              decoration: const InputDecoration(labelText: 'Price'),
               keyboardType: TextInputType.number,
               controller: _priceController,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 double? price = double.tryParse(_priceController.text);
@@ -704,11 +704,11 @@ class _PriceInputPageState extends State<PriceInputPage> {
                     price); // Return the entered price to the previous page
               },
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFF5C795B), // Change the button color
+                primary: const Color(0xFF5C795B), // Change the button color
               ),
-              child: Text(
+              child: const Text(
                 'Save',
-                style: TextStyle(
+                style:  TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.white), // Bold text
               ),

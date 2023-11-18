@@ -35,12 +35,12 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _firstNameController = TextEditingController();
-  TextEditingController _lastNameController = TextEditingController();
-  TextEditingController _interestsController = TextEditingController();
-  TextEditingController _phoneNumberController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _interestsController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   String _selectedGender = 'Male'; // Default gender
   List<String> _preferredPaymentMethods = [];
 
@@ -48,10 +48,10 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
+        title: const Text('Settings'),
         actions: [
           IconButton(
-            icon: Icon(Icons.done),
+            icon:  const Icon(Icons.done),
             onPressed: () {
               Navigator.push(
                 context,
@@ -67,7 +67,7 @@ class _SettingsPageState extends State<SettingsPage> {
         padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: <Widget>[
-            UserAccountsDrawerHeader(
+            const UserAccountsDrawerHeader(
               accountName: Text("Keegan"),
               accountEmail: Text("@kiwigan"),
               currentAccountPicture: CircleAvatar(
@@ -84,7 +84,7 @@ class _SettingsPageState extends State<SettingsPage> {
             _buildTextField("Email", _emailController,
                 keyboardType: TextInputType.emailAddress),
             _buildGenderDropdown(),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             _buildPaymentMethodsCheckboxes(),
           ],
         ),
@@ -102,7 +102,7 @@ class _SettingsPageState extends State<SettingsPage> {
           controller: controller,
           keyboardType: keyboardType,
         ),
-        Divider(),
+        const Divider(),
       ],
     );
   }
@@ -111,7 +111,7 @@ class _SettingsPageState extends State<SettingsPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Gender'),
+        const Text('Gender'),
         DropdownButtonFormField<String>(
           value: _selectedGender,
           items: ['Male', 'Female', 'Other']
@@ -126,7 +126,7 @@ class _SettingsPageState extends State<SettingsPage> {
             });
           },
         ),
-        Divider(),
+        const Divider(),
       ],
     );
   }
@@ -135,30 +135,30 @@ class _SettingsPageState extends State<SettingsPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Preferred Payment Methods'),
+        const Text('Preferred Payment Methods'),
         CheckboxListTile(
-          title: Text('Paynow'),
+          title: const Text('Paynow'),
           value: _preferredPaymentMethods.contains('Paynow'),
           onChanged: (bool? value) {
             _updatePaymentMethods('Paynow', value ?? false);
           },
         ),
         CheckboxListTile(
-          title: Text('PayLah!'),
+          title: const Text('PayLah!'),
           value: _preferredPaymentMethods.contains('PayLah!'),
           onChanged: (bool? value) {
             _updatePaymentMethods('PayLah!', value ?? false);
           },
         ),
         CheckboxListTile(
-          title: Text('Cash'),
+          title: const Text('Cash'),
           value: _preferredPaymentMethods.contains('Cash'),
           onChanged: (bool? value) {
             _updatePaymentMethods('Cash', value ?? false);
           },
         ),
         CheckboxListTile(
-          title: Text('Bank Transfer'),
+          title: const Text('Bank Transfer'),
           value: _preferredPaymentMethods.contains('Bank Transfer'),
           onChanged: (bool? value) {
             _updatePaymentMethods('Bank Transfer', value ?? false);
@@ -171,7 +171,7 @@ class _SettingsPageState extends State<SettingsPage> {
           style: ElevatedButton.styleFrom(
             primary: Colors.white, // Change this color to the desired one
           ),
-          child: Text('Log Out'),
+          child: const Text('Log Out'),
         )
       ],
     );
