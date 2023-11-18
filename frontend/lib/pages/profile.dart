@@ -8,9 +8,10 @@ import 'dart:convert';
 import 'package:frontend/main.dart';
 import 'package:http/http.dart' as http;
 
-void main() => runApp(MaterialApp(home: ProfileScreen()));
+void main() => runApp(const MaterialApp(home: ProfileScreen()));
 
 class ProfileScreen extends StatefulWidget {
+  @override
   _ProfileState createState() => _ProfileState();
 
   const ProfileScreen({super.key});
@@ -76,7 +77,6 @@ class _ProfileState extends State<ProfileScreen> {
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                   return const Text('No data available');
                 } else {
-                  print("HELLO WORLD"); 
                   return Expanded(
                     child: VerticalViewListings(products: snapshot.data!),
                   );
@@ -84,18 +84,13 @@ class _ProfileState extends State<ProfileScreen> {
                 }
               },
             ); 
-    return Scaffold(
+    return Scaffold(bottomNavigationBar: const Taskbar(), 
         backgroundColor: const Color(0xFFFFFFFF),
         body: Stack(
           children: <Widget>[
            
             Body(verticalView: products),
-            const Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Taskbar(),
-            ),
+            
             
           ],
         ));

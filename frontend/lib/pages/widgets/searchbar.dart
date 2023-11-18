@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/showall.dart';
 import 'package:frontend/pages/profile.dart';
 import 'package:frontend/homepage.dart';
 import 'package:frontend/selling.dart';
@@ -16,8 +15,8 @@ class Searchbar extends StatefulWidget {
       initialRoute: '/',
       routes:{
         '/profile': (context) => const ProfileScreen(),
-        '/home': (context) => Home(),
-        '/sell': (context) => Sell()
+        '/home': (context) => const Home(),
+        '/sell': (context) => const Sell()
       }
     );
   }

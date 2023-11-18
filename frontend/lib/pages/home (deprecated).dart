@@ -5,9 +5,11 @@ import 'package:frontend/pages/listing.dart';
 import 'package:frontend/pages/widgets/taskbar.dart';
 
 //this code is to test and run pages from the page itself
-void main() => runApp(HomeTest());
+void main() => runApp(const HomeTest());
 
 class HomeTest extends StatelessWidget {
+  const HomeTest({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(home: Home());
@@ -36,7 +38,7 @@ class Home extends StatelessWidget {
         ListView(children: <Widget>[
           ElevatedButton.icon(
             icon: const Icon(Icons.group),
-            label: Text('ItemScreen Test'),
+            label: const Text('ItemScreen Test'),
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
@@ -47,7 +49,7 @@ class Home extends StatelessWidget {
           ),
           ElevatedButton.icon(
             icon: const Icon(Icons.camera),
-            label: Text('Camera Test'),
+            label: const Text('Camera Test'),
             onPressed: () async {
               WidgetsFlutterBinding.ensureInitialized();
               await CameraManager.instance.init();
@@ -60,11 +62,11 @@ class Home extends StatelessWidget {
           ),
           ElevatedButton.icon(
             icon: const Icon(Icons.propane_rounded),
-            label: Text('Product Listings Test'),
+            label: const Text('Product Listings Test'),
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => Listings(),
+                  builder: (context) => const Listings(),
                 ),
               );
             },

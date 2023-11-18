@@ -42,15 +42,15 @@ class Listing {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['productId'] = this.productId;
-    data['sellerId'] = this.sellerId;
-    data['name'] = this.name;
-    data['description'] = this.description;
-    data['price'] = this.price;
-    data['quantity'] = this.quantity;
-    data['productPic'] = this.productPic;
-    data['category'] = this.category;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['productId'] = productId;
+    data['sellerId'] = sellerId;
+    data['name'] = name;
+    data['description'] = description;
+    data['price'] = price;
+    data['quantity'] = quantity;
+    data['productPic'] = productPic;
+    data['category'] = category;
     return data;
   }
 }

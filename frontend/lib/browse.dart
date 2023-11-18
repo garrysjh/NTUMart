@@ -1,14 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:frontend/main.dart';
-import 'package:frontend/body.dart';
 import 'package:frontend/models/productresponsemodel.dart';
 import 'package:frontend/pages/widgets/vertical_view_listings.dart';
 import 'package:http/http.dart' as http;
-import 'package:frontend/product.dart';
-import 'package:frontend/pages/widgets/horizontal_view_listings.dart';
 import 'package:frontend/pages/widgets/taskbar.dart';
-import 'package:frontend/homepage.dart';
 import 'dart:async';
 
 void main() {
@@ -39,7 +35,7 @@ class Browse extends StatelessWidget {
         ),
         useMaterial3: true,
       ),*/
-      home: const BrowsePage(title: 'Home Page'),
+      home: BrowsePage(title: 'Home Page'),
     );
   }
 }
@@ -184,7 +180,7 @@ class _BrowsePageState extends State<BrowsePage> {
                       ),
                     ), //Searchbar
 
-                    Container(
+                    SizedBox(
                       height: MediaQuery.of(context).size.height * .68,
                       child: SingleChildScrollView( //makes everything below searchbar scrollable
                         child: Column(
@@ -284,11 +280,11 @@ class _BrowsePageState extends State<BrowsePage> {
                                 future: productsFuture,
                                 builder: (context, snapshot) {
                                   if (snapshot.connectionState == ConnectionState.waiting) {
-                                    return CircularProgressIndicator();
+                                    return const CircularProgressIndicator();
                                   } else if (snapshot.hasError) {
                                     return Text('Snapshot Error: ${snapshot.error}');
                                   } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                                    return Text('No data available');
+                                    return const Text('No data available');
                                   } else {
                                     return VerticalViewListings(products: snapshot.data!);
                                   }

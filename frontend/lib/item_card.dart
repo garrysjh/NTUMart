@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -47,9 +46,7 @@ class ItemCard extends StatelessWidget {
               ),
               child: FittedBox(
                 fit:BoxFit.cover,
-                  child:imageWidget != null
-                  ? imageWidget!
-                  : const Text(
+                  child:imageWidget ?? const Text(
                 'Image will appear here',
                 style: TextStyle(color: Colors.black),
               ))
@@ -68,7 +65,7 @@ class ItemCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 1.0),
             child: Text(
               "\$${productResponse.getPrice}",
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.bold),
               textScaleFactor: 1.13,
             ),
           )

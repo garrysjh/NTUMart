@@ -20,7 +20,7 @@ class  categorymapping {
   }
 
 
-  categorymapping(){ }
+  categorymapping();
 
 }
 
