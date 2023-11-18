@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
       initialRoute: initScreen == 0 || initScreen == null ? "first" : "/",
       routes: {
         '/': (context) => LoginPage(),
-        "first": (context) => LoginPage(), //change to onboarding screen
+        "first": (context) => OnBoardingScreen(), //change to onboarding screen
       },
     );
   }

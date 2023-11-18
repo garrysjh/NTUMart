@@ -47,7 +47,7 @@ class OnBoardingScreen extends StatelessWidget {
           onSurface: Color(0xFF5C795B),
         ),
       ),
-      home: const OnBoardingScreenPage(title: 'Category Selection Page'),
+      home: const OnBoardingScreenPage(title: 'Onboarding Screen Page'),
     );
   }
 }
@@ -63,14 +63,27 @@ class OnBoardingScreenPage extends StatefulWidget {
 class OnBoardingScreenPageState extends State<OnBoardingScreenPage> {
   late Material materialButton;
   late int index;
+  static const subtextStyle = TextStyle(
+    color: Color(0xFF5D7395),
+    letterSpacing: 0.7,
+    fontSize: 20.0,
+    fontWeight: FontWeight.w400,
+  );
+  static const maintextStyle = TextStyle(
+    color: Color(0xFF5C795B),
+      fontSize: 26.0,
+      wordSpacing: 1,
+      letterSpacing: 1.2,
+      fontWeight: FontWeight.bold,
+  );
   final onboardingPagesList = [
     PageModel(
       widget: DecoratedBox(
         decoration: BoxDecoration(
-          color: background,
+          color: const Color(0xFFF9F9F9),
           border: Border.all(
             width: 0.0,
-            color: background,
+            color: const Color(0xFFF9F9F9),
           ),
         ),
         child: SingleChildScrollView(
@@ -82,16 +95,15 @@ class OnBoardingScreenPageState extends State<OnBoardingScreenPage> {
                   horizontal: 45.0,
                   vertical: 90.0,
                 ),
-                child: Image.asset('assets/images/facebook.png',
-                    color: pageImageColor),
+                child: Image.asset('assets/img/ntumart_logo.png',),
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 45.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    'SECURED BACKUP',
-                    style: pageTitleStyle,
+                    'A MARKETPLACE APP',
+                    style: maintextStyle,
                     textAlign: TextAlign.left,
                   ),
                 ),
@@ -101,8 +113,8 @@ class OnBoardingScreenPageState extends State<OnBoardingScreenPage> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    'Keep your files in closed safe so you can\'t lose them. Consider TrueNAS.',
-                    style: pageInfoStyle,
+                    'by NTU students,\nfor NTU students',
+                    style: subtextStyle,
                     textAlign: TextAlign.left,
                   ),
                 ),
@@ -115,10 +127,10 @@ class OnBoardingScreenPageState extends State<OnBoardingScreenPage> {
     PageModel(
       widget: DecoratedBox(
         decoration: BoxDecoration(
-          color: background,
+          color: const Color(0xFFF9F9F9),
           border: Border.all(
             width: 0.0,
-            color: background,
+            color: const Color(0xFFF9F9F9),
           ),
         ),
         child: SingleChildScrollView(
@@ -130,16 +142,15 @@ class OnBoardingScreenPageState extends State<OnBoardingScreenPage> {
                   horizontal: 45.0,
                   vertical: 90.0,
                 ),
-                child: Image.asset('assets/images/twitter.png',
-                    color: pageImageColor),
+                child: Image.asset('assets/img/ntumart_logo.png'),
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 45.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    'CHANGE AND RISE',
-                    style: pageTitleStyle,
+                    'BUY, SELL, CONNECT',
+                    style: maintextStyle,
                     textAlign: TextAlign.left,
                   ),
                 ),
@@ -149,8 +160,8 @@ class OnBoardingScreenPageState extends State<OnBoardingScreenPage> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    'Give others access to any file or folders you choose',
-                    style: pageInfoStyle,
+                    'Snag great swag, \nClear out clutter,\nBuild connections',
+                    style: subtextStyle,
                     textAlign: TextAlign.left,
                   ),
                 ),
@@ -163,10 +174,10 @@ class OnBoardingScreenPageState extends State<OnBoardingScreenPage> {
     PageModel(
       widget: DecoratedBox(
         decoration: BoxDecoration(
-          color: background,
+          color: const Color(0xFFF9F9F9),
           border: Border.all(
             width: 0.0,
-            color: background,
+            color: const Color(0xFFF9F9F9),
           ),
         ),
         child: SingleChildScrollView(
@@ -178,16 +189,15 @@ class OnBoardingScreenPageState extends State<OnBoardingScreenPage> {
                   horizontal: 45.0,
                   vertical: 90.0,
                 ),
-                child: Image.asset('assets/images/instagram.png',
-                    color: pageImageColor),
+                child: Image.asset('assets/img/ntumart_logo.png'),
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 45.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    'EASY ACCESS',
-                    style: pageTitleStyle,
+                    'NTUMART',
+                    style: maintextStyle,
                     textAlign: TextAlign.left,
                   ),
                 ),
@@ -197,8 +207,8 @@ class OnBoardingScreenPageState extends State<OnBoardingScreenPage> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    'Reach your files anytime from any devices anywhere',
-                    style: pageInfoStyle,
+                    "Fuss-free, quick, & safe\nThat's us, that's NTUMart",
+                    style: subtextStyle,
                     textAlign: TextAlign.left,
                   ),
                 ),
@@ -230,10 +240,15 @@ class OnBoardingScreenPageState extends State<OnBoardingScreenPage> {
           }
         },
         child: const Padding(
-          padding: defaultSkipButtonPadding,
+          padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
           child: Text(
             'Next',
-            style: defaultSkipButtonTextStyle,
+            style: TextStyle(
+              color: Color(0xFFEAEAEA),
+              letterSpacing: 1.0,
+              fontSize: 18.0,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
       ),
@@ -243,15 +258,23 @@ class OnBoardingScreenPageState extends State<OnBoardingScreenPage> {
   Material get _signupButton {
     return Material(
       borderRadius: defaultProceedButtonBorderRadius,
-      color: const Color(0xFF5C795B),
+      color: const Color(0xFF5D7395),
       child: InkWell(
-        borderRadius: defaultProceedButtonBorderRadius,
-        onTap: () {},
+        borderRadius: const BorderRadius.all(Radius.circular(15.0)),
+        onTap: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => LoginPage()));
+        },
         child: const Padding(
-          padding: defaultProceedButtonPadding,
+          padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
           child: Text(
             'Get Started',
-            style: defaultProceedButtonTextStyle,
+            style: TextStyle(
+              color: Color(0xFFEAEAEA),
+              letterSpacing: 1.0,
+              fontSize: 18.0,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
       ),
@@ -284,7 +307,7 @@ class OnBoardingScreenPageState extends State<OnBoardingScreenPage> {
                 ),
               ),
               child: ColoredBox(
-                color: background,
+                color: const Color(0xFF5C795B),
                 child: Padding(
                   padding: const EdgeInsets.all(45.0),
                   child: Row(
