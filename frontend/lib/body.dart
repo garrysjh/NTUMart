@@ -107,7 +107,7 @@ void navigateToSettings(BuildContext context) {
   Navigator.push(
     context,
     MaterialPageRoute(
-      builder: (context) => const SettingsPageWidget(), // Replace SettingsPage with your actual settings page widget
+      builder: (context) =>  SettingsPageWidget(), // Replace SettingsPage with your actual settings page widget
     ),
   );
 }
