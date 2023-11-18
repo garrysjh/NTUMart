@@ -9,7 +9,6 @@ import com.ntumart.dipapp.models.Product;
 import com.ntumart.dipapp.models.ProductResponse;
 import java.io.IOException;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,14 +39,14 @@ public class ProductApiController {
                     productPicture2 != null ? productPicture2 : new MockMultipartFile("empty", new byte[0]),
                     productPicture3 != null ? productPicture3 : new MockMultipartFile("empty", new byte[0]),
                     productPicture4 != null ? productPicture4 : new MockMultipartFile("empty", new byte[0]));
-            return ResponseEntity.ok("Product Successfully");
+            return ResponseEntity.ok("Product Uploaded Successfully");
         } catch (EmptyFileException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("File is empty");
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error uploading the file");
         }
     }
-
+    
     @GetMapping("/{productID}")
     public ResponseEntity<ProductResponse> getProductById(@PathVariable int productID) throws ProductNotFoundException {
         Product product = productService.getProductById(productID);
@@ -99,5 +98,5 @@ public class ProductApiController {
     public ResponseEntity<List<Product>> findCategory(@RequestParam List<String> category) {
         List<Product> matching = productService.findCategory(category);
         return ResponseEntity.ok(matching);
-    }
+    } 
 }
