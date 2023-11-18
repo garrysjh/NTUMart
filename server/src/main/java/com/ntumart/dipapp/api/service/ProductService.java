@@ -30,6 +30,7 @@ public class ProductService {
 
     public void addProduct(Product product, ProductDTO productDTO, MultipartFile productPicture, MultipartFile productPicture2,
                            MultipartFile productPicture3, MultipartFile productPicture4) throws IOException, EmptyFileException {
+        System.out.println("ADDDING PRODUCT"); 
         try {
             if (!isEmpty(productPicture)) {
                 saveProductPicture(product, productPicture);
