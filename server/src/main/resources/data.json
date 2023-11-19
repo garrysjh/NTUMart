@@ -256,6 +256,19 @@
      "category": "Services"
     },
 
+    {
+     "_class": "com.ntumart.dipapp.models.Product",
+     "productID": 13,
+     "sellerID": "4",
+     "name": "Waterbottle",
+     "description": "Waterbottle, unused out of the box. Selling because I have extra.",
+     "price": "12",
+     "quantity": "1" ,
+     "productPic": "images/uploads/13/product35.jpg" ,
+     "productLikes": "55",
+     "category": "Furniture"
+    },
+
    {
     "_class": "com.ntumart.dipapp.models.Interest",
     "interestID": 1,

@@ -1,3 +1,4 @@
+import 'package:frontend/arcore/arentry.dart';
 import 'package:frontend/main.dart';
 import 'package:frontend/models/productresponsemodel.dart';
 import 'package:frontend/widgets/taskbar.dart';
@@ -262,8 +263,43 @@ class _ItemDetailsScreenState extends State<ItemDetailsScreen> {
                 ),
 
                 const SizedBox(height: 5.0), //space between Google Map and "Contact seller" button
-
-
+              
+              Container(
+                  // margin: const EdgeInsets.all(right: 16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[ 
+                      Expanded(
+                        child: Container(), // Empty container to create spacing
+                      ),
+                      (product?.getProductId == 13) ? Expanded(
+                        flex: 2, // Adjust the flex value as needed
+                        child: SizedBox(
+                          height: 60, // Adjust the height as needed
+                          child: ElevatedButton(
+                            onPressed: () {
+                              // Handle contact seller button click
+                              Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const MyARApp()),
+  );
+            
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF5D7395), // Background color
+                            ),
+                            child: const Text(
+                              'AR View',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ),
+                        ),
+                      ): Container(), Expanded(child: Container()) 
+                      
+                    ],
+                  ),
+                ),
+              const SizedBox(height: 5.0),
                 // Contact seller button
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 16.0),
