@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/pages/jwtTokenDecryptService.dart';
 import 'package:frontend/settings.dart'; 
 
 
 class Body extends StatelessWidget {
   final FutureBuilder verticalView;
-  const Body({Key? key, required this.verticalView}) : super(key: key);
+  final String username; 
+  final String telegramHandle; 
+  const Body({Key? key, required this.username, required this.telegramHandle, required this.verticalView}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -31,8 +34,8 @@ class Body extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    const Text(
-                      'Keegan Lee', //Username
+                    Text(
+                     username, //Username
                       style: TextStyle(
                         letterSpacing: 2.0,
                         fontSize: 24.0,
@@ -48,14 +51,14 @@ class Body extends StatelessWidget {
                     ),
                   ],
                 ),
-                const Row(
+                Row(
                   children: <Widget>[
                     Icon(
                       Icons.telegram,
                       color: Colors.black54,
                     ),
                     Text(
-                      '@kiwigan', //Telegram
+                      "@$telegramHandle" , //Telegram
                       style: TextStyle(
                         letterSpacing: 2.0,
                       ),

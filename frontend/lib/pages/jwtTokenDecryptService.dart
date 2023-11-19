@@ -29,6 +29,19 @@ class JwtTokenDecryptService{
       return null;
     }
   }
+  static Future<String?> getTelegramHandle() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    if (token != null) {
+      Map<String, dynamic> decodedToken = Jwt.parseJwt(token);
+      String telegramHandle = decodedToken["telegramHandle"];
+      print("TELE" + telegramHandle); 
+      return telegramHandle;
+    } else {
+      return null;
+    }
+  }
 
   static Future<bool> hasValidToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
