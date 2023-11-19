@@ -184,11 +184,12 @@ class _CategorySelectionPageState extends State<CategorySelectionPage> {
                 onPressed: (){
                   if (selectedCategories.isNotEmpty){
                   Interest interest = Interest.fromArray(selectedCategories);
-                  insertInterest(interest);
-                  Navigator.push(
+                   insertInterest(interest).then((value) => {   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const Home()),
-                  );
+                  )}) ;
+                  
+                 
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text('Lets Go!'),
