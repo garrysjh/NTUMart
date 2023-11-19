@@ -13,14 +13,10 @@ void main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  initScreen = (await prefs.getInt("initScreen"))!;
-  await prefs.setInt("initScreen", 1);
-  print('initScreen ${initScreen}');
   if (await JwtTokenDecryptService.hasValidToken()) {
     runApp(const Home());
   }
-  else{ 
+  else{
     runApp(const MyApp());
   }
 }
@@ -33,12 +29,34 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'NTUMart',
-      initialRoute: initScreen == 0 || initScreen == null ? "first" : "/",
-      routes: {
-        '/': (context) => LoginPage(),
-        "first": (context) => OnBoardingScreen(), //change to onboarding screen
-      },
+      home: FutureBuilder(
+        future: checkFirstTime(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            // Check if it's the first time
+            if (snapshot.data == true) {
+              return OnBoardingScreen();
+            } else {
+              return LoginPage();
+            }
+          } else {
+            return CircularProgressIndicator(); // Loading indicator or splash screen
+          }
+        },
+      ),
     );
+  }
+
+  Future<bool> checkFirstTime() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool firstTime = prefs.getBool('firstTime') ?? true;
+
+    // If it's the first time, update the flag
+    if (firstTime) {
+      prefs.setBool('firstTime', false);
+    }
+
+    return firstTime;
   }
 }
 
