@@ -4,150 +4,174 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name="user")
+@Table(name = "user")
 @Data
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "userID")
-    private int userId;
-    @Column(unique = true, name = "username")
-    private String username;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "userID")
+  private int userId;
 
-    @Column(name="fullname")
-    private String fullname;
+  @Column(unique = true, name = "username")
+  private String username;
 
-    @Column(name="telegramHandle")
-    private String telegramHandle;
+  @Column(name = "fullname")
+  private String fullname;
 
-    @Column(unique = true, name="email")
-    private String email;
+  @Column(name = "telegramHandle")
+  private String telegramHandle;
 
-    @Column(unique = true, name="phone")
-    private String phone;
+  @Column(unique = true, name = "email")
+  private String email;
 
-    @Column(name="password")
-    private String password;
+  @Column(unique = true, name = "phone")
+  private String phone;
 
-    @Column(name="address")
-    private String address;
+  @Column(name = "password")
+  private String password;
 
-    @Column(name="profilePic")
-    private String profilePic;
+  @Column(name = "address")
+  private String address;
 
-    public User()
-    {
-        
-    }
+  @Column(name = "profilePic")
+  private String profilePic;
 
-    public User(int id, String username, String telegramHandle , String fullname, String email, String phone, String password, String address, String profilePic) {
-        this.telegramHandle = telegramHandle; 
-        this.userId = id;
-        this.username = username;
-        this.fullname = fullname;
-        this.email = email;
-        this.phone = phone;
-        this.password = password;
-        this.address = address;
-        this.profilePic = profilePic;
-    }
+  public User() {}
 
-//    public User(int id, String username, String fullname, String email, String phone, String password, String address) {
-//        this.userId = id;
-//        this.username = username;
-//        this.fullname = fullname;
-//        this.email = email;
-//        this.phone = phone;
-//        this.password = password;
-//        this.address = address;
-//        this.profilePic = "image/default.jpg";
-//    }
+  public User(
+      int id,
+      String username,
+      String telegramHandle,
+      String fullname,
+      String email,
+      String phone,
+      String password,
+      String address,
+      String profilePic) {
+    this.telegramHandle = telegramHandle;
+    this.userId = id;
+    this.username = username;
+    this.fullname = fullname;
+    this.email = email;
+    this.phone = phone;
+    this.password = password;
+    this.address = address;
+    this.profilePic = profilePic;
+  }
 
-    public int getId() {
-        return userId;
-    }
+  //    public User(int id, String username, String fullname, String email, String phone, String
+  // password, String address) {
+  //        this.userId = id;
+  //        this.username = username;
+  //        this.fullname = fullname;
+  //        this.email = email;
+  //        this.phone = phone;
+  //        this.password = password;
+  //        this.address = address;
+  //        this.profilePic = "image/default.jpg";
+  //    }
 
-    public void setId(int id) {
-        this.userId = id;
-    }
+  public int getId() {
+    return userId;
+  }
 
-    public String getUsername() {
-        return username;
-    }
+  public void setId(int id) {
+    this.userId = id;
+  }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  public String getUsername() {
+    return username;
+  }
 
-    public String getFullname() {
-        return fullname;
-    }
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
-    }
+  public String getFullname() {
+    return fullname;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public void setFullname(String fullname) {
+    this.fullname = fullname;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public String getPhone() {
-        return phone;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+  public String getPhone() {
+    return phone;
+  }
 
-    public String getTelegramHandle() {
-        return telegramHandle;
-    }
+  public void setPhone(String phone) {
+    this.phone = phone;
+  }
 
-    public void setTelegramHandle(String telegramHandle) {
-        this.telegramHandle = telegramHandle;
-    }
+  public String getTelegramHandle() {
+    return telegramHandle;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public void setTelegramHandle(String telegramHandle) {
+    this.telegramHandle = telegramHandle;
+  }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public String getPassword() {
+    return password;
+  }
 
-    public String getAddress() {
-        return address;
-    }
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+  public String getAddress() {
+    return address;
+  }
 
-    public String getProfilePic() {
-        return profilePic;
-    }
+  public void setAddress(String address) {
+    this.address = address;
+  }
 
-    public void setProfilePic(String profilePic) {
-        this.profilePic = profilePic;
-    }
+  public String getProfilePic() {
+    return profilePic;
+  }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + userId +
-                ", username='" + username + '\'' +
-                ", fullname='" + fullname + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", password='" + password + '\'' +
-                ", address='" + address + '\'' +
-                ", telegramHandle='" + telegramHandle + '\'' +
-                ", profilePic='" + profilePic + '\'' +
-                '}';
-    }
+  public void setProfilePic(String profilePic) {
+    this.profilePic = profilePic;
+  }
+
+  @Override
+  public String toString() {
+    return "User{"
+        + "id="
+        + userId
+        + ", username='"
+        + username
+        + '\''
+        + ", fullname='"
+        + fullname
+        + '\''
+        + ", email='"
+        + email
+        + '\''
+        + ", phone='"
+        + phone
+        + '\''
+        + ", password='"
+        + password
+        + '\''
+        + ", address='"
+        + address
+        + '\''
+        + ", telegramHandle='"
+        + telegramHandle
+        + '\''
+        + ", profilePic='"
+        + profilePic
+        + '\''
+        + '}';
+  }
 }
-

@@ -9,17 +9,13 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public interface ProfUploadRepository extends JpaRepository<User, Integer>{
-    
-    @Transactional
-    @Modifying
+public interface ProfUploadRepository extends JpaRepository<User, Integer> {
 
+  @Transactional
+  @Modifying
+  @Query(value = "SELECT * FROM USER WHERE userId = :userId", nativeQuery = true)
+  int findUser(@Param("userId") Integer userId);
 
-    @Query(value = "SELECT * FROM USER WHERE userId = :userId", nativeQuery = true)
-    int findUser(@Param("userId") Integer userId);
-
-    @Query(value = "UPDATE user SET profile_pic = :profilePic", nativeQuery = true)
-    int updateProfilePicByUsername(@Param("profilePic") String profilePic);
-
-
+  @Query(value = "UPDATE user SET profile_pic = :profilePic", nativeQuery = true)
+  int updateProfilePicByUsername(@Param("profilePic") String profilePic);
 }

@@ -1,37 +1,37 @@
 package com.ntumart.dipapp.models;
 
 public class FileData {
-    private String fileName;
-    private String fileType;
-    private byte[] content;
+  private String fileName;
+  private String fileType;
+  private byte[] content;
 
-    public FileData(String fileName, String fileType, byte[] content) {
-        this.fileName = fileName;
-        this.fileType = fileType;
-        this.content = content;
-    }
-    
-    public String getFileName() {
-        return fileName;
-    }
+  public FileData(String fileName, String fileType, byte[] content) {
+    this.fileName = fileName;
+    this.fileType = fileType;
+    this.content = content;
+  }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
+  public String getFileName() {
+    return fileName;
+  }
 
-    public String getFileType() {
-        return fileType;
-    }
+  public void setFileName(String fileName) {
+    this.fileName = fileName;
+  }
 
-    public void setFileType(String fileType) {
-        this.fileType = fileType;
-    }
+  public String getFileType() {
+    return fileType;
+  }
 
-    public byte[] getContent() {
-        return content;
-    }
+  public void setFileType(String fileType) {
+    this.fileType = fileType;
+  }
 
-    public void setContent(byte[] content) {
-        this.content = content;
-    }
+  public byte[] getContent() {
+    return content;
+  }
+
+  public void setContent(byte[] content) {
+    this.content = content;
+  }
 }
