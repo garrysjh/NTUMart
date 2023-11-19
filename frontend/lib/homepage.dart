@@ -55,10 +55,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<String> selectedCategories = [
     "Men's Fashion",
-    "Women's Fashion",
     'Footwear',
     'Electronics',
-    'Services',
     'Books & Notes',
     'Personal Care',
   ]; //placeholder selected categories
@@ -175,13 +173,14 @@ class _HomePageState extends State<HomePage> {
                   right: 10.0,
                 ),
                 child: SizedBox(
-                  height: MediaQuery.of(context).size.height * .935,
+                  height: MediaQuery.of(context).size.height * .930,
                   child: Column(
                     children: [
                       SizedBox(
                           height: MediaQuery.of(context).size.height * .05),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
                             const Spacer(),
                             const SizedBox(
@@ -194,12 +193,13 @@ class _HomePageState extends State<HomePage> {
                             ),
                             const FittedBox(
                                 fit: BoxFit.fitWidth,
-                                child: Text(' NTU Mart ',
+                                child: Text(' NTUMart ',
                                     style: TextStyle(
-                                      fontSize: 25,
+                                      fontSize: 28,
                                       fontWeight: FontWeight.w700,
                                       color: Color(0xFF5C795B),
-                                    ))),
+                                    ),
+                                )),
                             const Spacer(),
                             ElevatedButton(
                               onPressed: () {
@@ -225,6 +225,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                               child: Image.asset(
                                 'assets/img/chatbot_icon.png',
+                                color: const Color(0xFF5D7395),
                                 fit: BoxFit.fill,
 
 //                               );
