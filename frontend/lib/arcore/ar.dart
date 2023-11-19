@@ -118,7 +118,7 @@ class _LocalAndWebObjectsViewState extends State<LocalAndWebObjectsView> {
       var newNode = ARNode(
           type: NodeType.webGLB,
           uri:
-              "https://github.com/KhronosGroup/glTF-Sample-Models/tree/master/2.0/WaterBottle/glTF-Binary/WaterBottle.glb",
+              "https://github.com/KhronosGroup/glTF-Sample-Models/raw/5ede04e86190c402a6f8a383bad13b182d1205a0/2.0/WaterBottle/glTF-Binary/WaterBottle.glb",
           scale: Vector3(0.2, 0.2, 0.2));
       bool? didAddWebNode = await arObjectManager.addNode(newNode);
       webObjectNode = (didAddWebNode!) ? newNode : null;
