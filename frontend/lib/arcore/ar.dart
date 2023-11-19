@@ -41,7 +41,7 @@ class _LocalAndWebObjectsViewState extends State<LocalAndWebObjectsView> {
         leading:IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.pop(context);}),
+            Navigator.of(context, rootNavigator: true).pop(context);}),
         title: const Text("Local / Web Objects"),
       ),
       body: Padding(

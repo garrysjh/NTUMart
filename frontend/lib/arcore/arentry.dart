@@ -6,11 +6,11 @@ import './ar.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  runApp(const MyARApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyARApp extends StatelessWidget {
+  const MyARApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
