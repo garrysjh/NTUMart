@@ -139,7 +139,7 @@ class _SignUpState extends State<SignUp> {
                         child: TextField(
                           focusNode: focusNodeTelegram,
                           controller: signupTelegramController,
-                          keyboardType: TextInputType.none,
+                          keyboardType: TextInputType.text,
                           autocorrect: false,
                           style: const TextStyle(
                               fontFamily: 'WorkSansSemiBold',
