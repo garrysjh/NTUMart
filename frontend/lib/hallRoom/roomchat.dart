@@ -53,8 +53,7 @@ class _RoomChatPageState extends State<RoomChatPage> {
   String hallRoom = 'No Hall';
   String roomNo = 'NA';
   var posts = {
-    'John': 'Hello Roomie!',
-    'Jack': 'Selling my old table, anyone interested? @jack123',
+    'Jack': 'Selling my old table, anyone interested? Contact me at @jack123',
   };
   TextEditingController textEditingController = TextEditingController();
   TextEditingController postController = TextEditingController();
@@ -103,7 +102,7 @@ class _RoomChatPageState extends State<RoomChatPage> {
                               borderRadius: BorderRadius.circular(40),
                               child: SizedBox.fromSize(
                                 size: const Size.fromRadius(40), // Image radius
-                                child: Image.asset('assets/img/product1.jpg',
+                                child: Image.asset('assets/img/hall13.png',
                                     fit: BoxFit.cover),
                               )),
                         ),
@@ -136,7 +135,7 @@ class _RoomChatPageState extends State<RoomChatPage> {
                                 child: SizedBox.fromSize(
                                   size:
                                       const Size.fromRadius(40), // Image radius
-                                  child: Image.asset('assets/img/avatar.jpg',
+                                  child: Image.asset('assets/img/level13.png',
                                       fit: BoxFit.cover),
                                 )),
                           ),
@@ -166,7 +165,7 @@ class _RoomChatPageState extends State<RoomChatPage> {
                         'Tap to leave a message for your room, find out who is moving in, or offer to sell an item directly to your future roomie! Messages will disappear in a week.',
                         style: TextStyle(fontSize: 16))),
                 SizedBox(
-                  height: 100,
+                  height: 150,
                   width: double.infinity,
                   child: ListView(
                       scrollDirection: Axis.horizontal,
@@ -188,7 +187,7 @@ class _RoomChatPageState extends State<RoomChatPage> {
                                       alignment: Alignment.centerLeft,
                                       child: Padding(
                                         padding: const EdgeInsets.only(
-                                            left: 20, right: 20, top: 5),
+                                            left: 20, right: 20, top: 5,),
                                         child: Text(i,
                                             style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
@@ -208,7 +207,7 @@ class _RoomChatPageState extends State<RoomChatPage> {
               ]),
               const Spacer(),
               Positioned(
-                bottom: 80,
+                bottom: 0,
                 left: 0,
                 right: 0,
                 child: Row(

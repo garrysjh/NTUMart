@@ -214,6 +214,7 @@ class _SignInState extends State<SignIn> {
         moveToHome();
       } else if (authenticated == 1 && hasInterest == 0) {
         CustomSnackBar(context, const Text('Sign-in successful'));
+        print('no interest');
         await Future.delayed(const Duration(seconds: 1));
         moveToInterest();
       }
@@ -250,7 +251,7 @@ class _SignInState extends State<SignIn> {
 
 
 Future<int> checkInterest(int? id) async{
-  final url = Uri.parse('$URL/user/interest/$id');
+  final url = Uri.parse('$URL/$id/checkInterest');
   try{
     final response = await http.get(
       url,
