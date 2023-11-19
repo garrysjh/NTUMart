@@ -66,33 +66,48 @@ class _ProfileState extends State<ProfileScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-     FutureBuilder products = FutureBuilder(
-              future: productsFuture,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Text('Snapshot Error: ${snapshot.error}');
-                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return const Text('No data available');
-                } else {
-                  return Expanded(
-                    child: VerticalViewListings(products: snapshot.data!),
-                  );
-                  
-                }
-              },
-            ); 
-    return Scaffold(bottomNavigationBar: const Taskbar(), 
+Widget build(BuildContext context) {
+
+  
+  FutureBuilder products = FutureBuilder(
+    future: productsFuture,
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return const CircularProgressIndicator();
+      } else if (snapshot.hasError) {
+        return Text('Snapshot Error: ${snapshot.error}');
+      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+        return const Text('No data available');
+      } else {
+        return Expanded(
+          child: VerticalViewListings(products: snapshot.data!),
+        );
+      }
+    },
+  );
+  Future getData()async { 
+    return [await JwtTokenDecryptService.getUsername(), await JwtTokenDecryptService.getTelegramHandle()]; 
+  }
+  return FutureBuilder(
+    future: getData(),
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return const CircularProgressIndicator();
+      } else if (snapshot.hasError) {
+        return Text('Snapshot Error: ${snapshot.error}');
+      } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+        return const Text('Username not found');} 
+      else {
+        return Scaffold(
+        bottomNavigationBar: const Taskbar(),
         backgroundColor: const Color(0xFFFFFFFF),
         body: Stack(
           children: <Widget>[
-           
-            Body(verticalView: products),
-            
-            
-          ],
-        ));
-  }
+          Body(username: snapshot.data![0], telegramHandle: snapshot.data![1],  verticalView: products)
+          ]
+        ) ) ; 
+      }
+    } 
+      );
+    }
 }

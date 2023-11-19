@@ -40,4 +40,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query(value = "select * from user where username=:username", nativeQuery = true)
     User getUserInfo(String username);
+
+    @Query(value = "select telegramHandle from user where username=:username", nativeQuery = true)
+    String getTelegramhHandle(String username);
 }

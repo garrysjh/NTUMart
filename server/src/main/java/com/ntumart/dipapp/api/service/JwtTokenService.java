@@ -29,6 +29,7 @@ public class JwtTokenService {
         Map<String, Object> claims = new HashMap<>();
         claims.put("sub", username);
         claims.put("id", userRepository.getUserID(username));
+        claims.put("telegramHandle", userRepository.getTelegramhHandle(username)); 
         claims.put("created", new Date());
         return Jwts.builder()
                 .setClaims(claims)
