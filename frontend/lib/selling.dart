@@ -219,7 +219,7 @@ class _CreateListingPageState extends State<CreateListingPage> {
       appBar: AppBar(
         backgroundColor: Color(0xFF5C795B),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
             Navigator.push(
               context,
@@ -282,19 +282,14 @@ class _CreateListingPageState extends State<CreateListingPage> {
                 ],
               ),
               SizedBox(
-                height: 10.0,
+                  height: 35.0,
               ),
-              Container(
-                padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Color(0xFF5C795B), width: 1.0),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: DropdownButton(
-                  hint: Text(
-                    "Condition:",
-                    style: TextStyle(
-                      color: Color(0xFF5C795B),
+
+                 DropdownButtonFormField(
+                  decoration:InputDecoration(
+                    labelText: "Categories",
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0)
                     ),
                   ),
                   //dropdownColor: Colors.white10,
@@ -302,8 +297,9 @@ class _CreateListingPageState extends State<CreateListingPage> {
                   icon: Icon(Icons.arrow_drop_down, color: Color(0xFF5C795B)),
                   iconSize: 36,
                   isExpanded: true,
-                  underline: SizedBox(),
+                  //underline: SizedBox(),
                   value: _category,
+                  validator: (value) => value == null ? 'field required' : null,
                   onChanged: (newValue) {
                     setState(() {
                       _category = newValue.toString();
@@ -316,7 +312,6 @@ class _CreateListingPageState extends State<CreateListingPage> {
                     );
                   }).toList(),
                 ),
-              ),
 
               SizedBox(
                   height:
@@ -359,22 +354,32 @@ class _CreateListingPageState extends State<CreateListingPage> {
 
             */
 
-              TextFormField(
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: "Price",
+              DropdownButtonFormField(
+                decoration:InputDecoration(
+                  labelText: "Condition",
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0)),
+                      borderRadius: BorderRadius.circular(10.0)
+                  ),
                 ),
-                validator: (value) {
-                  if (value?.isEmpty ?? true) {
-                    return 'Please enter a price';
-                  }
-                  return null;
+
+                //dropdownColor: Colors.white10,
+                borderRadius: BorderRadius.circular(10.0),
+                icon: Icon(Icons.arrow_drop_down, color: Color(0xFF5C795B)),
+                iconSize: 36,
+                isExpanded: true,
+                value: _condition,
+                validator: (value) => value == null ? 'field required' : null,
+                onChanged: (newValue) {
+                  setState(() {
+                    _condition = newValue.toString();
+                  });
                 },
-                onSaved: (value) {
-                  _price = double.tryParse(value ?? '');
-                },
+                items: ConditionType.map((valueItem) {
+                  return DropdownMenuItem(
+                    value: valueItem,
+                    child: Text(valueItem),
+                  );
+                }).toList(),
               ),
 
               SizedBox(height: 16.0),
@@ -417,43 +422,47 @@ class _CreateListingPageState extends State<CreateListingPage> {
                 ),
               ),
               */
-
-              Container(
-                padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Color(0xFF5C795B), width: 1.0),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: DropdownButton(
-                  hint: Text(
-                    "Condition:",
-                    style: TextStyle(
-                      color: Color(0xFF5C795B),
-                    ),
+              TextFormField(
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: "Price",
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0)
                   ),
-                  //dropdownColor: Colors.white10,
-                  borderRadius: BorderRadius.circular(10.0),
-                  icon: Icon(Icons.arrow_drop_down, color: Color(0xFF5C795B)),
-                  iconSize: 36,
-                  isExpanded: true,
-                  underline: SizedBox(),
-                  value: _condition,
-                  onChanged: (newValue) {
-                    setState(() {
-                      _condition = newValue.toString();
-                    });
-                  },
-                  items: ConditionType.map((valueItem) {
-                    return DropdownMenuItem(
-                      value: valueItem,
-                      child: Text(valueItem),
-                    );
-                  }).toList(),
                 ),
+                validator: (value) {
+                  if (value?.isEmpty ?? true) {
+                    return 'Please enter a price';
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  _price = double.tryParse(value ?? '');
+                },
               ),
 
-              SizedBox(height: 20),
 
+              SizedBox(height: 20),
+              //Alternative implementation of button. Although shouldnt use textformfield altogether
+              /*
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Item Details',
+                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0)
+                  ),
+                  suffixIcon: Icon(Icons.add),
+                ),
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                readOnly: true,
+
+                controller: TextEditingController(
+                  text: _itemDetails ?? '',
+                ),
+                onTap: _addDescription,
+              ),*/
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
@@ -471,7 +480,9 @@ class _CreateListingPageState extends State<CreateListingPage> {
                       child: TextFormField(
                         decoration: InputDecoration(
                             labelText: 'Item Details',
-                            border: InputBorder.none),
+                            //floatingLabelBehavior: FloatingLabelBehavior.never, //to remove default animation, however hinttext will disappear
+                            border: InputBorder.none
+                        ),
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
                         readOnly: true,
@@ -479,6 +490,12 @@ class _CreateListingPageState extends State<CreateListingPage> {
                           text: _itemDetails ?? '',
                         ),
                         onTap: _addDescription,
+                        validator: (value) {
+                          if (_itemDetails?.isEmpty ?? true) {
+
+                          }
+                          return null;
+                        },
                       ),
                     ),
                     TextButton(
@@ -495,13 +512,15 @@ class _CreateListingPageState extends State<CreateListingPage> {
                 ),
               ),
               SizedBox(height: 30),
+ // Increased distance between "Condition" and the left side
+
 
               Container(
                 width: double
                     .infinity, // Make the button the same width as the price input
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
-                  color: Colors.blue, // Customize the button color as needed
+                  color: Color(0xFF5D7395), // Customize the button color as needed
                 ),
                 child: TextButton(
                   onPressed: _submitForm,
@@ -624,7 +643,7 @@ class _ItemDetailsPageState extends State<ItemDetailsPage> {
                 });
               },
               style: ElevatedButton.styleFrom(
-                primary: Color(0xFF5C795B), // Change the button color
+                primary: Color(0xFF5D7395), // Change the button color
               ),
               child: const Text(
                 'Save',
