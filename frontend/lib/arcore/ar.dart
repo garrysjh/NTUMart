@@ -37,6 +37,11 @@ class _LocalAndWebObjectsViewState extends State<LocalAndWebObjectsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFF5C795B),
+        leading:IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);}),
         title: const Text("Local / Web Objects"),
       ),
       body: Padding(
