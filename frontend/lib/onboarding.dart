@@ -95,27 +95,27 @@ class OnBoardingScreenPageState extends State<OnBoardingScreenPage> {
                   horizontal: 45.0,
                   vertical: 90.0,
                 ),
-                child: Image.asset('assets/img/ntumart_logo.png',),
+                child: Image.asset('assets/img/lionlogo.png',),
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 45.0),
                 child: Align(
-                  alignment: Alignment.centerLeft,
+                  alignment: Alignment.center,
                   child: Text(
                     'A MARKETPLACE APP',
                     style: maintextStyle,
-                    textAlign: TextAlign.left,
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
                 child: Align(
-                  alignment: Alignment.centerLeft,
+                  alignment: Alignment.center,
                   child: Text(
-                    'by NTU students,\nfor NTU students',
+                    'by NTU students, \nfor NTU students',
                     style: subtextStyle,
-                    textAlign: TextAlign.left,
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
@@ -142,27 +142,27 @@ class OnBoardingScreenPageState extends State<OnBoardingScreenPage> {
                   horizontal: 45.0,
                   vertical: 90.0,
                 ),
-                child: Image.asset('assets/img/ntumart_logo.png'),
+                child: Image.asset('assets/img/messageboardsample.png'),
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 45.0),
                 child: Align(
-                  alignment: Alignment.centerLeft,
+                  alignment: Alignment.center,
                   child: Text(
                     'BUY, SELL, CONNECT',
                     style: maintextStyle,
-                    textAlign: TextAlign.left,
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
                 child: Align(
-                  alignment: Alignment.centerLeft,
+                  alignment: Alignment.center,
                   child: Text(
-                    'Snag great swag, \nClear out clutter,\nBuild connections',
+                    'Clear out clutter & make friends with our Message Board feature',
                     style: subtextStyle,
-                    textAlign: TextAlign.left,
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
@@ -194,22 +194,22 @@ class OnBoardingScreenPageState extends State<OnBoardingScreenPage> {
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 45.0),
                 child: Align(
-                  alignment: Alignment.centerLeft,
+                  alignment: Alignment.center,
                   child: Text(
                     'NTUMART',
                     style: maintextStyle,
-                    textAlign: TextAlign.left,
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
                 child: Align(
-                  alignment: Alignment.centerLeft,
+                  alignment: Alignment.center,
                   child: Text(
                     "Fuss-free, quick, & safe\nThat's us, that's NTUMart",
                     style: subtextStyle,
-                    textAlign: TextAlign.left,
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
@@ -230,7 +230,7 @@ class OnBoardingScreenPageState extends State<OnBoardingScreenPage> {
   Material _skipButton({void Function(int)? setIndex}) {
     return Material(
       borderRadius: defaultSkipButtonBorderRadius,
-      color: defaultSkipButtonColor,
+      color: const Color(0xFF5D7395),
       child: InkWell(
         borderRadius: defaultSkipButtonBorderRadius,
         onTap: () {
@@ -299,37 +299,58 @@ class OnBoardingScreenPageState extends State<OnBoardingScreenPage> {
           startPageIndex: 0,
           footerBuilder: (context, dragDistance, pagesLength, setIndex) {
             return DecoratedBox(
-              decoration: BoxDecoration(
-                color: background,
-                border: Border.all(
-                  width: 0.0,
-                  color: background,
-                ),
+              decoration: const BoxDecoration(
+                color: Color(0xFFEAEAEA),
               ),
-              child: ColoredBox(
-                color: const Color(0xFF5C795B),
-                child: Padding(
-                  padding: const EdgeInsets.all(45.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CustomIndicator(
-                        netDragPercent: dragDistance,
-                        pagesLength: pagesLength,
-                          indicator: Indicator(
-                            indicatorDesign: IndicatorDesign.polygon(
-                              polygonDesign: PolygonDesign(
-                                polygon: DesignType.polygon_circle,
+              child: Column(
+                children: [
+                  Container(
+                    height: 150,
+                    decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Color(0xFFEAEAEA),
+                        Color(0xFFFFFFFF),
+                        Color(0xFF5C795B),
+                      ],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      stops: [-0.05, 0.00, 0.85],
+                    ),
+                      border: Border(
+                        bottom: BorderSide(width: 15, color: Color(0xFF5C795B),
+                      ),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(45.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CustomIndicator(
+                            netDragPercent: dragDistance,
+                            pagesLength: pagesLength,
+                            indicator: Indicator(
+                              indicatorDesign: IndicatorDesign.polygon(
+                                polygonDesign: PolygonDesign(
+                                  polygon: DesignType.polygon_circle,
+                                ),
+                              ),
+                              activeIndicator: const ActiveIndicator(
+                                  color: Color(0x885C795B),
+                                borderWidth: 0.5,
                               ),
                             ),
                           ),
+                          index == pagesLength - 1
+                              ? _signupButton
+                              : _skipButton(setIndex: setIndex)
+                        ],
                       ),
-                      index == pagesLength - 1
-                          ? _signupButton
-                          : _skipButton(setIndex: setIndex)
-                    ],
+                    ),
                   ),
-                ),
+
+                ],
               ),
             );
           },
