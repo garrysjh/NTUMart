@@ -3,102 +3,109 @@ package com.ntumart.dipapp.api.DTO;
 import java.util.Date;
 
 public class ProductDTO {
-    
-    private int sellerID;
-    private int productID;
-    private String name;
-    private String description;
-    private double price;
-    private int quantity;
-    private int productLikes;
-    private Date date;
-    private String category;
-    
-    public ProductDTO() {
 
-    }
+  private int sellerID;
+  private int productID;
+  private String name;
+  private String description;
+  private double price;
+  private int quantity;
+  private int productLikes;
+  private Date date;
+  private String category;
 
-    public ProductDTO(int sellerID, int productID, String name, String description, double price, int quantity, int productLikes, Date date, String category) {
-        this.sellerID = sellerID; 
-        this.productID = productID;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.quantity = quantity;
-        this.productLikes = productLikes;
-        this.date = date;
-        this.category = category;
-    } 
-    public int getSellerID() {
-        return sellerID;
-    }
+  public ProductDTO() {}
 
-    public void setSellerID(int sellerID) {
-        this.sellerID = sellerID;
-    }
+  public ProductDTO(
+      int sellerID,
+      int productID,
+      String name,
+      String description,
+      double price,
+      int quantity,
+      int productLikes,
+      Date date,
+      String category) {
+    this.sellerID = sellerID;
+    this.productID = productID;
+    this.name = name;
+    this.description = description;
+    this.price = price;
+    this.quantity = quantity;
+    this.productLikes = productLikes;
+    this.date = date;
+    this.category = category;
+  }
 
+  public int getSellerID() {
+    return sellerID;
+  }
 
-    public int getProductID() {
-        return productID;
-    }
+  public void setSellerID(int sellerID) {
+    this.sellerID = sellerID;
+  }
 
-    public void setProductId(int productID) {
-        this.productID = productID;
-    }
+  public int getProductID() {
+    return productID;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public void setProductId(int productID) {
+    this.productID = productID;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public String getDescription() {
-        return description;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public double getPrice() {
-        return price;
-    }
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
+  public double getPrice() {
+    return price;
+  }
 
-    public int getQuantity() {
-        return quantity;
-    }
+  public void setPrice(double price) {
+    this.price = price;
+  }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
+  public int getQuantity() {
+    return quantity;
+  }
 
-    public int getProductLikes() {
-        return productLikes;
-    }
+  public void setQuantity(int quantity) {
+    this.quantity = quantity;
+  }
 
-    public void setProductLikes(int productLikes) {
-        this.productLikes = productLikes;
-    }
+  public int getProductLikes() {
+    return productLikes;
+  }
 
-    public Date date() {
-        return date;
-    }
+  public void setProductLikes(int productLikes) {
+    this.productLikes = productLikes;
+  }
 
-    public void getDate(Date date) {
-        this.date = date;
-    }
+  public Date date() {
+    return date;
+  }
 
-    public String getCategory() {
-        return category;
-    }
+  public void getDate(Date date) {
+    this.date = date;
+  }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
+  public String getCategory() {
+    return category;
+  }
+
+  public void setCategory(String category) {
+    this.category = category;
+  }
 }

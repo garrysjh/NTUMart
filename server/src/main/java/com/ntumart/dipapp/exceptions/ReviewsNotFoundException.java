@@ -1,9 +1,8 @@
+package com.ntumart.dipapp.exceptions;
 
-package com.ntumart.dipapp.exceptions; 
+public class ReviewsNotFoundException extends Exception {
 
-public class ReviewsNotFoundException extends Exception{
-    
-    public ReviewsNotFoundException(String message) {
-        super(message);
-    }
+  public ReviewsNotFoundException(String message) {
+    super(message);
+  }
 }
