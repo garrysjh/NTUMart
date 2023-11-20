@@ -75,7 +75,7 @@ Widget build(BuildContext context) {
       if (snapshot.connectionState == ConnectionState.waiting) {
         return const CircularProgressIndicator();
       } else if (snapshot.hasError) {
-        return Text('Snapshot Error: ${snapshot.error}');
+        return Text('This user has no products uploaded yet.');
       } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
         return const Text('No data available');
       } else {
