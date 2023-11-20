@@ -72,6 +72,14 @@ class Repository {
         "caption": "Looking forward to a Monday at hall!",
         "when": "10 hours ago",
         "color": ""
+      },
+      {
+        "mediaType": "image",
+        "media": "https://github.com/garrysjh/NTUMart/raw/keegan-story-update/frontend/assets/img/keegangif.mp4",
+        "duration": "8.0",
+        "caption": "Giving away maggi, come get it! Level 2-07",
+        "when": "6 hours ago",
+        "color": ""
       }
       ]
 }

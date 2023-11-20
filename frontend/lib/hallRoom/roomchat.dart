@@ -103,7 +103,7 @@ class _RoomChatPageState extends State<RoomChatPage> {
                               borderRadius: BorderRadius.circular(40),
                               child: SizedBox.fromSize(
                                 size: const Size.fromRadius(40), // Image radius
-                                child: Image.asset('assets/img/product1.jpg',
+                                child: Image.asset('assets/img/hall13.png',
                                     fit: BoxFit.cover),
                               )),
                         ),
@@ -136,7 +136,7 @@ class _RoomChatPageState extends State<RoomChatPage> {
                                 child: SizedBox.fromSize(
                                   size:
                                       const Size.fromRadius(40), // Image radius
-                                  child: Image.asset('assets/img/avatar.jpg',
+                                  child: Image.asset('assets/img/level2.png',
                                       fit: BoxFit.cover),
                                 )),
                           ),
