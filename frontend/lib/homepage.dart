@@ -228,48 +228,6 @@ class _HomePageState extends State<HomePage> {
                                 color: const Color(0xFF5D7395),
                                 fit: BoxFit.fill,
 
-//                               );
-//                             },
-//                             style: ElevatedButton.styleFrom(
-//                               elevation: 5,
-//                               fixedSize: const Size(50, 50),
-//                               shape: const CircleBorder(),
-//                               backgroundColor: const Color(0xFFFFFFFF),
-//                             ),
-//                             child: Image.asset(
-//                               '../../assets/images/chatbot_icon.png',
-//                               fit: BoxFit.fill,
-//                             ),
-//                           ),
-//                         ]),
-//                     const SizedBox(height: 15),
-//                     const Padding(
-//                       padding: EdgeInsets.all(10.0),
-//                       child: Searchbar()
-//                     ),
-//                     Padding(
-//                       padding: const EdgeInsets.all(5.0),
-//                       child: Row(
-//                         mainAxisAlignment: MainAxisAlignment.start,
-//                         children: <Widget>[
-//                           const FittedBox(
-//                               fit: BoxFit.fitWidth,
-//                               child: Text(' Your Categories ',
-//                                   style: TextStyle(
-//                                       fontSize: 20,
-//                                       fontWeight: FontWeight.w600))),
-//                           const SizedBox(
-//                             width: 5,
-//                           ),
-//                           ElevatedButton(
-//                             onPressed: () {
-//                               //Edit this later to link to homepage
-//                               ScaffoldMessenger.of(context).showSnackBar(
-//                                 const SnackBar(
-//                                   content:
-//                                       Text('Sort function will be added l8r'),
-//                                   duration: Duration(milliseconds: 1500),
-//                                   behavior: SnackBarBehavior.floating,
                               ),
                             ),
                           ]),
@@ -283,7 +241,7 @@ class _HomePageState extends State<HomePage> {
                           children: <Widget>[
                             const FittedBox(
                                 fit: BoxFit.fitWidth,
-                                child: Text(' Your Categories ',
+                                child: Text('Categories',
                                     style: TextStyle(
                                       fontSize: 22,
                                       fontWeight: FontWeight.w600,
@@ -336,107 +294,6 @@ class _HomePageState extends State<HomePage> {
                                 ],
                               ),
                             ),
-                            /*
-                              //Separate Sort & Filter buttons
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content:
-                                          Text('Sort function will be added l8r'),
-                                      duration: Duration(milliseconds: 1500),
-                                      behavior: SnackBarBehavior.floating,
-                                    ),
-                                  );
-                                },
-                                style: ButtonStyle(
-                                  shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          10.0), // Adjust the corner radius
-                                    ),
-                                  ),
-                                  surfaceTintColor:
-                                      const MaterialStatePropertyAll<Color>(
-                                          Color(0xFFFFFFFF)),
-                                  backgroundColor:
-                                      const MaterialStatePropertyAll<Color>(
-                                          Color(0xFFFFFFFF)),
-                                  fixedSize: MaterialStateProperty.all(
-                                      const Size(double.infinity, 30.0)),
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    const Text(
-                                      'Sort',
-                                      style: TextStyle(
-                                          color: Color(0xFF5D7395),
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 15),
-                                    ),
-                                    RotatedBox(
-                                      quarterTurns: 1,
-                                      child: Icon(
-                                        Icons.compare_arrows_rounded,
-                                        color: Colors.grey.shade700,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(width: 7),
-                              ElevatedButton(
-                                onPressed: () {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content:
-                                          Text('Filter function will be added l8r'),
-                                      duration: Duration(milliseconds: 1500),
-                                      behavior: SnackBarBehavior.floating,
-                                    ),
-                                  );
-                                },
-                                style: ButtonStyle(
-                                  shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          10.0), // Adjust the corner radius
-                                    ),
-                                  ),
-                                  surfaceTintColor:
-                                      const MaterialStatePropertyAll<Color>(
-                                          Color(0xFFFFFFFF)),
-                                  backgroundColor:
-                                      const MaterialStatePropertyAll<Color>(
-                                          Color(0xFFFFFFFF)),
-                                  fixedSize: MaterialStateProperty.all(
-                                    const Size(double.infinity, 30.0),
-                                  ),
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    const Text(
-                                      'Filter',
-                                      style: TextStyle(
-                                          color: Color(0xFF5D7395),
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 15),
-                                    ),
-                                    Icon(
-                                      Icons.filter_alt_rounded,
-                                      color: Colors.grey.shade700,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              */
                           ],
                         ),
                       ), //for row of category text + sort + filter
